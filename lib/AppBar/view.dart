@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/editor.dart';
-import 'package:morbidelli_cam/model.dart';
 import 'package:ditredi/ditredi.dart';
+import 'package:morbidelli_cam/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
-class AppBar_View extends StatefulWidget {
+class AppBar_View extends ConsumerStatefulWidget {
   const AppBar_View({super.key});
 
   @override
-  State<AppBar_View> createState() => _AppBar_ViewState();
+  ConsumerState<AppBar_View> createState() => _AppBar_ViewState();
 }
 
-class _AppBar_ViewState extends State<AppBar_View> {
+class _AppBar_ViewState extends ConsumerState<AppBar_View> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,11 +53,11 @@ class _AppBar_ViewState extends State<AppBar_View> {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("0");
+                ref.read(modelViewProvider.notifier).set("Top");
               } else if (value == 1) {
-                print("1");
+                ref.read(modelViewProvider.notifier).set("Front");
               } else if (value == 2) {
-                print("2");
+                ref.read(modelViewProvider.notifier).set("Side");
               } else if (value == 3) {
                 print("3");
               } else if (value == 4) {

@@ -19,3 +19,27 @@ class ModelContentNotifier extends StateNotifier<String> {
 final modelContentProvider =
 StateNotifierProvider<ModelContentNotifier, String>(
         (ref) => ModelContentNotifier());
+
+class ModelViewNotifier extends StateNotifier<String> {
+  ModelViewNotifier() : super("Solid");
+
+  set(String file) {
+    state = file;
+  }
+
+  void set_Solid(){
+    set("Solid");
+  }
+
+  void set_Wireframe(){
+    set("Wireframe");
+  }
+
+  void set_Points(){
+    set("Points");
+  }
+}
+
+final modelViewProvider =
+StateNotifierProvider<ModelViewNotifier, String>(
+        (ref) => ModelViewNotifier());

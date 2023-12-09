@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/Files/import.dart';
 
 import '../provider_lib.dart';
+import 'Files/import.dart';
 
 class AppBar_Files extends ConsumerStatefulWidget {
   AppBar_Files({super.key});
@@ -44,12 +44,12 @@ class _AppBar_FilesState extends ConsumerState<AppBar_Files> {
             },
             onSelected: (value) async {
               if (value == 0) {
-                var imported_file = await change_file(state: ref.read(modelContentProvider));
-                ref.read(modelContentProvider.notifier).set(imported_file);
+
               } else if (value == 1) {
                 print("1");
               } else if (value == 2) {
-                print("2");
+                var imported_file = await change_file(state: ref.read(modelContentProvider));
+                ref.read(modelContentProvider.notifier).set(imported_file);
               } else if (value == 3) {
                 print("3");
               } else if (value == 4) {

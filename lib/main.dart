@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'AppBar/files.dart';
 import 'AppBar/edit.dart';
 import 'AppBar/mode.dart';
@@ -9,11 +10,12 @@ import 'editor.dart';
 
 
 void main() {
-  runApp(const Morbidelli_CAM());
+  runApp(ProviderScope(child: Morbidelli_CAM()));
 }
 
 class Morbidelli_CAM extends StatelessWidget {
   const Morbidelli_CAM({super.key});
+
 
   @override
   Widget build(BuildContext context) {

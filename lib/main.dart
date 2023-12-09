@@ -5,6 +5,7 @@ import 'AppBar/mode.dart';
 import 'AppBar/view.dart';
 import 'AppBar/simulate.dart';
 import 'AppBar/drill.dart';
+import 'editor.dart';
 
 
 void main() {
@@ -47,7 +48,8 @@ class _MainScreenState extends State<MainScreen> {
           AppBar_drill(),
           AppBar_simulate()
         ],
-      )
+      ),
+      body: Editor(),
     );
   }
 }

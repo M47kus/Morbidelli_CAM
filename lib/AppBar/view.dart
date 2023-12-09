@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/editor.dart';
+import 'package:morbidelli_cam/model.dart';
+import 'package:ditredi/ditredi.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 
-class AppBar_View extends StatelessWidget {
+class AppBar_View extends StatefulWidget {
   const AppBar_View({super.key});
 
+  @override
+  State<AppBar_View> createState() => _AppBar_ViewState();
+}
+
+class _AppBar_ViewState extends State<AppBar_View> {
   @override
   Widget build(BuildContext context) {
     return Padding(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../provider_lib.dart';
-import 'Files/import.dart';
+import '../../provider_lib.dart';
+import 'import.dart';
 
 class AppBar_Files extends ConsumerStatefulWidget {
   AppBar_Files({super.key});

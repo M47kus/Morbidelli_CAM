@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'AppBar/files.dart';
-import 'AppBar/edit.dart';
+import 'AppBar/Files/files.dart';
+import 'AppBar/edit/edit.dart';
 import 'AppBar/mode.dart';
 import 'AppBar/view.dart';
 import 'AppBar/simulate.dart';

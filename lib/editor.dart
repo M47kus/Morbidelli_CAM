@@ -14,6 +14,7 @@ class Editor extends ConsumerStatefulWidget {
 }
 
 class _EditorState extends ConsumerState<Editor> {
+  FocusNode focusNode = new FocusNode();
   final _controller = DiTreDiController(
     rotationX: 90,
     rotationY: 0,
@@ -51,38 +52,38 @@ class _EditorState extends ConsumerState<Editor> {
     }
 
     return SafeArea(
-      child: Flex(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        direction: Axis.vertical,
-        children: [
-          Expanded(
-            child: DiTreDiDraggable(
-              controller: _controller,
-              child: FutureBuilder(
-                future: ObjParser().parse(modelContents),
-                builder: (context, snapshot) {
-                   if (snapshot.hasData && snapshot.data != null) {
-                    return DiTreDi(
-                      figures: [TransformModifier3D(
-                          Group3D(snapshot.data!),
-                  Matrix4.identity()
-                  ..translate(0.0, 0.0, 0.0)
-                  ..rotateZ(0)
-                  ..rotateX(0)
-                  ..translate(-0.0, 1.0, -0.0)),
+        child: Flex(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          direction: Axis.vertical,
+          children: [
+            Expanded(
+              child: DiTreDiDraggable(
+                controller: _controller,
+                child: FutureBuilder(
+                  future: ObjParser().parse(modelContents),
+                  builder: (context, snapshot) {
+                     if (snapshot.hasData && snapshot.data != null) {
+                      return DiTreDi(
+                        figures: [TransformModifier3D(
+                            Group3D(snapshot.data!),
+                    Matrix4.identity()
+                    ..translate(0.0, 0.0, 0.0)
+                    ..rotateZ(0)
+                    ..rotateX(0)
+                    ..translate(-0.0, 1.0, -0.0)),
 
-                  ],
-                      controller: _controller,
-                    );
-                  } else {
-                    return Expanded(child: CircularProgressIndicator());
-                  }
-                },
+                    ],
+                        controller: _controller,
+                      );
+                    } else {
+                      return Expanded(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
   }
 }

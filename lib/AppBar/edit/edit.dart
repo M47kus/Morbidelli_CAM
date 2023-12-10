@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/AppBar/edit/base.dart';
 
 class AppBar_Edit extends StatelessWidget {
   const AppBar_Edit({super.key});
@@ -31,7 +32,7 @@ class AppBar_Edit extends StatelessWidget {
             } else if (value == 1) {
               print("1");
             } else if (value == 2) {
-              print("2");
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const Edit_Base()));
             }
           }),
     );

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/load_settings.dart';
 import 'AppBar/Files/files.dart';
 import 'AppBar/edit/edit.dart';
 import 'AppBar/mode.dart';
 import 'AppBar/view.dart';
 import 'AppBar/simulate.dart';
 import 'AppBar/drill.dart';
-import 'editor.dart';
-
+import 'editor/editor.dart';
 
 void main() {
   runApp(ProviderScope(child: Morbidelli_CAM()));
@@ -19,6 +19,7 @@ class Morbidelli_CAM extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    init_settings();
     return MaterialApp(
       theme: ThemeData(
           brightness: Brightness.dark,

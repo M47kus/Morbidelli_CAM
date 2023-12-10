@@ -12,7 +12,8 @@ class ModelContentNotifier extends StateNotifier<String> {
     state = file;
   }
   void readObject(){
-    set(File('assets/rect.obj').readAsStringSync());
+    set(File('assets/default.obj').readAsStringSync());
+    print(File('assets/default.obj').readAsStringSync());
   }
 }
 
@@ -21,7 +22,31 @@ StateNotifierProvider<ModelContentNotifier, String>(
         (ref) => ModelContentNotifier());
 
 class ModelViewNotifier extends StateNotifier<String> {
-  ModelViewNotifier() : super("Solid");
+  ModelViewNotifier() : super("Top");
+
+  set(String file) {
+    state = file;
+  }
+
+  void set_Top(){
+    set("Top");
+  }
+
+  void set_Front(){
+    set("Front");
+  }
+
+  void set_Side(){
+    set("Side");
+  }
+}
+
+final modelViewProvider =
+StateNotifierProvider<ModelViewNotifier, String>(
+        (ref) => ModelViewNotifier());
+
+class ModelApearanceNotifier extends StateNotifier<String> {
+  ModelApearanceNotifier() : super("Solid");
 
   set(String file) {
     state = file;
@@ -40,6 +65,6 @@ class ModelViewNotifier extends StateNotifier<String> {
   }
 }
 
-final modelViewProvider =
-StateNotifierProvider<ModelViewNotifier, String>(
-        (ref) => ModelViewNotifier());
+final modelApearanceProvider =
+StateNotifierProvider<ModelApearanceNotifier, String>(
+        (ref) => ModelApearanceNotifier());

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor.dart';
+import 'package:morbidelli_cam/editor/editor.dart';
 import 'package:ditredi/ditredi.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+
+import '../editor/model_render.dart';
 
 class AppBar_View extends ConsumerStatefulWidget {
   const AppBar_View({super.key});
@@ -53,19 +55,20 @@ class _AppBar_ViewState extends ConsumerState<AppBar_View> {
             },
             onSelected: (value) {
               if (value == 0) {
-                ref.read(modelViewProvider.notifier).set("Top");
+                ref.read(modelViewProvider.notifier).set_Top();
               } else if (value == 1) {
-                ref.read(modelViewProvider.notifier).set("Front");
+                ref.read(modelViewProvider.notifier).set_Front();
               } else if (value == 2) {
-                ref.read(modelViewProvider.notifier).set("Side");
+                ref.read(modelViewProvider.notifier).set_Side();
               } else if (value == 3) {
-                print("3");
+                ref.read(modelApearanceProvider.notifier).set_Solid();
               } else if (value == 4) {
-                print("4");
+                ref.read(modelApearanceProvider.notifier).set_Wireframe();
               } else if (value == 5) {
-                print("5");
+                ref.read(modelApearanceProvider.notifier).set_Points();
               } else if (value == 6) {
-                print("6");
+                String wavefront = model_base();
+                ref.read(modelContentProvider.notifier).set(wavefront);
               }
             }));
   }

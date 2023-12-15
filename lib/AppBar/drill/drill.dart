@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/AppBar/drill/config.dart';
 
 class AppBar_drill extends StatelessWidget {
   const AppBar_drill({super.key});
@@ -23,7 +24,7 @@ class AppBar_drill extends StatelessWidget {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("0");
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Drill_Config()));
               } else if (value == 1) {
                 print("1");
               }

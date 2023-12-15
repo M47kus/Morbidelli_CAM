@@ -1,0 +1,16 @@
+Kugel30: 
+  d: 30.0
+  l: 30.0
+  form: 'sphere'
+wepla10: 
+  d: 10.0
+  l: 30.0
+  form: 'flat'
+  dt: null
+  a: null
+schrift: 
+  d: 25.0
+  l: 30.0
+  form: 'cone'
+  dt: 0.01
+  a: 20.0

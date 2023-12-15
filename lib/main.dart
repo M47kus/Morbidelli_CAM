@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/drill/load_drill.dart';
 import 'package:morbidelli_cam/load_settings.dart';
+import 'package:morbidelli_cam/provider_lib.dart';
 import 'AppBar/Files/files.dart';
 import 'AppBar/edit/edit.dart';
 import 'AppBar/mode.dart';
 import 'AppBar/view.dart';
 import 'AppBar/simulate.dart';
-import 'AppBar/drill.dart';
+import 'AppBar/drill/drill.dart';
 import 'editor/editor.dart';
 
 void main() {
   runApp(ProviderScope(child: Morbidelli_CAM()));
 }
 
-class Morbidelli_CAM extends StatelessWidget {
+class Morbidelli_CAM extends ConsumerWidget {
   const Morbidelli_CAM({super.key});
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     init_settings();
+    ref.read(Drill_class_Provider.notifier).init_drills();
     return MaterialApp(
       theme: ThemeData(
           brightness: Brightness.dark,

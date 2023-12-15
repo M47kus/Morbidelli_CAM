@@ -97,7 +97,7 @@ class _EditorState extends ConsumerState<Editor> {
                       );
                     }
                   } else {
-                    return Expanded(child: CircularProgressIndicator());
+                    return CircularProgressIndicator();
                   }
                 },
               ),

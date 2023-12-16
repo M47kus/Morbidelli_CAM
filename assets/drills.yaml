@@ -4,7 +4,7 @@ Kugel30:
   form: 'sphere'
 wepla10: 
   d: 10.0
-  l: 30.0
+  l: 25.0
   form: 'flat'
   dt: null
   a: null

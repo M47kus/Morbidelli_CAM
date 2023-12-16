@@ -90,7 +90,7 @@ class _Drill_MenuState extends ConsumerState<Drill_Menu> {
                   Map drill_map = update_drill(drill_button_class: ref.read(Drill_class_Provider) , name: widget.name, d: d_txt.text, l: l_txt.text, form: form_txt.text, dt: dt_txt.text, a: a_txt.text);
                   //recreate all Drill classes
                   ref.read(Drill_class_Provider.notifier).refresh_drills(drill_map);
-                  Navigator.of(context)..pop();
+                  Navigator.of(context)..pop()..pop();
                 }, child: const Text("Save"))
               ],
             ),

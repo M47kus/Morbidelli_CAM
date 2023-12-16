@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/AppBar/drill/load_drill.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 
-import '../../helper/textinput.dart';
-import '../../load_settings.dart';
-
+//Config Window for all imported drills
 class Drill_Config extends ConsumerWidget {
   const Drill_Config({super.key});
 
-
-@override
+  @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(
+            title: const Text(
           "Drill Config",
           style: TextStyle(fontSize: 18),
         )),
@@ -25,11 +21,9 @@ class Drill_Config extends ConsumerWidget {
             mainAxisSpacing: 10,
             crossAxisCount: 10,
             children: [
+              //import all drills from global drill class Provider
               for (int i = 0; i < ref.read(Drill_class_Provider).length; i++)
                 ref.read(Drill_class_Provider)[i]
-
             ]));
   }
 }
-
-

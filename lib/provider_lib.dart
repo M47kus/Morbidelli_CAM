@@ -1,28 +1,27 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:flutter/material.dart';
 import "package:yaml/yaml.dart";
-import 'AppBar/drill/load_drill.dart';
+import 'AppBar/drill/drill_class.dart';
 
-
+//Presented Model in Editor
 class ModelContentNotifier extends StateNotifier<String> {
   ModelContentNotifier() : super("");
 
   set(String file) {
     state = file;
   }
-  void readObject(){
+
+  void readObject() {
     set(File('assets/default.obj').readAsStringSync());
   }
 }
 
 final modelContentProvider =
-StateNotifierProvider<ModelContentNotifier, String>(
+    StateNotifierProvider<ModelContentNotifier, String>(
         (ref) => ModelContentNotifier());
 
+//change view for Model
 class ModelViewNotifier extends StateNotifier<String> {
   ModelViewNotifier() : super("Top");
 
@@ -30,23 +29,23 @@ class ModelViewNotifier extends StateNotifier<String> {
     state = file;
   }
 
-  void set_Top(){
+  void set_Top() {
     set("Top");
   }
 
-  void set_Front(){
+  void set_Front() {
     set("Front");
   }
 
-  void set_Side(){
+  void set_Side() {
     set("Side");
   }
 }
 
-final modelViewProvider =
-StateNotifierProvider<ModelViewNotifier, String>(
-        (ref) => ModelViewNotifier());
+final modelViewProvider = StateNotifierProvider<ModelViewNotifier, String>(
+    (ref) => ModelViewNotifier());
 
+//change Appearance for Model
 class ModelApearanceNotifier extends StateNotifier<String> {
   ModelApearanceNotifier() : super("Solid");
 
@@ -54,23 +53,24 @@ class ModelApearanceNotifier extends StateNotifier<String> {
     state = file;
   }
 
-  void set_Solid(){
+  void set_Solid() {
     set("Solid");
   }
 
-  void set_Wireframe(){
+  void set_Wireframe() {
     set("Wireframe");
   }
 
-  void set_Points(){
+  void set_Points() {
     set("Points");
   }
 }
 
 final modelApearanceProvider =
-StateNotifierProvider<ModelApearanceNotifier, String>(
+    StateNotifierProvider<ModelApearanceNotifier, String>(
         (ref) => ModelApearanceNotifier());
 
+//Drill Notifier which updates the Drill classes
 class Drill_class_Notifier extends StateNotifier<List> {
   Drill_class_Notifier() : super([]);
 
@@ -78,6 +78,7 @@ class Drill_class_Notifier extends StateNotifier<List> {
     state = list;
   }
 
+  //load from file at startup
   Future<void> init_drills() async {
     final data = await rootBundle.loadString('assets/drills.yaml');
     final mapData = loadYaml(data);
@@ -85,40 +86,37 @@ class Drill_class_Notifier extends StateNotifier<List> {
     set([]);
     //print(mapData);
     mapData.forEach((key, value) {
-      List drill_button_class = state;
-      drill_button_class.add(Drill(
+      List drillButtonClass = state;
+      drillButtonClass.add(Drill(
         name: key,
         d: value["d"],
         l: value["l"],
         form: value["form"],
         dt: value["dt"],
         a: value["a"],
-
       ));
-      set(drill_button_class);
+      set(drillButtonClass);
     });
   }
 
+  //update all Drill classes
   void refresh_drills(mapData) {
     set([]);
     //print(mapData);
     mapData.forEach((key, value) {
-      List drill_button_class = state;
-      drill_button_class.add(Drill(
+      List drillButtonClass = state;
+      drillButtonClass.add(Drill(
         name: key,
         d: value["d"],
         l: value["l"],
         form: value["form"],
         dt: value["dt"],
         a: value["a"],
-
       ));
-      set(drill_button_class);
+      set(drillButtonClass);
     });
   }
-
 }
 
-final Drill_class_Provider =
-StateNotifierProvider<Drill_class_Notifier, List>(
-        (ref) => Drill_class_Notifier());
+final Drill_class_Provider = StateNotifierProvider<Drill_class_Notifier, List>(
+    (ref) => Drill_class_Notifier());

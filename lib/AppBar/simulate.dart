@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//Simulation Tab in AppBar
 class AppBar_simulate extends StatelessWidget {
   const AppBar_simulate({super.key});
 
@@ -23,9 +24,9 @@ class AppBar_simulate extends StatelessWidget {
             },
             onSelected: (value) {
               if (value == 0) {
-                print("0");
+                //Run
               } else if (value == 1) {
-                print("1");
+                //Render final
               }
             }));
   }

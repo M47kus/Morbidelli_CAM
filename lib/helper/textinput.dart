@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ConfigTextInput extends StatelessWidget {
   final String label;
   final controller;
-  ConfigTextInput({super.key, required this.label, required this.controller});
+  const ConfigTextInput({super.key, required this.label, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -13,12 +13,12 @@ class ConfigTextInput extends StatelessWidget {
         onSaved: (String? value) {
           controller.text = value;
         },
-        style: TextStyle(fontSize: 15),
+        style: const TextStyle(fontSize: 15),
         controller: controller,
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: label,
-          labelStyle: TextStyle(fontSize: 15),
+          labelStyle: const TextStyle(fontSize: 15),
           hintText: controller.text,
         ),
       ),

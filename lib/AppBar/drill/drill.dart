@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:morbidelli_cam/AppBar/drill/config.dart';
+import 'package:morbidelli_cam/AppBar/drill/drill_config.dart';
 
+//Drill Tab in App Bar
 class AppBar_drill extends StatelessWidget {
   const AppBar_drill({super.key});
 
@@ -24,9 +25,11 @@ class AppBar_drill extends StatelessWidget {
             },
             onSelected: (value) {
               if (value == 0) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => Drill_Config()));
+                //open Config
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Drill_Config()));
               } else if (value == 1) {
-                print("1");
+                //used Drills
               }
             }));
   }

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/AppBar/Files/settings.dart';
-
 import '../../provider_lib.dart';
 import 'import.dart';
 
+//files Tab in MainWindow
 class AppBar_Files extends ConsumerStatefulWidget {
-  AppBar_Files({super.key});
+  const AppBar_Files({super.key});
 
   @override
   ConsumerState<AppBar_Files> createState() => _AppBar_FilesState();
@@ -43,18 +43,28 @@ class _AppBar_FilesState extends ConsumerState<AppBar_Files> {
                 ),
               ];
             },
+            //ButtonPress functions
             onSelected: (value) async {
               if (value == 0) {
-
+                //Import
+                //open file picker, get file
+                var importedFile =
+                await change_file(state: ref.read(modelContentProvider));
+                //set model content to file content
+                ref.read(modelContentProvider.notifier).set(importedFile);
               } else if (value == 1) {
-                print("1");
+                //Save
               } else if (value == 2) {
-                var imported_file = await change_file(state: ref.read(modelContentProvider));
-                ref.read(modelContentProvider.notifier).set(imported_file);
+                //Open
+
               } else if (value == 3) {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const Settings_Menu()));
+                //Settings
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Settings_Menu()));
               } else if (value == 4) {
-                print("4");
+                //Export
               }
             }));
   }

@@ -1,12 +1,8 @@
 import "package:flutter/material.dart";
-import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:morbidelli_cam/helper/textinput.dart";
-import "package:morbidelli_cam/provider_lib.dart";
-import "package:yaml/yaml.dart";
-
 import "drill_menu.dart";
 
+//Drill class which inherits all data and button widget
 class Drill extends ConsumerWidget {
   final String name;
   final double d;
@@ -19,7 +15,6 @@ class Drill extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(name);
     return TextButton(
       child: Text(name),
       onPressed: () {

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/editor.dart';
-import 'package:ditredi/ditredi.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
-import 'package:vector_math/vector_math_64.dart' as vector;
-
 import '../editor/model_render.dart';
 
+//View Tab in AppBar
 class AppBar_View extends ConsumerStatefulWidget {
   const AppBar_View({super.key});
 
@@ -15,6 +12,7 @@ class AppBar_View extends ConsumerStatefulWidget {
 }
 
 class _AppBar_ViewState extends ConsumerState<AppBar_View> {
+  //set view angles and appearance modes
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -67,6 +65,7 @@ class _AppBar_ViewState extends ConsumerState<AppBar_View> {
               } else if (value == 5) {
                 ref.read(modelApearanceProvider.notifier).set_Points();
               } else if (value == 6) {
+                //re-load base model and load to provider
                 String wavefront = model_base();
                 ref.read(modelContentProvider.notifier).set(wavefront);
               }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/AppBar/edit/base.dart';
 
+//Edit Tab in AppBar
 class AppBar_Edit extends StatelessWidget {
   const AppBar_Edit({super.key});
 
@@ -18,7 +19,7 @@ class AppBar_Edit extends StatelessWidget {
               ),
               const PopupMenuItem<int>(
                 value: 1,
-                child: Text("Change Path"),
+                child: Text("Load Path"),
               ),
               const PopupMenuItem<int>(
                 value: 2,
@@ -28,11 +29,13 @@ class AppBar_Edit extends StatelessWidget {
           },
           onSelected: (value) {
             if (value == 0) {
-              print("0");
+              //Create Path
             } else if (value == 1) {
-              print("1");
+              //Load Path
             } else if (value == 2) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const Edit_Base()));
+              //Edit Base
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Edit_Base()));
             }
           }),
     );

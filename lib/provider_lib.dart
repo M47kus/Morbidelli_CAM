@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/edit_overlay/create_path.dart';
 import "package:yaml/yaml.dart";
 import 'AppBar/drill/drill_class.dart';
 
@@ -120,3 +121,34 @@ class Drill_class_Notifier extends StateNotifier<List> {
 
 final Drill_class_Provider = StateNotifierProvider<Drill_class_Notifier, List>(
     (ref) => Drill_class_Notifier());
+
+//Path Editor hide
+class Show_Path_Editor_Notifier extends StateNotifier<bool> {
+  Show_Path_Editor_Notifier() : super(false);
+
+  set(bool data) {
+    state = data;
+  }
+
+}
+
+final show_path_editor_provider =
+StateNotifierProvider<Show_Path_Editor_Notifier, bool>(
+        (ref) => Show_Path_Editor_Notifier());
+
+
+//Path object
+class Path_Directory_Notifier extends StateNotifier<List> {
+  Path_Directory_Notifier() : super([]);
+
+  set(List data) {
+    state = data;
+  }
+  add(Path_Object data) {
+    state = List.from(state)..add(data);
+  }
+}
+
+final path_directory_provider =
+StateNotifierProvider<Path_Directory_Notifier, List>(
+        (ref) => Path_Directory_Notifier());

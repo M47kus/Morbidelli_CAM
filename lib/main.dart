@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/edit_overlay/overlay.dart';
 import 'package:morbidelli_cam/load_settings.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'AppBar/Files/files.dart';
@@ -52,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
           AppBar_simulate()
         ],
       ),
-      body: Editor(),
+      body: const Stack(children: [Editor(), Path_Editor()],)
     );
   }
 }

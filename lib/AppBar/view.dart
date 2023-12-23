@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
-import '../editor/model_render.dart';
+
+import '../model_editor/model_render.dart';
 
 //View Tab in AppBar
 class AppBar_View extends ConsumerStatefulWidget {

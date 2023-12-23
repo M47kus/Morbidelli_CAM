@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/AppBar/edit_overlay/create_path.dart';
 import "package:yaml/yaml.dart";
 import 'AppBar/drill/drill_class.dart';
+import 'edit_overlay/path_directory.dart';
 
 //Presented Model in Editor
 class ModelContentNotifier extends StateNotifier<String> {
@@ -138,17 +138,31 @@ StateNotifierProvider<Show_Path_Editor_Notifier, bool>(
 
 
 //Path object
-class Path_Directory_Notifier extends StateNotifier<List> {
+class Path_Directory_Notifier extends StateNotifier<List<Path_Directory>> {
   Path_Directory_Notifier() : super([]);
 
-  set(List data) {
+  set(List<Path_Directory> data) {
     state = data;
   }
-  add(Path_Object data) {
+  add(Path_Directory data) {
     state = List.from(state)..add(data);
   }
 }
 
 final path_directory_provider =
-StateNotifierProvider<Path_Directory_Notifier, List>(
+StateNotifierProvider<Path_Directory_Notifier, List<Path_Directory>>(
         (ref) => Path_Directory_Notifier());
+
+//Path edit object id
+class Path_Edit_Id_Notifier extends StateNotifier<int> {
+  Path_Edit_Id_Notifier() : super(0);
+
+  set(int data) {
+    state = data;
+  }
+
+}
+
+final path_edit_id_provider =
+StateNotifierProvider<Path_Edit_Id_Notifier, int>(
+        (ref) => Path_Edit_Id_Notifier());

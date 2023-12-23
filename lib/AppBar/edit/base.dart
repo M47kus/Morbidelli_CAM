@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/model_render.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 import '../../load_settings.dart';
+import '../../model_editor/model_render.dart';
 import '../../provider_lib.dart';
 
 //change base size from Textediting Controller

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/AppBar/edit_overlay/overlay.dart';
 import 'package:morbidelli_cam/load_settings.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'AppBar/Files/files.dart';
@@ -8,7 +7,8 @@ import 'AppBar/edit/edit.dart';
 import 'AppBar/view.dart';
 import 'AppBar/simulate.dart';
 import 'AppBar/drill/drill.dart';
-import 'editor/editor.dart';
+import 'edit_overlay/overlay.dart';
+import 'model_editor/editor.dart';
 
 void main() {
   runApp(const ProviderScope(child: Morbidelli_CAM()));

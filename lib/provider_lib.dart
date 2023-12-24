@@ -190,3 +190,17 @@ class Path_Creator_Notifier extends StateNotifier<Widget?> {
 final path_creator_provider =
     StateNotifierProvider<Path_Creator_Notifier, Widget?>(
         (ref) => Path_Creator_Notifier());
+
+
+//hide model
+class Show_Model_Notifier extends StateNotifier<bool> {
+  Show_Model_Notifier() : super(true);
+
+  set(bool data) {
+    state = data;
+  }
+}
+
+final show_model_provider =
+StateNotifierProvider<Show_Model_Notifier, bool>(
+        (ref) => Show_Model_Notifier());

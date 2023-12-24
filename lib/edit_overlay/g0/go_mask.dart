@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 
+import '../../load_settings.dart';
+
 //icon Button in Edit Mask (top)
 class G0_Mask extends ConsumerWidget {
   const G0_Mask({super.key});
@@ -23,6 +25,7 @@ class G0_Mask extends ConsumerWidget {
                     .set(const G0_Creator());
                 //disable directory buttons
                 ref.read(path_directory_lock_provider.notifier).set(true);
+                if(hide_model_creation_window) ref.read(show_model_provider.notifier).set(false);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

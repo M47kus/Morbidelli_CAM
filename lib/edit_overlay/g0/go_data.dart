@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
+import 'package:morbidelli_cam/load_settings.dart';
 
 import '../../provider_lib.dart';
 
@@ -23,6 +24,7 @@ class _G0_DataState extends ConsumerState<G0_Data> {
             ref.read(path_creator_provider.notifier).set(const G0_Creator());
             //disable directory buttons
             ref.read(path_directory_lock_provider.notifier).set(true);
+            if(hide_model_creation_window) ref.read(show_model_provider.notifier).set(false);
           },
           child: const Text("G0")),
     );

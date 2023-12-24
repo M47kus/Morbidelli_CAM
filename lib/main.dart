@@ -33,14 +33,14 @@ class Morbidelli_CAM extends ConsumerWidget {
   }
 }
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
           AppBar_simulate()
         ],
       ),
-      body: const Stack(children: [Editor(), Path_Editor()],)
+      body: Stack(children: [if(ref.watch(show_model_provider) == true ) Editor(), Path_Editor()],)
     );
   }
 }

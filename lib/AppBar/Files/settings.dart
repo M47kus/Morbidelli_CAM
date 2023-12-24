@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/load_settings.dart';
+import '../../helper/check_button.dart';
 import '../../helper/textinput.dart';
 
 //Settings Navigation
@@ -33,6 +34,14 @@ class _Settings_MenuState extends State<Settings_Menu> {
             //todo: default setting TXTC for dxyz
             ConfigTextInput(
                 label: "Scale Unit obj import", controller: model_scale_unit),
+            BooleanCircleIconButton(
+              txt: "hide model in creation window",
+              isActive: hide_model_creation_window ,
+              onTap: () {
+                hide_model_creation_window  = !hide_model_creation_window ;
+                setState(() {});
+              },
+            ),
           ],
         ));
   }

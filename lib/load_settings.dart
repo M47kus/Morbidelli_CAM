@@ -6,7 +6,7 @@ final TextEditingController model_scale_unit = TextEditingController(text: "X");
 final TextEditingController model_dx = TextEditingController(text: "X");
 final TextEditingController model_dy = TextEditingController(text: "X");
 final TextEditingController model_dz = TextEditingController(text: "X");
-
+bool hide_model_creation_window = true;
 
 //load default settings from yaml file
 Future<void> init_settings () async {

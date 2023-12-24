@@ -13,7 +13,7 @@ class _Path_SubObjectState extends ConsumerState<Path_SubObject> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [G0_Data()],
+      children: const [G0_Data()],
     );
   }
 }

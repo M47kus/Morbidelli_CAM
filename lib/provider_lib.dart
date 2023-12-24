@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:yaml/yaml.dart";
@@ -129,13 +130,11 @@ class Show_Path_Editor_Notifier extends StateNotifier<bool> {
   set(bool data) {
     state = data;
   }
-
 }
 
 final show_path_editor_provider =
-StateNotifierProvider<Show_Path_Editor_Notifier, bool>(
+    StateNotifierProvider<Show_Path_Editor_Notifier, bool>(
         (ref) => Show_Path_Editor_Notifier());
-
 
 //Path object
 class Path_Directory_Notifier extends StateNotifier<List<Path_Directory>> {
@@ -144,14 +143,28 @@ class Path_Directory_Notifier extends StateNotifier<List<Path_Directory>> {
   set(List<Path_Directory> data) {
     state = data;
   }
+
   add(Path_Directory data) {
     state = List.from(state)..add(data);
   }
 }
 
 final path_directory_provider =
-StateNotifierProvider<Path_Directory_Notifier, List<Path_Directory>>(
+    StateNotifierProvider<Path_Directory_Notifier, List<Path_Directory>>(
         (ref) => Path_Directory_Notifier());
+
+//lock path objects
+class Path_Directory_Lock_Notifier extends StateNotifier<bool> {
+  Path_Directory_Lock_Notifier() : super(false);
+
+  set(bool data) {
+    state = data;
+  }
+}
+
+final path_directory_lock_provider =
+    StateNotifierProvider<Path_Directory_Lock_Notifier, bool>(
+        (ref) => Path_Directory_Lock_Notifier());
 
 //Path edit object id
 class Path_Edit_Id_Notifier extends StateNotifier<int> {
@@ -160,9 +173,20 @@ class Path_Edit_Id_Notifier extends StateNotifier<int> {
   set(int data) {
     state = data;
   }
-
 }
 
-final path_edit_id_provider =
-StateNotifierProvider<Path_Edit_Id_Notifier, int>(
-        (ref) => Path_Edit_Id_Notifier());
+final path_edit_id_provider = StateNotifierProvider<Path_Edit_Id_Notifier, int>(
+    (ref) => Path_Edit_Id_Notifier());
+
+//Path Creator hide
+class Path_Creator_Notifier extends StateNotifier<Widget?> {
+  Path_Creator_Notifier() : super(null);
+
+  set(Widget? data) {
+    state = data;
+  }
+}
+
+final path_creator_provider =
+    StateNotifierProvider<Path_Creator_Notifier, Widget?>(
+        (ref) => Path_Creator_Notifier());

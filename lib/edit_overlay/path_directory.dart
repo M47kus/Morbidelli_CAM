@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 
+//Main Splines on left side
 class Path_Directory extends ConsumerStatefulWidget {
   final id;
   const Path_Directory({super.key, required this.id});
@@ -21,8 +22,9 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
   bool edit = false;
   bool show_path = true;
 
+  @override
   Widget build(BuildContext context) {
-
+    //set edit variable if own id is found in edit provider
     if (ref.watch(path_edit_id_provider) == widget.id) {
       setState(() {
         edit = true;
@@ -37,23 +39,28 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
         padding: const EdgeInsets.only(top: 8),
         child: ListTile(
           title: edit == true
+              //return Lined/Filled Button coresponding to edit variable
               ? FilledButton(
-                  onPressed: () {},
-                  child: Icon(mode_edit_outlined),
+                  onPressed: ref.watch(path_directory_lock_provider)? null : () {},
+                  child: const Icon(mode_edit_outlined),
                 )
               : OutlinedButton(
-                  onPressed: () {
+                  onPressed: ref.watch(path_directory_lock_provider)? null :() {
                     setState(() {
+                      //set edit to true and change editing privider id
                       edit = true;
                       ref.read(path_edit_id_provider.notifier).set(widget.id);
+                      //show spline creaton window
                       ref.read(show_path_editor_provider.notifier).set(true);
                     });
                   },
-                  child: Icon(mode_edit_outlined),
+                  child: const Icon(mode_edit_outlined),
                 ),
+          //hide Button
           trailing: OutlinedButton(
-            onPressed: () {
+            onPressed: ref.watch(path_directory_lock_provider)? null : () {
               setState(() {
+                //set show path variable
                 if (show_path == true) {
                   show_path = false;
                 } else {
@@ -61,10 +68,40 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
                 }
               });
             },
+            //change icon
             child: show_path == true
                 ? const Icon(visibility_outlined)
                 : const Icon(visibility_off_outlined),
           ),
         ));
+  }
+}
+
+
+//Button for spline creaton
+class Create_Path_Button extends ConsumerWidget {
+  const Create_Path_Button({super.key});
+
+  static const IconData add_box_outlined =
+  IconData(0xee3c, fontFamily: 'MaterialIcons');
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, left: 15, right: 22, bottom: 8),
+      child: OutlinedButton(
+        onPressed: ref.watch(path_directory_lock_provider)? null : () {
+          //show all necessary windows
+          ref.read(show_path_editor_provider.notifier).set(true);
+          int newId = ref.read(path_directory_provider).length;
+          ref
+              .read(path_directory_provider.notifier)
+              .add(Path_Directory(id: newId));
+          //add spline object in provider list and give it an id
+          ref.read(path_edit_id_provider.notifier).set(newId);
+        },
+        child: const Icon(add_box_outlined),
+      ),
+    );
   }
 }

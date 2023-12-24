@@ -5,6 +5,7 @@ import 'package:morbidelli_cam/edit_overlay/path_object.dart';
 import '../../provider_lib.dart';
 import 'edit_mask.dart';
 
+//Stacked editor controlls all panels for path editing
 class Path_Editor extends ConsumerStatefulWidget {
   const Path_Editor({super.key});
 
@@ -16,19 +17,24 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
   @override
   Widget build(BuildContext context) {
     List pathDirectory = ref.watch(path_directory_provider);
+
     return Column(
       children: [
+        //if true the selection bar is shown
         if (ref.watch(show_path_editor_provider) == true) const Path_Mask(),
+        //shows all splines which are created (left side)
         Expanded(
             child: Row(
           children: [
             Expanded(
+              flex: 300,
               child: Align(
                 alignment: Alignment.topLeft,
                 child: SizedBox(
                   width: 300,
                   child: ListView(
                     children: [
+                      //imports all splines from provider list
                       for (var item in pathDirectory) item,
                       const Create_Path_Button()
                     ],
@@ -36,43 +42,28 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
                 ),
               ),
             ),
-            if (ref.watch(show_path_editor_provider) == true) const Expanded(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: SizedBox(
-                  width: 300,
-                  child: Path_SubObject()
+            //if true the main edit view is shown (replace the 3d model in middle of screen)
+            if (ref.watch(path_creator_provider) != null)
+              Expanded(
+                flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ref.read(path_creator_provider),
                 ),
               ),
-            )
+
+            //shows the precise info from spline in left side
+            if (ref.watch(show_path_editor_provider) == true)
+              const Expanded(
+                flex: 300,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: SizedBox(width: 300, child: Path_SubObject()),
+                ),
+              )
           ],
         ))
       ],
-    );
-  }
-}
-
-class Create_Path_Button extends ConsumerWidget {
-  const Create_Path_Button({super.key});
-
-  static const IconData add_box_outlined =
-      IconData(0xee3c, fontFamily: 'MaterialIcons');
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, left: 15, right: 22, bottom: 8),
-      child: OutlinedButton(
-        onPressed: () {
-          ref.read(show_path_editor_provider.notifier).set(true);
-          int newId = ref.read(path_directory_provider).length;
-          ref
-              .read(path_directory_provider.notifier)
-              .add(Path_Directory(id: newId));
-          ref.read(path_edit_id_provider.notifier).set(newId);
-        },
-        child: const Icon(add_box_outlined),
-      ),
     );
   }
 }

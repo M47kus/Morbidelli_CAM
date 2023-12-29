@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../helper/origin_point.dart';
+
 class G0_Creator extends StatefulWidget {
   const G0_Creator({super.key});
 
@@ -35,7 +37,7 @@ class _G0_CreatorState extends State<G0_Creator> {
         ),
         Expanded(
             child: Container(
-          child: Text("AAAA"),
+          child: Fix_Point_Chose(),
         ))
       ],
     );

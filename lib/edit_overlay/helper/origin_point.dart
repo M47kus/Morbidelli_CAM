@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Fix_Point_Chose extends StatefulWidget {
-  const Fix_Point_Chose({super.key});
+  final int? intial_active;
+  const Fix_Point_Chose([this.intial_active]);
 
   static const IconData border_style =
       IconData(0xe100, fontFamily: 'MaterialIcons');
@@ -22,11 +23,12 @@ class Fix_Point_Chose extends StatefulWidget {
 
 class _Fix_Point_ChoseState extends State<Fix_Point_Chose> {
   final Color active_color = Colors.red;
-  int active = 5;
+  int active = 1;
   final Color default_color = Colors.white;
 
   @override
   Widget build(BuildContext context) {
+    if(widget.intial_active != null) {active = widget.intial_active!;}
     return Column(
       children: [
         Row(

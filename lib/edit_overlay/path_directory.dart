@@ -99,6 +99,7 @@ class Create_Path_Button extends ConsumerWidget {
               .add(Path_Directory(id: newId));
           //add spline object in provider list and give it an id
           ref.read(path_edit_id_provider.notifier).set(newId);
+          ref.read(path_entity_provider.notifier).new_directory(newId);
         },
         child: const Icon(add_box_outlined),
       ),

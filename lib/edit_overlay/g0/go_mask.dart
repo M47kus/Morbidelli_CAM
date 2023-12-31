@@ -22,7 +22,7 @@ class G0_Mask extends ConsumerWidget {
                 //show creation window
                 ref
                     .read(path_creator_provider.notifier)
-                    .set(const G0_Creator());
+                    .set(G0_Creator());
                 //disable directory buttons
                 ref.read(path_directory_lock_provider.notifier).set(true);
                 if(hide_model_creation_window) ref.read(show_model_provider.notifier).set(false);

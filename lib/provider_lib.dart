@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -191,7 +192,6 @@ final path_creator_provider =
     StateNotifierProvider<Path_Creator_Notifier, Widget?>(
         (ref) => Path_Creator_Notifier());
 
-
 //hide model
 class Show_Model_Notifier extends StateNotifier<bool> {
   Show_Model_Notifier() : super(true);
@@ -201,6 +201,36 @@ class Show_Model_Notifier extends StateNotifier<bool> {
   }
 }
 
-final show_model_provider =
-StateNotifierProvider<Show_Model_Notifier, bool>(
-        (ref) => Show_Model_Notifier());
+final show_model_provider = StateNotifierProvider<Show_Model_Notifier, bool>(
+    (ref) => Show_Model_Notifier());
+
+
+//all code entitys in map
+class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
+  Path_Entity_Notifier() : super({});
+
+  set(Map<int, Map> data) {
+    state = data;
+  }
+
+  new_directory(int id) {
+    Map<int, Map> old = Map.from(state);
+    old[id] = {};
+    state = old;
+
+  }
+
+  new_object(int dir_id, data) {
+    Map<int, Map> old = Map.from(state);
+    List keys = old[dir_id]!.keys.toList();
+    int id = 0;
+    if(keys.length > 0) {id = keys.reduce((curr, next) => curr > next? curr: next) + 1;}
+    old[dir_id]![id] = data;
+    state = old;
+  }
+
+}
+
+final path_entity_provider =
+    StateNotifierProvider<Path_Entity_Notifier, Map<int, Map>>(
+        (ref) => Path_Entity_Notifier());

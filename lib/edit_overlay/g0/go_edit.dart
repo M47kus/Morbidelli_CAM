@@ -1,45 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/edit_overlay/g0/go_info.dart';
+import 'package:morbidelli_cam/helper/textinput.dart';
+import 'package:morbidelli_cam/provider_lib.dart';
 
+import '../../load_settings.dart';
 import '../helper/origin_point.dart';
 
-class G0_Creator extends StatefulWidget {
-  const G0_Creator({super.key});
+class G0_Creator extends ConsumerWidget {
+  final double? x;
+  final double? y;
+  final double? z;
+  final int? fix;
+  G0_Creator([this.x, this.y, this.z, this.fix]);
 
-  @override
-  State<G0_Creator> createState() => _G0_CreatorState();
-}
-
-class _G0_CreatorState extends State<G0_Creator> {
   static const IconData cancel_outlined =
       IconData(0xef28, fontFamily: 'MaterialIcons');
   static const IconData check_circle_outline =
       IconData(0xef47, fontFamily: 'MaterialIcons');
+
+  final TextEditingController x_txt = TextEditingController();
+  final TextEditingController y_txt = TextEditingController();
+  final TextEditingController z_txt = TextEditingController();
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    if(x!=null) {x_txt.text = x.toString();}
+    if(y!=null) {y_txt.text = y.toString();}
+    if(z!=null) {z_txt.text = z.toString();}
+
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(5.0),
           child: AppBar(
-            title: Text("G0"),
+            title: const Text("G0"),
             actions: [
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child:
-                    IconButton(onPressed: () {}, icon: Icon(cancel_outlined)),
+                child: IconButton(
+                    onPressed: () {}, icon: const Icon(cancel_outlined)),
               ),
               Padding(
+                  //confirm
                   padding: const EdgeInsets.all(4.0),
                   child: IconButton(
-                      onPressed: () {}, icon: Icon(check_circle_outline)))
+                      onPressed: () {
+                        ref.read(path_entity_provider.notifier).new_object(
+                            ref.read(path_edit_id_provider),
+                            G0_Data(
+                                x: double.parse(x_txt.text),
+                                y: double.parse(y_txt.text),
+                                z: double.parse(z_txt.text),
+                                fix: 1));
+
+                        ref.read(path_creator_provider.notifier).set(null);
+                        ref
+                            .read(path_directory_lock_provider.notifier)
+                            .set(false);
+                        if (hide_model_creation_window) {
+                          ref.read(show_model_provider.notifier).set(true);
+                        }
+                      },
+                      icon: const Icon(check_circle_outline)))
             ],
           ),
         ),
         Expanded(
-            child: Container(
-          child: Fix_Point_Chose(),
-        ))
+            child: Column(children: [
+          Fix_Point_Chose(fix),
+          ConfigTextInput(label: "X", controller: x_txt),
+          ConfigTextInput(label: "Y", controller: y_txt),
+          ConfigTextInput(label: "Z", controller: z_txt)
+        ]))
       ],
     );
   }
+}
+
+class G0_Data {
+  int? id;//////
+  double x;
+  double y;
+  double z;
+  int fix;
+  G0_Data(
+      {required this.x, required this.y, required this.z, required this.fix, this.id});
+  Widget info_button = G0_Info();
 }

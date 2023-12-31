@@ -6,22 +6,18 @@ import 'package:morbidelli_cam/load_settings.dart';
 import '../../provider_lib.dart';
 
 //Detailed info Button on right side
-class G0_Data extends ConsumerStatefulWidget {
-  const G0_Data({super.key});
+class G0_Info extends ConsumerWidget {
 
-  @override
-  ConsumerState<G0_Data> createState() => _G0_DataState();
-}
+  G0_Info({super.key});
 
-class _G0_DataState extends ConsumerState<G0_Data> {
-  @override
-  Widget build(BuildContext context) {
+@override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
       child: OutlinedButton(
           onPressed: () {
             //show creation window
-            ref.read(path_creator_provider.notifier).set(const G0_Creator());
+            ref.read(path_creator_provider.notifier).set(G0_Creator());
             //disable directory buttons
             ref.read(path_directory_lock_provider.notifier).set(true);
             if(hide_model_creation_window) ref.read(show_model_provider.notifier).set(false);
@@ -30,3 +26,5 @@ class _G0_DataState extends ConsumerState<G0_Data> {
     );
   }
 }
+
+

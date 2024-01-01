@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/provider_lib.dart';
 
-class Fix_Point_Chose extends StatefulWidget {
+class Fix_Point_Chose extends ConsumerStatefulWidget {
   final int? intial_active;
   const Fix_Point_Chose([this.intial_active]);
 
@@ -18,17 +20,28 @@ class Fix_Point_Chose extends StatefulWidget {
       IconData(0xe0f9, fontFamily: 'MaterialIcons');
 
   @override
-  State<Fix_Point_Chose> createState() => _Fix_Point_ChoseState();
+  ConsumerState<Fix_Point_Chose> createState() => _Fix_Point_ChoseState();
 }
 
-class _Fix_Point_ChoseState extends State<Fix_Point_Chose> {
+class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
   final Color active_color = Colors.red;
-  int active = 1;
   final Color default_color = Colors.white;
 
   @override
+  void initState() {
+    super.initState();
+    ref.refresh(fix_point_provider);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if(widget.intial_active != null) {active = widget.intial_active!;}
+    Fix_Point_Notifier active = ref.read(fix_point_provider.notifier);
+    int activeRead = ref.watch(fix_point_provider);
+
+    if (widget.intial_active != null) {
+      active.set(widget.intial_active!);
+    }
+
     return Column(
       children: [
         Row(
@@ -36,34 +49,34 @@ class _Fix_Point_ChoseState extends State<Fix_Point_Chose> {
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 1;
+                    active.set(1);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_style,
-                  color: active == 1 ? active_color : default_color,
+                  color: activeRead == 1 ? active_color : default_color,
                 )),
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 2;
+                    active.set(2);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_top,
-                  color: active == 2 ? active_color : default_color,
+                  color: activeRead == 2 ? active_color : default_color,
                 )),
             Transform.rotate(
                 angle: 90 * 3.1415 / 180,
                 child: IconButton(
                     onPressed: () {
                       setState(() {
-                        active = 3;
+                        active.set(3);
                       });
                     },
                     icon: Icon(
                       Fix_Point_Chose.border_style,
-                      color: active == 3 ? active_color : default_color,
+                      color: activeRead == 3 ? active_color : default_color,
                     )))
           ],
         ),
@@ -72,32 +85,32 @@ class _Fix_Point_ChoseState extends State<Fix_Point_Chose> {
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 4;
+                    active.set(4);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_left,
-                  color: active == 4 ? active_color : default_color,
+                  color: activeRead == 4 ? active_color : default_color,
                 )),
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 5;
+                    active.set(5);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_clear,
-                  color: active == 5 ? active_color : default_color,
+                  color: activeRead == 5 ? active_color : default_color,
                 )),
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 6;
+                    active.set(6);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_right,
-                  color: active == 6 ? active_color : default_color,
+                  color: activeRead == 6 ? active_color : default_color,
                 ))
           ],
         ),
@@ -108,34 +121,34 @@ class _Fix_Point_ChoseState extends State<Fix_Point_Chose> {
                 child: IconButton(
                     onPressed: () {
                       setState(() {
-                        active = 7;
+                        active.set(7);
                       });
                     },
                     icon: Icon(
                       Fix_Point_Chose.border_style,
-                      color: active == 7 ? active_color : default_color,
+                      color: activeRead == 7 ? active_color : default_color,
                     ))),
             IconButton(
                 onPressed: () {
                   setState(() {
-                    active = 8;
+                    active.set(8);
                   });
                 },
                 icon: Icon(
                   Fix_Point_Chose.border_bottom,
-                  color: active == 8 ? active_color : default_color,
+                  color: activeRead == 8 ? active_color : default_color,
                 )),
             Transform.rotate(
                 angle: 180 * 3.1415 / 180,
                 child: IconButton(
                     onPressed: () {
                       setState(() {
-                        active = 9;
+                        active.set(9);
                       });
                     },
                     icon: Icon(
                       Fix_Point_Chose.border_style,
-                      color: active == 9 ? active_color : default_color,
+                      color: activeRead == 9 ? active_color : default_color,
                     )))
           ],
         ),

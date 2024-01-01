@@ -220,12 +220,16 @@ class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
 
   }
 
-  new_object(int dir_id, data) {
-    Map<int, Map> old = Map.from(state);
-    List keys = old[dir_id]!.keys.toList();
+  get_new_obj_id(int dir_id) {
+    List keys = Map.from(state)[dir_id]!.keys.toList();
     int id = 0;
     if(keys.length > 0) {id = keys.reduce((curr, next) => curr > next? curr: next) + 1;}
-    old[dir_id]![id] = data;
+    return id;
+  }
+
+  new_object(int dir_id, int obj_id, data) {
+    Map<int, Map> old = Map.from(state);
+    old[dir_id]![obj_id] = data;
     state = old;
   }
 
@@ -234,3 +238,17 @@ class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
 final path_entity_provider =
     StateNotifierProvider<Path_Entity_Notifier, Map<int, Map>>(
         (ref) => Path_Entity_Notifier());
+
+
+//fix point state
+class Fix_Point_Notifier extends StateNotifier<int> {
+  Fix_Point_Notifier() : super(1);
+
+  set(int data) {
+    state = data;
+  }
+}
+
+final fix_point_provider = StateNotifierProvider<Fix_Point_Notifier, int>(
+        (ref) => Fix_Point_Notifier());
+

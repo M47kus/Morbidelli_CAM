@@ -25,9 +25,15 @@ class G0_Creator extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if(x!=null) {x_txt.text = x.toString();}
-    if(y!=null) {y_txt.text = y.toString();}
-    if(z!=null) {z_txt.text = z.toString();}
+    if (x != null) {
+      x_txt.text = x.toString();
+    }
+    if (y != null) {
+      y_txt.text = y.toString();
+    }
+    if (z != null) {
+      z_txt.text = z.toString();
+    }
 
     return Column(
       children: [
@@ -39,21 +45,40 @@ class G0_Creator extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
-                    onPressed: () {}, icon: const Icon(cancel_outlined)),
+                    onPressed: () {
+                      //blend in edit window
+                      ref.read(path_creator_provider.notifier).set(null);
+                      ref.read(path_directory_lock_provider.notifier);
+                      ref
+                          .read(path_directory_lock_provider.notifier)
+                          .set(false);
+                      if (hide_model_creation_window) {
+                        ref.read(show_model_provider.notifier).set(true);
+                      }
+                    },
+                    icon: const Icon(cancel_outlined)),
               ),
               Padding(
                   //confirm
                   padding: const EdgeInsets.all(4.0),
                   child: IconButton(
                       onPressed: () {
+                        int dirId = ref.read(path_edit_id_provider);
+                        int objId = ref
+                            .read(path_entity_provider.notifier)
+                            .get_new_obj_id(dirId);
+
                         ref.read(path_entity_provider.notifier).new_object(
-                            ref.read(path_edit_id_provider),
+                            dirId,
+                            objId,
                             G0_Data(
+                                id: objId,
                                 x: double.parse(x_txt.text),
                                 y: double.parse(y_txt.text),
                                 z: double.parse(z_txt.text),
-                                fix: 1));
+                                fix: ref.read(fix_point_provider)));
 
+                        //blend in edit window
                         ref.read(path_creator_provider.notifier).set(null);
                         ref
                             .read(path_directory_lock_provider.notifier)
@@ -79,12 +104,19 @@ class G0_Creator extends ConsumerWidget {
 }
 
 class G0_Data {
-  int? id;//////
+  int id;
   double x;
   double y;
   double z;
   int fix;
   G0_Data(
-      {required this.x, required this.y, required this.z, required this.fix, this.id});
-  Widget info_button = G0_Info();
+      {required this.x,
+      required this.y,
+      required this.z,
+      required this.fix,
+      required this.id});
+
+  Widget getInfoButton() {
+    return G0_Info(id: this.id);
+  }
 }

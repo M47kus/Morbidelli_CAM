@@ -7,33 +7,47 @@ import 'package:morbidelli_cam/provider_lib.dart';
 import '../../load_settings.dart';
 import '../helper/origin_point.dart';
 
-class G0_Creator extends ConsumerWidget {
+class G0_Creator extends ConsumerStatefulWidget {
   final double? x;
   final double? y;
   final double? z;
   final int? fix;
   G0_Creator([this.x, this.y, this.z, this.fix]);
 
-  static const IconData cancel_outlined =
-      IconData(0xef28, fontFamily: 'MaterialIcons');
-  static const IconData check_circle_outline =
-      IconData(0xef47, fontFamily: 'MaterialIcons');
-
   final TextEditingController x_txt = TextEditingController();
   final TextEditingController y_txt = TextEditingController();
   final TextEditingController z_txt = TextEditingController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    if (x != null) {
-      x_txt.text = x.toString();
+  ConsumerState<G0_Creator> createState() => _G0_CreatorState();
+}
+
+class _G0_CreatorState extends ConsumerState<G0_Creator> {
+  static const IconData cancel_outlined =
+      IconData(0xef28, fontFamily: 'MaterialIcons');
+  static const IconData check_circle_outline =
+      IconData(0xef47, fontFamily: 'MaterialIcons');
+
+  int fix_point = 1;
+
+  void initState() {
+    super.initState();
+    print("init edit");
+    if (widget.x != null) {
+      widget.x_txt.text = widget.x.toString();
     }
-    if (y != null) {
-      y_txt.text = y.toString();
+    if (widget.y != null) {
+      widget.y_txt.text = widget.y.toString();
     }
-    if (z != null) {
-      z_txt.text = z.toString();
+    if (widget.z != null) {
+      widget.z_txt.text = widget.z.toString();
     }
+
+    fix_point = widget.fix ?? 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return Column(
       children: [
@@ -47,7 +61,7 @@ class G0_Creator extends ConsumerWidget {
                 child: IconButton(
                     onPressed: () {
                       //blend in edit window
-                      ref.read(path_creator_provider.notifier).set(null);
+                      //todo: set widget null
                       ref.read(path_directory_lock_provider.notifier);
                       ref
                           .read(path_directory_lock_provider.notifier)
@@ -73,13 +87,13 @@ class G0_Creator extends ConsumerWidget {
                             objId,
                             G0_Data(
                                 id: objId,
-                                x: double.parse(x_txt.text),
-                                y: double.parse(y_txt.text),
-                                z: double.parse(z_txt.text),
-                                fix: ref.read(fix_point_provider)));
+                                x: double.parse(widget.x_txt.text),
+                                y: double.parse(widget.y_txt.text),
+                                z: double.parse(widget.z_txt.text),
+                                fix: fix_point));
 
                         //blend in edit window
-                        ref.read(path_creator_provider.notifier).set(null);
+                        //todo: set widget null
                         ref
                             .read(path_directory_lock_provider.notifier)
                             .set(false);
@@ -93,10 +107,12 @@ class G0_Creator extends ConsumerWidget {
         ),
         Expanded(
             child: Column(children: [
-          Fix_Point_Chose(fix),
-          ConfigTextInput(label: "X", controller: x_txt),
-          ConfigTextInput(label: "Y", controller: y_txt),
-          ConfigTextInput(label: "Z", controller: z_txt)
+          Fix_Point_Chose(fix_point, (state) {
+            fix_point = state;
+          }),
+          ConfigTextInput(label: "X", controller: widget.x_txt),
+          ConfigTextInput(label: "Y", controller: widget.y_txt),
+          ConfigTextInput(label: "Z", controller: widget.z_txt)
         ]))
       ],
     );

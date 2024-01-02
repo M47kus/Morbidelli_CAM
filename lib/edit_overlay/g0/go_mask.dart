@@ -20,9 +20,7 @@ class G0_Mask extends ConsumerWidget {
             child: InkWell(
               onTap: () {
                 //show creation window
-                ref
-                    .read(path_creator_provider.notifier)
-                    .set(G0_Creator());
+                //todo: load widegt clear
                 //disable directory buttons
                 ref.read(path_directory_lock_provider.notifier).set(true);
                 if(hide_model_creation_window) ref.read(show_model_provider.notifier).set(false);

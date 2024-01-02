@@ -19,8 +19,7 @@ class G0_Info extends ConsumerWidget {
             //show creation window
             G0_Data obj_data = ref.read(
                 path_entity_provider)[ref.read(path_edit_id_provider)]![id];
-            ref.read(path_creator_provider.notifier).set(
-                G0_Creator(obj_data.x, obj_data.y, obj_data.z, obj_data.fix));
+            //todo: load widget data
             //disable directory buttons
             ref.read(path_directory_lock_provider.notifier).set(true);
             if (hide_model_creation_window)

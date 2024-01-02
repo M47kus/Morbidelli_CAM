@@ -17,7 +17,6 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
   @override
   Widget build(BuildContext context) {
     List pathDirectory = ref.watch(path_directory_provider);
-
     return Column(
       children: [
         //if true the selection bar is shown
@@ -43,12 +42,12 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
               ),
             ),
             //if true the main edit view is shown (replace the 3d model in middle of screen)
-            if (ref.watch(path_creator_provider) != null)
+            if (ref.watch(show_creator_provider) == true)
               Expanded(
                 flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
                 child: Align(
                   alignment: Alignment.topCenter,
-                  child: ref.read(path_creator_provider),
+                  child: Container(),
                 ),
               ),
 

@@ -25,7 +25,7 @@ class Path_Mask extends ConsumerWidget {
             onPressed: () {
               ref.read(show_path_editor_provider.notifier).set(false);
               ref.read(path_edit_id_provider.notifier).set(-1);
-              ref.read(path_creator_provider.notifier).set(null);
+              //todo: set widget null
               ref.read(path_directory_lock_provider.notifier).set(false);
               ref.read(show_model_provider.notifier).set(true);
             },

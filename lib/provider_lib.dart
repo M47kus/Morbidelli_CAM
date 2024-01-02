@@ -179,19 +179,6 @@ class Path_Edit_Id_Notifier extends StateNotifier<int> {
 final path_edit_id_provider = StateNotifierProvider<Path_Edit_Id_Notifier, int>(
     (ref) => Path_Edit_Id_Notifier());
 
-//Path Creator hide
-class Path_Creator_Notifier extends StateNotifier<Widget?> {
-  Path_Creator_Notifier() : super(null);
-
-  set(Widget? data) {
-    state = data;
-  }
-}
-
-final path_creator_provider =
-    StateNotifierProvider<Path_Creator_Notifier, Widget?>(
-        (ref) => Path_Creator_Notifier());
-
 //hide model
 class Show_Model_Notifier extends StateNotifier<bool> {
   Show_Model_Notifier() : super(true);
@@ -203,6 +190,18 @@ class Show_Model_Notifier extends StateNotifier<bool> {
 
 final show_model_provider = StateNotifierProvider<Show_Model_Notifier, bool>(
     (ref) => Show_Model_Notifier());
+
+//hide creator
+class Show_Creator_Notifier extends StateNotifier<bool> {
+  Show_Creator_Notifier() : super(false);
+
+  set(bool data) {
+    state = data;
+  }
+}
+
+final show_creator_provider = StateNotifierProvider<Show_Creator_Notifier, bool>(
+        (ref) => Show_Creator_Notifier());
 
 
 //all code entitys in map
@@ -239,16 +238,4 @@ final path_entity_provider =
     StateNotifierProvider<Path_Entity_Notifier, Map<int, Map>>(
         (ref) => Path_Entity_Notifier());
 
-
-//fix point state
-class Fix_Point_Notifier extends StateNotifier<int> {
-  Fix_Point_Notifier() : super(1);
-
-  set(int data) {
-    state = data;
-  }
-}
-
-final fix_point_provider = StateNotifierProvider<Fix_Point_Notifier, int>(
-        (ref) => Fix_Point_Notifier());
 

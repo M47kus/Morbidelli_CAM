@@ -14,7 +14,7 @@ class Path_SubObject extends ConsumerStatefulWidget {
 class _Path_SubObjectState extends ConsumerState<Path_SubObject> {
   @override
   Widget build(BuildContext context) {
-    Map subobject_list = ref.watch(path_entity_provider)[ref.watch(path_edit_id_provider)]!;
+    Map subobject_list = ref.watch(path_entity_provider)[ref.watch(path_directory_id_provider)]!;
     return ListView(
       children: [for(G0_Data data in subobject_list.values) data.getInfoButton()],
     );

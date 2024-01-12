@@ -30,8 +30,29 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
 
   int fix_point = 1;
 
+
+  @override
   void initState() {
     super.initState();
+
+    print("init edit");
+    if (widget.x != null) {
+      widget.x_txt.text = widget.x.toString();
+    }
+    if (widget.y != null) {
+      widget.y_txt.text = widget.y.toString();
+    }
+    if (widget.z != null) {
+      widget.z_txt.text = widget.z.toString();
+    }
+
+    fix_point = widget.fix ?? 1;
+  }
+
+  @override
+  void didUpdateWidget(G0_Creator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
     print("init edit");
     if (widget.x != null) {
       widget.x_txt.text = widget.x.toString();
@@ -61,7 +82,9 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                 child: IconButton(
                     onPressed: () {
                       //blend in edit window
-                      //todo: set widget null
+                      int dirId = ref.read(path_directory_id_provider);
+                      ref.watch(show_creator_provider.notifier).set(false);
+                      ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
                       ref.read(path_directory_lock_provider.notifier);
                       ref
                           .read(path_directory_lock_provider.notifier)
@@ -77,7 +100,7 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                   padding: const EdgeInsets.all(4.0),
                   child: IconButton(
                       onPressed: () {
-                        int dirId = ref.read(path_edit_id_provider);
+                        int dirId = ref.read(path_directory_id_provider);
                         int objId = ref
                             .read(path_entity_provider.notifier)
                             .get_new_obj_id(dirId);
@@ -93,7 +116,8 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                                 fix: fix_point));
 
                         //blend in edit window
-                        //todo: set widget null
+                        ref.watch(show_creator_provider.notifier).set(false);
+                        ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
                         ref
                             .read(path_directory_lock_provider.notifier)
                             .set(false);
@@ -121,16 +145,12 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
 
 class G0_Data {
   int id;
-  double x;
-  double y;
-  double z;
-  int fix;
+  double? x;
+  double? y;
+  double? z;
+  int? fix;
   G0_Data(
-      {required this.x,
-      required this.y,
-      required this.z,
-      required this.fix,
-      required this.id});
+      {required this.id, this.x, this.y, this.z, this.fix});
 
   Widget getInfoButton() {
     return G0_Info(id: this.id);

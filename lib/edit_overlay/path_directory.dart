@@ -25,7 +25,7 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
   @override
   Widget build(BuildContext context) {
     //set edit variable if own id is found in edit provider
-    if (ref.watch(path_edit_id_provider) == widget.id) {
+    if (ref.watch(path_directory_id_provider) == widget.id) {
       setState(() {
         edit = true;
       });
@@ -49,7 +49,7 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
                     setState(() {
                       //set edit to true and change editing privider id
                       edit = true;
-                      ref.read(path_edit_id_provider.notifier).set(widget.id);
+                      ref.read(path_directory_id_provider.notifier).set(widget.id);
                       //show spline creaton window
                       ref.read(show_path_editor_provider.notifier).set(true);
                     });
@@ -93,12 +93,12 @@ class Create_Path_Button extends ConsumerWidget {
         onPressed: ref.watch(path_directory_lock_provider)? null : () {
           //show all necessary windows
           ref.read(show_path_editor_provider.notifier).set(true);
-          int newId = ref.read(path_directory_provider).length;
+          int newId = ref.read(path_directory_provider).length + 1;
           ref
               .read(path_directory_provider.notifier)
               .add(Path_Directory(id: newId));
           //add spline object in provider list and give it an id
-          ref.read(path_edit_id_provider.notifier).set(newId);
+          ref.read(path_directory_id_provider.notifier).set(newId);
           ref.read(path_entity_provider.notifier).new_directory(newId);
         },
         child: const Icon(add_box_outlined),

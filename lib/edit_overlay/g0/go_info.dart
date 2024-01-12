@@ -16,10 +16,10 @@ class G0_Info extends ConsumerWidget {
       padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
       child: OutlinedButton(
           onPressed: () {
-            //show creation window
-            G0_Data obj_data = ref.read(
-                path_entity_provider)[ref.read(path_edit_id_provider)]![id];
-            //todo: load widget data
+            //set object_id provider to new active id
+            ref.read(path_object_id_provider.notifier).set(id);
+            ref.watch(show_creator_provider.notifier).set(true);
+
             //disable directory buttons
             ref.read(path_directory_lock_provider.notifier).set(true);
             if (hide_model_creation_window)

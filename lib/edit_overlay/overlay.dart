@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/edit_overlay/edit_window_build.dart';
 import 'package:morbidelli_cam/edit_overlay/path_directory.dart';
 import 'package:morbidelli_cam/edit_overlay/path_object.dart';
 import '../../provider_lib.dart';
@@ -42,12 +43,17 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
               ),
             ),
             //if true the main edit view is shown (replace the 3d model in middle of screen)
-            if (ref.watch(show_creator_provider) == true)
-              Expanded(
-                flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(),
+
+              Visibility(
+                visible: ref.watch(show_creator_provider),
+                child: Expanded(
+                  flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
+                  child: Align(
+                      alignment: Alignment.topCenter,
+                      child: build_edit_window(
+                          ref.read(path_entity_provider)[
+                                  ref.watch(path_directory_id_provider)]![
+                              ref.watch(path_object_id_provider)])),
                 ),
               ),
 

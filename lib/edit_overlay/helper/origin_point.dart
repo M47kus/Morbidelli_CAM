@@ -45,6 +45,14 @@ class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
   }
 
   @override
+  void didUpdateWidget(Fix_Point_Chose oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      active = widget.intial_active;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [

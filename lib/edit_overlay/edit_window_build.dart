@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 
-enum WidgetType { g0 }
-
 Widget build_edit_window(type) {
-  switch (type) {
-    case WidgetType.g0:
-      return G0_Creator();
 
-    default:
-      return G0_Creator();
+  if(type is G0_Data) {
+
+    print("g0data");
+    return G0_Creator(type.x, type.y, type.z, type.fix);
+
+  } else {
+
+    print("default");
+    return G0_Creator();
+
   }
+
 }

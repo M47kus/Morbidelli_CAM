@@ -168,16 +168,30 @@ final path_directory_lock_provider =
         (ref) => Path_Directory_Lock_Notifier());
 
 //Path edit object id
-class Path_Edit_Id_Notifier extends StateNotifier<int> {
-  Path_Edit_Id_Notifier() : super(0);
+class Path_Directory_Id_Notifier extends StateNotifier<int> {
+  Path_Directory_Id_Notifier() : super(0);
 
   set(int data) {
     state = data;
   }
 }
 
-final path_edit_id_provider = StateNotifierProvider<Path_Edit_Id_Notifier, int>(
-    (ref) => Path_Edit_Id_Notifier());
+final path_directory_id_provider = StateNotifierProvider<Path_Directory_Id_Notifier, int>(
+    (ref) => Path_Directory_Id_Notifier());
+
+
+//Path edit object id
+class Path_Object_Id_Notifier extends StateNotifier<int> {
+  Path_Object_Id_Notifier() : super(0);
+
+  set(int data) {
+    state = data;
+  }
+}
+
+final path_object_id_provider = StateNotifierProvider<Path_Object_Id_Notifier, int>(
+        (ref) => Path_Object_Id_Notifier());
+
 
 //hide model
 class Show_Model_Notifier extends StateNotifier<bool> {
@@ -206,7 +220,7 @@ final show_creator_provider = StateNotifierProvider<Show_Creator_Notifier, bool>
 
 //all code entitys in map
 class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
-  Path_Entity_Notifier() : super({});
+  Path_Entity_Notifier() : super({0:{}});
 
   set(Map<int, Map> data) {
     state = data;
@@ -221,7 +235,7 @@ class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
 
   get_new_obj_id(int dir_id) {
     List keys = Map.from(state)[dir_id]!.keys.toList();
-    int id = 0;
+    int id = 1;
     if(keys.length > 0) {id = keys.reduce((curr, next) => curr > next? curr: next) + 1;}
     return id;
   }
@@ -229,6 +243,12 @@ class Path_Entity_Notifier extends StateNotifier<Map<int, Map>> {
   new_object(int dir_id, int obj_id, data) {
     Map<int, Map> old = Map.from(state);
     old[dir_id]![obj_id] = data;
+    state = old;
+  }
+
+  remove_object(int dir_id, int obj_id) {
+    Map<int, Map> old = Map.from(state);
+    old[dir_id]!.remove(obj_id);
     state = old;
   }
 

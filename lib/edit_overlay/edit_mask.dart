@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_mask.dart';
 import '../load_settings.dart';
-import '../provider_lib.dart';
+import '../path_privider_lib.dart';
 
 //Mask for adding new commands to cnc list
 class Path_Mask extends ConsumerWidget {
@@ -24,7 +24,7 @@ class Path_Mask extends ConsumerWidget {
           IconButton(
             icon: const Icon(arrow_drop_up_sharp),
             onPressed: () {
-              //blend in edit window
+              //close entity editor
               int dirId = ref.read(path_directory_id_provider);
               ref.watch(show_creator_provider.notifier).set(false);
               ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
@@ -34,9 +34,9 @@ class Path_Mask extends ConsumerWidget {
                 ref.read(show_model_provider.notifier).set(true);
               }
 
+              //close edit overlay
               ref.read(show_path_editor_provider.notifier).set(false);
               ref.read(path_directory_id_provider.notifier).set(0);
-              //todo: set widget null
               ref.read(path_directory_lock_provider.notifier).set(false);
               ref.read(show_model_provider.notifier).set(true);
             },

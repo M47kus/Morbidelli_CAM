@@ -36,20 +36,22 @@ class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
+  void _init() {
     setState(() {
       active = widget.intial_active;
     });
   }
 
   @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  @override
   void didUpdateWidget(Fix_Point_Chose oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      active = widget.intial_active;
-    });
+    _init();
   }
 
   @override

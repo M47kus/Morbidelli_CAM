@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/load_settings.dart';
+import 'package:morbidelli_cam/path_privider_lib.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'AppBar/Files/files.dart';
 import 'AppBar/edit/edit.dart';

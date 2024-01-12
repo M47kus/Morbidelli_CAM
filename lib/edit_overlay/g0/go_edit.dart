@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_info.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
 
 import '../../load_settings.dart';
+import '../../path_privider_lib.dart';
 import '../helper/origin_point.dart';
 
 class G0_Creator extends ConsumerStatefulWidget {
@@ -30,12 +30,7 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
 
   int fix_point = 1;
 
-
-  @override
-  void initState() {
-    super.initState();
-
-    print("init edit");
+  void _init() {
     if (widget.x != null) {
       widget.x_txt.text = widget.x.toString();
     }
@@ -47,29 +42,22 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
     }
 
     fix_point = widget.fix ?? 1;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
   }
 
   @override
   void didUpdateWidget(G0_Creator oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    print("init edit");
-    if (widget.x != null) {
-      widget.x_txt.text = widget.x.toString();
-    }
-    if (widget.y != null) {
-      widget.y_txt.text = widget.y.toString();
-    }
-    if (widget.z != null) {
-      widget.z_txt.text = widget.z.toString();
-    }
-
-    fix_point = widget.fix ?? 1;
+    _init();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         Padding(
@@ -81,10 +69,12 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
                     onPressed: () {
-                      //blend in edit window
+                      //close entity editor
                       int dirId = ref.read(path_directory_id_provider);
                       ref.watch(show_creator_provider.notifier).set(false);
-                      ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
+                      ref
+                          .read(path_entity_provider.notifier)
+                          .remove_object(dirId, 0);
                       ref.read(path_directory_lock_provider.notifier);
                       ref
                           .read(path_directory_lock_provider.notifier)
@@ -100,6 +90,7 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                   padding: const EdgeInsets.all(4.0),
                   child: IconButton(
                       onPressed: () {
+                        //save data to data structure in provider
                         int dirId = ref.read(path_directory_id_provider);
                         int objId = ref
                             .read(path_entity_provider.notifier)
@@ -115,9 +106,11 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> {
                                 z: double.parse(widget.z_txt.text),
                                 fix: fix_point));
 
-                        //blend in edit window
+                        //close entity edit window
                         ref.watch(show_creator_provider.notifier).set(false);
-                        ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
+                        ref
+                            .read(path_entity_provider.notifier)
+                            .remove_object(dirId, 0);
                         ref
                             .read(path_directory_lock_provider.notifier)
                             .set(false);
@@ -149,8 +142,7 @@ class G0_Data {
   double? y;
   double? z;
   int? fix;
-  G0_Data(
-      {required this.id, this.x, this.y, this.z, this.fix});
+  G0_Data({required this.id, this.x, this.y, this.z, this.fix});
 
   Widget getInfoButton() {
     return G0_Info(id: this.id);

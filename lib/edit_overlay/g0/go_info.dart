@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 import 'package:morbidelli_cam/load_settings.dart';
 
-import '../../provider_lib.dart';
+import '../../path_privider_lib.dart';
 
 //Detailed info Button on right side
 class G0_Info extends ConsumerWidget {

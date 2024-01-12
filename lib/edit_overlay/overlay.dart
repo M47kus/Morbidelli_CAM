@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/edit_overlay/edit_window_build.dart';
+import 'package:morbidelli_cam/edit_overlay/helper/edit_window_build.dart';
 import 'package:morbidelli_cam/edit_overlay/path_directory.dart';
 import 'package:morbidelli_cam/edit_overlay/path_object.dart';
 import '../path_privider_lib.dart';

@@ -12,18 +12,15 @@ class G0Creator extends ConsumerStatefulWidget {
   final double? y;
   final double? z;
   final int? fix;
-  const G0Creator({this.x, this.y, this.z, this.fix, super.key});
+  final bool isNew;
+  const G0Creator(
+      {this.x, this.y, this.z, this.fix, super.key, this.isNew = false});
 
   @override
   ConsumerState<G0Creator> createState() => _G0CreatorState();
 }
 
 class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
-  static const IconData cancelOutlined =
-      IconData(0xef28, fontFamily: 'MaterialIcons');
-  static const IconData checkCircleOutline =
-      IconData(0xef47, fontFamily: 'MaterialIcons');
-
   void _init() {
     xtxt.clear();
     ytxt.clear();
@@ -58,42 +55,24 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: AppBar(
-            title: const Text("G0"),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: IconButton(
-                    onPressed: () {
-                      onCancel(ref);
-                    },
-                    icon: const Icon(cancelOutlined)),
-              ),
-              Padding(
-                  //confirm
-                  padding: const EdgeInsets.all(4.0),
-                  child: IconButton(
-                      onPressed: () {
-                        int dirId = ref.read(pathDirectoryIdProvider);
-                        int objId = ref
-                            .read(pathEntityProvider.notifier)
-                            .getNewObjId(dirId);
+        buildAppBar(ref, name: "G0", onCanceled: onCancel, onSaved: () {
+          int dirId = ref.read(pathDirectoryIdProvider);
+          int objId = ref.read(pathEntityProvider.notifier).getNewObjId(dirId);
+          //if object is already created update old object
 
-                        onConfirm(
-                            ref,
-                            G0Data(
-                                id: objId,
-                                x: double.parse(xtxt.text),
-                                y: double.parse(ytxt.text),
-                                z: double.parse(ztxt.text),
-                                fix: fixpoint));
-                      },
-                      icon: const Icon(checkCircleOutline)))
-            ],
-          ),
-        ),
+          if (widget.isNew == false) {
+            objId = ref.read(pathObjectIdProvider);
+          }
+          onConfirm(
+              ref,
+              objId,
+              G0Data(
+                  id: objId,
+                  x: double.parse(xtxt.text),
+                  y: double.parse(ytxt.text),
+                  z: double.parse(ztxt.text),
+                  fix: fixpoint));
+        }),
         Expanded(
             child: Column(children: [
           FixPointChose(fixpoint, (state) {

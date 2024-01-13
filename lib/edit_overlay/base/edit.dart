@@ -4,6 +4,11 @@ import '../../load_settings.dart';
 import '../../path_privider_lib.dart';
 
 mixin Edit {
+  static const IconData cancelOutlined =
+      IconData(0xef28, fontFamily: 'MaterialIcons');
+  static const IconData checkCircleOutline =
+      IconData(0xef47, fontFamily: 'MaterialIcons');
+
   final TextEditingController xtxt = TextEditingController();
   final TextEditingController ytxt = TextEditingController();
   final TextEditingController ztxt = TextEditingController();
@@ -22,11 +27,10 @@ mixin Edit {
     }
   }
 
-  void onConfirm(ref, newObject) {
-    //save data to data structure in provider
+  void onConfirm(ref, objId, newObject) {
     int dirId = ref.read(pathDirectoryIdProvider);
-    int objId = ref.read(pathEntityProvider.notifier).getNewObjId(dirId);
 
+    //save data to data structure in provider
     ref.read(pathEntityProvider.notifier).newObject(dirId, objId, newObject);
 
     //close entity edit window
@@ -36,5 +40,33 @@ mixin Edit {
     if (hideModelInCreation) {
       ref.read(showModelProvider.notifier).set(true);
     }
+  }
+
+  Widget buildAppBar(ref,
+      {required name, required Function onSaved, required onCanceled}) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: AppBar(
+        title: Text(name),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: IconButton(
+                onPressed: () {
+                  onCanceled(ref);
+                },
+                icon: const Icon(cancelOutlined)),
+          ),
+          Padding(
+              //confirm
+              padding: const EdgeInsets.all(4.0),
+              child: IconButton(
+                  onPressed: () {
+                    onSaved();
+                  },
+                  icon: const Icon(checkCircleOutline)))
+        ],
+      ),
+    );
   }
 }

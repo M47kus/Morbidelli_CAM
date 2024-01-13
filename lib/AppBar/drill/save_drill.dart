@@ -2,8 +2,8 @@ import "dart:io";
 import 'package:yaml_writer/yaml_writer.dart';
 
 //create new yaml config from Drill class and changed settings
-Map update_drill(
-    {required drill_button_class,
+Map updateDrill(
+    {required drillbuttonClass,
     required name,
     required d,
     required l,
@@ -12,8 +12,8 @@ Map update_drill(
     a}) {
   Map drillFile = {};
 
-  for (int i = 0; i < drill_button_class.length; i++) {
-    if (drill_button_class[i].name == name) {
+  for (int i = 0; i < drillbuttonClass.length; i++) {
+    if (drillbuttonClass[i].name == name) {
       //Map changed data
       drillFile[name] = {};
       drillFile[name]["d"] = double.parse(d);
@@ -27,13 +27,12 @@ Map update_drill(
       }
     } else {
       //Map original Data
-      drillFile[drill_button_class[i].name] = {};
-      drillFile[drill_button_class[i].name]["d"] = drill_button_class[i].d;
-      drillFile[drill_button_class[i].name]["l"] = drill_button_class[i].l;
-      drillFile[drill_button_class[i].name]["form"] =
-          drill_button_class[i].form;
-      drillFile[drill_button_class[i].name]["dt"] = drill_button_class[i].dt;
-      drillFile[drill_button_class[i].name]["a"] = drill_button_class[i].a;
+      drillFile[drillbuttonClass[i].name] = {};
+      drillFile[drillbuttonClass[i].name]["d"] = drillbuttonClass[i].d;
+      drillFile[drillbuttonClass[i].name]["l"] = drillbuttonClass[i].l;
+      drillFile[drillbuttonClass[i].name]["form"] = drillbuttonClass[i].form;
+      drillFile[drillbuttonClass[i].name]["dt"] = drillbuttonClass[i].dt;
+      drillFile[drillbuttonClass[i].name]["a"] = drillbuttonClass[i].a;
     }
   }
 

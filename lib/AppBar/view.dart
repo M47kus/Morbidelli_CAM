@@ -54,20 +54,20 @@ class _AppBar_ViewState extends ConsumerState<AppBar_View> {
             },
             onSelected: (value) {
               if (value == 0) {
-                ref.read(modelViewProvider.notifier).set_Top();
+                ref.read(modelViewProvider.notifier).setTop();
               } else if (value == 1) {
-                ref.read(modelViewProvider.notifier).set_Front();
+                ref.read(modelViewProvider.notifier).setFront();
               } else if (value == 2) {
-                ref.read(modelViewProvider.notifier).set_Side();
+                ref.read(modelViewProvider.notifier).setSide();
               } else if (value == 3) {
-                ref.read(modelApearanceProvider.notifier).set_Solid();
+                ref.read(modelApearanceProvider.notifier).setSolid();
               } else if (value == 4) {
-                ref.read(modelApearanceProvider.notifier).set_Wireframe();
+                ref.read(modelApearanceProvider.notifier).setWireframe();
               } else if (value == 5) {
-                ref.read(modelApearanceProvider.notifier).set_Points();
+                ref.read(modelApearanceProvider.notifier).setPoints();
               } else if (value == 6) {
                 //re-load base model and load to provider
-                String wavefront = model_base();
+                String wavefront = modelBase();
                 ref.read(modelContentProvider.notifier).set(wavefront);
               }
             }));

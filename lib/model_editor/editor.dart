@@ -30,7 +30,7 @@ class _EditorState extends ConsumerState<Editor> {
       //read default object from file
       ref.read(modelContentProvider.notifier).readObject();
       //set viewport to top
-      ref.read(modelViewProvider.notifier).set_Top();
+      ref.read(modelViewProvider.notifier).setTop();
       setState(() {}); //update
     });
   }

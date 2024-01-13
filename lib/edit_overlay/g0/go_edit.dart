@@ -7,35 +7,35 @@ import '../../path_privider_lib.dart';
 import '../base/edit.dart';
 import '../helper/origin_point.dart';
 
-class G0_Creator extends ConsumerStatefulWidget {
+class G0Creator extends ConsumerStatefulWidget {
   final double? x;
   final double? y;
   final double? z;
   final int? fix;
-  G0_Creator([this.x, this.y, this.z, this.fix]);
+  const G0Creator({this.x, this.y, this.z, this.fix, super.key});
 
   @override
-  ConsumerState<G0_Creator> createState() => _G0_CreatorState();
+  ConsumerState<G0Creator> createState() => _G0CreatorState();
 }
 
-class _G0_CreatorState extends ConsumerState<G0_Creator> with Edit {
-  static const IconData cancel_outlined =
+class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
+  static const IconData cancelOutlined =
       IconData(0xef28, fontFamily: 'MaterialIcons');
-  static const IconData check_circle_outline =
+  static const IconData checkCircleOutline =
       IconData(0xef47, fontFamily: 'MaterialIcons');
 
   void _init() {
     if (widget.x != null) {
-      x_txt.text = widget.x.toString();
+      xtxt.text = widget.x.toString();
     }
     if (widget.y != null) {
-      y_txt.text = widget.y.toString();
+      ytxt.text = widget.y.toString();
     }
     if (widget.z != null) {
-      z_txt.text = widget.z.toString();
+      ztxt.text = widget.z.toString();
     }
 
-    fix_point = widget.fix ?? 1;
+    fixpoint = widget.fix ?? 1;
   }
 
   @override
@@ -45,7 +45,7 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> with Edit {
   }
 
   @override
-  void didUpdateWidget(G0_Creator oldWidget) {
+  void didUpdateWidget(G0Creator oldWidget) {
     super.didUpdateWidget(oldWidget);
     _init();
   }
@@ -63,56 +63,56 @@ class _G0_CreatorState extends ConsumerState<G0_Creator> with Edit {
                 padding: const EdgeInsets.all(4.0),
                 child: IconButton(
                     onPressed: () {
-                      OnCancel(ref);
+                      onCancel(ref);
                     },
-                    icon: const Icon(cancel_outlined)),
+                    icon: const Icon(cancelOutlined)),
               ),
               Padding(
                   //confirm
                   padding: const EdgeInsets.all(4.0),
                   child: IconButton(
                       onPressed: () {
-                        int dirId = ref.read(path_directory_id_provider);
+                        int dirId = ref.read(pathDirectoryIdProvider);
                         int objId = ref
-                            .read(path_entity_provider.notifier)
-                            .get_new_obj_id(dirId);
+                            .read(pathEntityProvider.notifier)
+                            .getNewObjId(dirId);
 
-                        OnConfirm(
+                        onConfirm(
                             ref,
-                            G0_Data(
+                            G0Data(
                                 id: objId,
-                                x: double.parse(x_txt.text),
-                                y: double.parse(y_txt.text),
-                                z: double.parse(z_txt.text),
-                                fix: fix_point));
+                                x: double.parse(xtxt.text),
+                                y: double.parse(ytxt.text),
+                                z: double.parse(ztxt.text),
+                                fix: fixpoint));
                       },
-                      icon: const Icon(check_circle_outline)))
+                      icon: const Icon(checkCircleOutline)))
             ],
           ),
         ),
         Expanded(
             child: Column(children: [
-          Fix_Point_Chose(fix_point, (state) {
-            fix_point = state;
+          FixPointChose(fixpoint, (state) {
+            fixpoint = state;
           }),
-          ConfigTextInput(label: "X", controller: x_txt),
-          ConfigTextInput(label: "Y", controller: y_txt),
-          ConfigTextInput(label: "Z", controller: z_txt)
+          ConfigTextInput(label: "X", controller: xtxt),
+          ConfigTextInput(label: "Y", controller: ytxt),
+          ConfigTextInput(label: "Z", controller: ztxt)
         ]))
       ],
     );
   }
 }
 
-class G0_Data {
+class G0Data {
   int id;
   double? x;
   double? y;
   double? z;
   int? fix;
-  G0_Data({required this.id, this.x, this.y, this.z, this.fix});
+  G0Data({required this.id, this.x, this.y, this.z, this.fix});
 
   Widget getInfoButton() {
-    return G0_Info(id: this.id);
+    return G0Info(id: id);
   }
 }

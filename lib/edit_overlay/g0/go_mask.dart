@@ -5,15 +5,15 @@ import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 import '../base/mask.dart';
 
 //icon Button in Edit Mask (top)
-class G0_Mask extends ConsumerWidget with Mask {
-  const G0_Mask({super.key});
+class G0Mask extends ConsumerWidget with Mask {
+  const G0Mask({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return PathMask(
+    return pathMask(
       child: InkWell(
         onTap: () {
-          OnTab(ref, G0_Data(id: 0));
+          onTab(ref, G0Data(id: 0));
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

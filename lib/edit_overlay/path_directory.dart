@@ -26,7 +26,7 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
   @override
   Widget build(BuildContext context) {
     //set edit variable if own id is found in edit provider
-    if (ref.watch(path_directory_id_provider) == widget.id) {
+    if (ref.watch(pathDirectoryIdProvider) == widget.id) {
       setState(() {
         edit = true;
       });
@@ -43,22 +43,22 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
               //return Lined/Filled Button coresponding to edit variable
               ? FilledButton(
                   onPressed:
-                      ref.watch(path_directory_lock_provider) ? null : () {},
+                      ref.watch(pathDirectoryLockProvider) ? null : () {},
                   child: const Icon(mode_edit_outlined),
                 )
               : OutlinedButton(
-                  onPressed: ref.watch(path_directory_lock_provider)
+                  onPressed: ref.watch(pathDirectoryLockProvider)
                       ? null
                       : () {
                           setState(() {
                             //set edit to true and change editing privider id
                             edit = true;
                             ref
-                                .read(path_directory_id_provider.notifier)
+                                .read(pathDirectoryIdProvider.notifier)
                                 .set(widget.id);
                             //show spline creaton window
                             ref
-                                .read(show_path_editor_provider.notifier)
+                                .read(showPathEditorProvider.notifier)
                                 .set(true);
                           });
                         },
@@ -66,7 +66,7 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
                 ),
           //hide Button
           trailing: OutlinedButton(
-            onPressed: ref.watch(path_directory_lock_provider)
+            onPressed: ref.watch(pathDirectoryLockProvider)
                 ? null
                 : () {
                     setState(() {
@@ -99,20 +99,20 @@ class Create_Path_Button extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8, left: 15, right: 22, bottom: 8),
       child: OutlinedButton(
-        onPressed: ref.watch(path_directory_lock_provider)
+        onPressed: ref.watch(pathDirectoryLockProvider)
             ? null
             : () {
                 //open edit overlay
-                ref.read(show_path_editor_provider.notifier).set(true);
-                int newDirId = ref.read(path_directory_provider).length + 1;
+                ref.read(showPathEditorProvider.notifier).set(true);
+                int newDirId = ref.read(pathDirectoryProvider).length + 1;
                 ref
-                    .read(path_directory_provider.notifier)
+                    .read(pathDirectoryProvider.notifier)
                     .add(Path_Directory(id: newDirId));
 
                 ref
-                    .read(path_directory_id_provider.notifier)
+                    .read(pathDirectoryIdProvider.notifier)
                     .set(newDirId); //set new id as active window
-                ref.read(path_entity_provider.notifier).new_directory(
+                ref.read(pathEntityProvider.notifier).newDirectory(
                     newDirId); //create new directory in main data structure
               },
         child: const Icon(add_box_outlined),

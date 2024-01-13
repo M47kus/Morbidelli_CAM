@@ -12,23 +12,23 @@ import 'edit_overlay/overlay.dart';
 import 'model_editor/editor.dart';
 
 void main() {
-  runApp(const ProviderScope(child: Morbidelli_CAM()));
+  runApp(const ProviderScope(child: MorbidelliCAM()));
 }
 
-class Morbidelli_CAM extends ConsumerWidget {
-  const Morbidelli_CAM({super.key});
-
+class MorbidelliCAM extends ConsumerWidget {
+  const MorbidelliCAM({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    init_settings();  //read settings from yaml + TextEditingController
-    ref.read(Drill_class_Provider.notifier).init_drills(); //read drills.yaml + create Drill classes
+    initSettings(); //read settings from yaml + TextEditingController
+    ref
+        .read(drillclassprovider.notifier)
+        .initDrills(); //read drills.yaml + create Drill classes
     return MaterialApp(
       theme: ThemeData(
           brightness: Brightness.dark,
           primaryColor: Colors.blueGrey,
-          useMaterial3: true
-      ),
+          useMaterial3: true),
       home: const MainScreen(),
     );
   }
@@ -45,16 +45,20 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: const [
-          AppBar_Files(),
-          AppBar_Edit(),
-          AppBar_View(),
-          AppBar_drill(),
-          AppBar_simulate()
-        ],
-      ),
-      body: Stack(children: [if(ref.watch(show_model_provider) == true ) Editor(), Path_Editor()],)
-    );
+        appBar: AppBar(
+          actions: const [
+            AppBarFiles(),
+            AppBarEdit(),
+            AppBar_View(),
+            AppBarDrill(),
+            AppBar_simulate()
+          ],
+        ),
+        body: Stack(
+          children: [
+            if (ref.watch(showModelProvider) == true) const Editor(),
+            const PathEditor()
+          ],
+        ));
   }
 }

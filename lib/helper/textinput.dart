@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class ConfigTextInput extends StatelessWidget {
   final String label;
-  final controller;
-  const ConfigTextInput({super.key, required this.label, required this.controller});
+  final TextEditingController controller;
+  const ConfigTextInput(
+      {super.key, required this.label, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class ConfigTextInput extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: TextFormField(
         onSaved: (String? value) {
-          controller.text = value;
+          controller.text = value ?? "";
         },
         style: const TextStyle(fontSize: 15),
         controller: controller,

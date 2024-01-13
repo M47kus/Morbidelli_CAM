@@ -11,7 +11,14 @@ class Drill extends ConsumerWidget {
   final double? dt;
   final double? a;
 
-  Drill({required this.name, required this.d, required this.l, required this.form, this.dt, this.a});
+  const Drill(
+      {super.key,
+      required this.name,
+      required this.d,
+      required this.l,
+      required this.form,
+      this.dt,
+      this.a});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,12 +28,9 @@ class Drill extends ConsumerWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Drill_Menu(name: name, d: d, l: l, form:form, dt: dt, a: a)));
+                builder: (context) => DrillMenu(
+                    name: name, d: d, l: l, form: form, dt: dt, a: a)));
       },
     );
   }
-
-  }
-
-
-
+}

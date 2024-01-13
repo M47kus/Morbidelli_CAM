@@ -1,33 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Fix_Point_Chose extends ConsumerStatefulWidget {
-  final int intial_active;
+class FixPointChose extends ConsumerStatefulWidget {
+  final int intialactive;
   final Function returnstate;
-  const Fix_Point_Chose(this.intial_active, this.returnstate);
+  const FixPointChose(this.intialactive, this.returnstate, {super.key});
 
-  static const IconData border_style =
+  static const IconData borderstyle =
       IconData(0xe100, fontFamily: 'MaterialIcons');
-  static const IconData border_top =
+  static const IconData bordertop =
       IconData(0xe101, fontFamily: 'MaterialIcons');
-  static const IconData border_right =
+  static const IconData borderright =
       IconData(0xe0ff, fontFamily: 'MaterialIcons');
-  static const IconData border_left =
+  static const IconData borderleft =
       IconData(0xe0fd, fontFamily: 'MaterialIcons');
-  static const IconData border_bottom =
+  static const IconData borderbottom =
       IconData(0xe0f8, fontFamily: 'MaterialIcons');
-  static const IconData border_clear =
+  static const IconData borderclear =
       IconData(0xe0f9, fontFamily: 'MaterialIcons');
 
   @override
-  ConsumerState<Fix_Point_Chose> createState() => _Fix_Point_ChoseState();
+  ConsumerState<FixPointChose> createState() => _FixPointChoseState();
 }
 
-class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
-  final Color active_color = Colors.red;
-  final Color default_color = Colors.white;
+class _FixPointChoseState extends ConsumerState<FixPointChose> {
+  final Color activecolor = Colors.red;
+  final Color defaultcolor = Colors.white;
 
   int active = 1;
+
+  Widget getIcon(index) {
+    switch (index) {
+      case 2:
+        return Icon(
+          FixPointChose.bordertop,
+          color: active == index ? activecolor : defaultcolor,
+        );
+      case 3:
+        return Transform.rotate(
+            angle: 90 * 3.1415 / 180,
+            child: Icon(
+              FixPointChose.borderstyle,
+              color: active == index ? activecolor : defaultcolor,
+            ));
+      case 4:
+        return Icon(
+          FixPointChose.borderleft,
+          color: active == 4 ? activecolor : defaultcolor,
+        );
+      case 5:
+        return Icon(
+          FixPointChose.borderclear,
+          color: active == 5 ? activecolor : defaultcolor,
+        );
+      case 6:
+        return Icon(
+          FixPointChose.borderright,
+          color: active == 6 ? activecolor : defaultcolor,
+        );
+      case 7:
+        return Transform.rotate(
+            angle: 270 * 3.1415 / 180,
+            child: Icon(
+              FixPointChose.borderstyle,
+              color: active == 7 ? activecolor : defaultcolor,
+            ));
+      case 8:
+        return Icon(
+          FixPointChose.borderbottom,
+          color: active == 8 ? activecolor : defaultcolor,
+        );
+      case 9:
+        return Transform.rotate(
+            angle: 180 * 3.1415 / 180,
+            child: Icon(
+              FixPointChose.borderstyle,
+              color: active == 9 ? activecolor : defaultcolor,
+            ));
+      default:
+        return Icon(
+          FixPointChose.borderstyle,
+          color: active == index ? activecolor : defaultcolor,
+        );
+    }
+  }
+
+  Widget getButton(index) {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            setActive(index);
+          });
+        },
+        icon: getIcon(index));
+  }
 
   void setActive(state) {
     setState(() {
@@ -38,7 +104,7 @@ class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
 
   void _init() {
     setState(() {
-      active = widget.intial_active;
+      active = widget.intialactive;
     });
   }
 
@@ -49,7 +115,7 @@ class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
   }
 
   @override
-  void didUpdateWidget(Fix_Point_Chose oldWidget) {
+  void didUpdateWidget(FixPointChose oldWidget) {
     super.didUpdateWidget(oldWidget);
     _init();
   }
@@ -59,112 +125,13 @@ class _Fix_Point_ChoseState extends ConsumerState<Fix_Point_Chose> {
     return Column(
       children: [
         Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(1);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_style,
-                  color: active == 1 ? active_color : default_color,
-                )),
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(2);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_top,
-                  color: active == 2 ? active_color : default_color,
-                )),
-            Transform.rotate(
-                angle: 90 * 3.1415 / 180,
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        setActive(3);
-                      });
-                    },
-                    icon: Icon(
-                      Fix_Point_Chose.border_style,
-                      color: active == 3 ? active_color : default_color,
-                    )))
-          ],
+          children: [for (int index = 1; index <= 3; index++) getButton(index)],
         ),
         Row(
-          children: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(4);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_left,
-                  color: active == 4 ? active_color : default_color,
-                )),
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(5);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_clear,
-                  color: active == 5 ? active_color : default_color,
-                )),
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(6);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_right,
-                  color: active == 6 ? active_color : default_color,
-                ))
-          ],
+          children: [for (int index = 4; index <= 6; index++) getButton(index)],
         ),
         Row(
-          children: [
-            Transform.rotate(
-                angle: 270 * 3.1415 / 180,
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        setActive(7);
-                      });
-                    },
-                    icon: Icon(
-                      Fix_Point_Chose.border_style,
-                      color: active == 7 ? active_color : default_color,
-                    ))),
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    setActive(8);
-                  });
-                },
-                icon: Icon(
-                  Fix_Point_Chose.border_bottom,
-                  color: active == 8 ? active_color : default_color,
-                )),
-            Transform.rotate(
-                angle: 180 * 3.1415 / 180,
-                child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        setActive(9);
-                      });
-                    },
-                    icon: Icon(
-                      Fix_Point_Chose.border_style,
-                      color: active == 9 ? active_color : default_color,
-                    )))
-          ],
+          children: [for (int index = 7; index <= 9; index++) getButton(index)],
         ),
       ],
     );

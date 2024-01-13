@@ -1,13 +1,13 @@
 import 'package:morbidelli_cam/load_settings.dart';
 
 //create obj file from bounds
-String model_base() {
+String modelBase() {
   //scale down the object to fit in viewport
   //scale factor from export model programm
-  double scale = double.parse(model_scale_unit.text);
-  double dx = double.parse(model_dx.text);
-  double dy = double.parse(model_dy.text);
-  double dz = double.parse(model_dz.text);
+  double scale = double.parse(modelScaleUnit.text);
+  double dx = double.parse(modelDX.text);
+  double dy = double.parse(modelDY.text);
+  double dz = double.parse(modelDZ.text);
 
   String v1 = "v ${-dx / scale} ${dy / scale} ${-dz / scale}\n ";
   String v2 = "v ${-dx / scale} ${dy / scale} ${dz / scale}\n ";

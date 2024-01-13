@@ -4,51 +4,37 @@ import '../../load_settings.dart';
 import '../../path_privider_lib.dart';
 
 mixin Edit {
-  final TextEditingController x_txt = TextEditingController();
-  final TextEditingController y_txt = TextEditingController();
-  final TextEditingController z_txt = TextEditingController();
+  final TextEditingController xtxt = TextEditingController();
+  final TextEditingController ytxt = TextEditingController();
+  final TextEditingController ztxt = TextEditingController();
 
-  int fix_point = 1;
+  int fixpoint = 1;
 
-  void OnCancel(ref) {
+  void onCancel(ref) {
     //close entity editor
-    int dirId = ref.read(path_directory_id_provider);
-    ref.watch(show_creator_provider.notifier).set(false);
-    ref
-        .read(path_entity_provider.notifier)
-        .remove_object(dirId, 0);
-    ref.read(path_directory_lock_provider.notifier);
-    ref
-        .read(path_directory_lock_provider.notifier)
-        .set(false);
-    if (hide_model_creation_window) {
-      ref.read(show_model_provider.notifier).set(true);
+    int dirId = ref.read(pathDirectoryIdProvider);
+    ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
+    ref.read(pathDirectoryLockProvider.notifier);
+    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    if (hideModelInCreation) {
+      ref.read(showModelProvider.notifier).set(true);
     }
   }
 
-  void OnConfirm(ref, NewObject) {
+  void onConfirm(ref, newObject) {
     //save data to data structure in provider
-    int dirId = ref.read(path_directory_id_provider);
-    int objId = ref
-        .read(path_entity_provider.notifier)
-        .get_new_obj_id(dirId);
+    int dirId = ref.read(pathDirectoryIdProvider);
+    int objId = ref.read(pathEntityProvider.notifier).getNewObjId(dirId);
 
-    ref.read(path_entity_provider.notifier).new_object(
-        dirId,
-        objId,
-        NewObject);
+    ref.read(pathEntityProvider.notifier).newObject(dirId, objId, newObject);
 
     //close entity edit window
-    ref.watch(show_creator_provider.notifier).set(false);
-    ref
-        .read(path_entity_provider.notifier)
-        .remove_object(dirId, 0);
-    ref
-        .read(path_directory_lock_provider.notifier)
-        .set(false);
-    if (hide_model_creation_window) {
-      ref.read(show_model_provider.notifier).set(true);
+    ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
+    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    if (hideModelInCreation) {
+      ref.read(showModelProvider.notifier).set(true);
     }
   }
-
 }

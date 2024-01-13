@@ -5,14 +5,14 @@ import '../../provider_lib.dart';
 import 'import.dart';
 
 //files Tab in MainWindow
-class AppBar_Files extends ConsumerStatefulWidget {
-  const AppBar_Files({super.key});
+class AppBarFiles extends ConsumerStatefulWidget {
+  const AppBarFiles({super.key});
 
   @override
-  ConsumerState<AppBar_Files> createState() => _AppBar_FilesState();
+  ConsumerState<AppBarFiles> createState() => _AppBarFilesState();
 }
 
-class _AppBar_FilesState extends ConsumerState<AppBar_Files> {
+class _AppBarFilesState extends ConsumerState<AppBarFiles> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,20 +49,19 @@ class _AppBar_FilesState extends ConsumerState<AppBar_Files> {
                 //Import
                 //open file picker, get file
                 var importedFile =
-                await change_file(state: ref.read(modelContentProvider));
+                    await changeFile(state: ref.read(modelContentProvider));
                 //set model content to file content
                 ref.read(modelContentProvider.notifier).set(importedFile);
               } else if (value == 1) {
                 //Save
               } else if (value == 2) {
                 //Open
-
               } else if (value == 3) {
                 //Settings
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Settings_Menu()));
+                        builder: (context) => const SettingsMenu()));
               } else if (value == 4) {
                 //Export
               }

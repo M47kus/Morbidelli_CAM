@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/AppBar/edit/base.dart';
 
 //Edit Tab in AppBar
-class AppBar_Edit extends StatelessWidget {
-  const AppBar_Edit({super.key});
+class AppBarEdit extends StatelessWidget {
+  const AppBarEdit({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class AppBar_Edit extends StatelessWidget {
             } else if (value == 2) {
               //Edit Base
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Edit_Base()));
+                  MaterialPageRoute(builder: (context) => const EditBase()));
             }
           }),
     );

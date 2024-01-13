@@ -5,14 +5,14 @@ import '../../helper/textinput.dart';
 
 //Settings Navigation
 //use of TextEditingController
-class Settings_Menu extends StatefulWidget {
-  const Settings_Menu({super.key});
+class SettingsMenu extends StatefulWidget {
+  const SettingsMenu({super.key});
 
   @override
-  State<Settings_Menu> createState() => _Settings_MenuState();
+  State<SettingsMenu> createState() => _SettingsMenuState();
 }
 
-class _Settings_MenuState extends State<Settings_Menu> {
+class _SettingsMenuState extends State<SettingsMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +33,12 @@ class _Settings_MenuState extends State<Settings_Menu> {
             //todo: set settings save to yaml
             //todo: default setting TXTC for dxyz
             ConfigTextInput(
-                label: "Scale Unit obj import", controller: model_scale_unit),
+                label: "Scale Unit obj import", controller: modelScaleUnit),
             BooleanCircleIconButton(
               txt: "hide model in creation window",
-              isActive: hide_model_creation_window ,
+              isActive: hideModelInCreation,
               onTap: () {
-                hide_model_creation_window  = !hide_model_creation_window ;
+                hideModelInCreation = !hideModelInCreation;
                 setState(() {});
               },
             ),
@@ -46,5 +46,3 @@ class _Settings_MenuState extends State<Settings_Menu> {
         ));
   }
 }
-
-

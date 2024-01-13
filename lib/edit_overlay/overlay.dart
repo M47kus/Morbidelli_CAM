@@ -7,23 +7,23 @@ import '../path_privider_lib.dart';
 import 'edit_mask.dart';
 
 //Stacked editor controlls all panels for path editing
-class Path_Editor extends ConsumerStatefulWidget {
-  const Path_Editor({super.key});
+class PathEditor extends ConsumerStatefulWidget {
+  const PathEditor({super.key});
 
   @override
-  ConsumerState<Path_Editor> createState() => _Path_EditorState();
+  ConsumerState<PathEditor> createState() => _PathEditorState();
 }
 
-class _Path_EditorState extends ConsumerState<Path_Editor> {
+class _PathEditorState extends ConsumerState<PathEditor> {
   @override
   Widget build(BuildContext context) {
-    List pathDirectory = ref.watch(path_directory_provider);
+    List pathDirectory = ref.watch(pathDirectoryProvider);
     return Column(
       children: [
         //if true the selection bar is shown
         Visibility(
-            visible: ref.watch(show_path_editor_provider),
-            child: const Path_Mask()),
+            visible: ref.watch(showPathEditorProvider),
+            child: const PathMask()),
         //shows all splines which are created (left side)
         Expanded(
             child: Row(
@@ -47,21 +47,21 @@ class _Path_EditorState extends ConsumerState<Path_Editor> {
             //if true the main edit view is shown (replace the 3d model in middle of screen)
 
             Visibility(
-              visible: ref.watch(show_creator_provider),
+              visible: ref.watch(showCreatorProvider),
               child: Expanded(
                 flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
                 child: Align(
                     alignment: Alignment.topCenter,
-                    child: build_edit_window(ref.read(path_entity_provider)[
-                            ref.watch(path_directory_id_provider)]![
-                        ref.watch(path_object_id_provider)])),
+                    child: buildEditWindow(ref.read(pathEntityProvider)[
+                            ref.watch(pathDirectoryIdProvider)]![
+                        ref.watch(pathObjectIdProvider)])),
               ),
             ),
 
             //shows the precise info from spline in left side
 
             Visibility(
-              visible: ref.watch(show_path_editor_provider),
+              visible: ref.watch(showPathEditorProvider),
               child: const Expanded(
                 flex: 300,
                 child: Align(

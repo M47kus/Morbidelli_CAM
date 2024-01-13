@@ -29,15 +29,15 @@ class ModelViewNotifier extends StateNotifier<String> {
     state = file;
   }
 
-  void set_Top() {
+  void setTop() {
     set("Top");
   }
 
-  void set_Front() {
+  void setFront() {
     set("Front");
   }
 
-  void set_Side() {
+  void setSide() {
     set("Side");
   }
 }
@@ -53,15 +53,15 @@ class ModelApearanceNotifier extends StateNotifier<String> {
     state = file;
   }
 
-  void set_Solid() {
+  void setSolid() {
     set("Solid");
   }
 
-  void set_Wireframe() {
+  void setWireframe() {
     set("Wireframe");
   }
 
-  void set_Points() {
+  void setPoints() {
     set("Points");
   }
 }
@@ -71,15 +71,15 @@ final modelApearanceProvider =
         (ref) => ModelApearanceNotifier());
 
 //Drill Notifier which updates the Drill classes
-class Drill_class_Notifier extends StateNotifier<List> {
-  Drill_class_Notifier() : super([]);
+class DrillClassNotifier extends StateNotifier<List> {
+  DrillClassNotifier() : super([]);
 
   set(List list) {
     state = list;
   }
 
   //load from file at startup
-  Future<void> init_drills() async {
+  Future<void> initDrills() async {
     final data = await rootBundle.loadString('assets/drills.yaml');
     final mapData = loadYaml(data);
 
@@ -100,7 +100,7 @@ class Drill_class_Notifier extends StateNotifier<List> {
   }
 
   //update all Drill classes
-  void refresh_drills(mapData) {
+  void refreshDrills(mapData) {
     set([]);
     //print(mapData);
     mapData.forEach((key, value) {
@@ -118,16 +118,14 @@ class Drill_class_Notifier extends StateNotifier<List> {
   }
 }
 
-final Drill_class_Provider = StateNotifierProvider<Drill_class_Notifier, List>(
-    (ref) => Drill_class_Notifier());
+final drillclassprovider = StateNotifierProvider<DrillClassNotifier, List>(
+    (ref) => DrillClassNotifier());
 
 //Path Editor hide
-class Show_Path_Editor_Notifier extends StateNotifier<bool> {
-  Show_Path_Editor_Notifier() : super(false);
+class ShowPathEditorNotifier extends StateNotifier<bool> {
+  ShowPathEditorNotifier() : super(false);
 
   set(bool data) {
     state = data;
   }
 }
-
-

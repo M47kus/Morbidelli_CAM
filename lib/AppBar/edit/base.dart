@@ -6,14 +6,14 @@ import '../../model_editor/model_render.dart';
 import '../../provider_lib.dart';
 
 //change base size from Textediting Controller
-class Edit_Base extends ConsumerStatefulWidget {
-  const Edit_Base({super.key});
+class EditBase extends ConsumerStatefulWidget {
+  const EditBase({super.key});
 
   @override
-  ConsumerState<Edit_Base> createState() => _Edit_BaseState();
+  ConsumerState<EditBase> createState() => _EditBaseState();
 }
 
-class _Edit_BaseState extends ConsumerState<Edit_Base> {
+class _EditBaseState extends ConsumerState<EditBase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +24,13 @@ class _Edit_BaseState extends ConsumerState<Edit_Base> {
       )),
       body: Column(
         children: [
-          ConfigTextInput(label: "DX", controller: model_dx),
-          ConfigTextInput(label: "DY", controller: model_dy),
-          ConfigTextInput(label: "DZ", controller: model_dz),
+          ConfigTextInput(label: "DX", controller: modelDX),
+          ConfigTextInput(label: "DY", controller: modelDY),
+          ConfigTextInput(label: "DZ", controller: modelDZ),
           TextButton(
               onPressed: () {
                 //get new obj file from txtcontroller
-                String wavefront = model_base();
+                String wavefront = modelBase();
                 //update model in provider
                 ref.read(modelContentProvider.notifier).set(wavefront);
                 Navigator.pop(context);

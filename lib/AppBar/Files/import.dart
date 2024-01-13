@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
 //File picker return new or old file
-Future<String> change_file({state}) async {
+Future<String> changeFile({state}) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles();
 
   if (result != null) {
@@ -12,4 +12,3 @@ Future<String> change_file({state}) async {
     return state;
   }
 }
-

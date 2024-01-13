@@ -5,10 +5,10 @@ import '../load_settings.dart';
 import '../path_privider_lib.dart';
 
 //Mask for adding new commands to cnc list
-class Path_Mask extends ConsumerWidget {
-  const Path_Mask({super.key});
+class PathMask extends ConsumerWidget {
+  const PathMask({super.key});
 
-  static const IconData arrow_drop_up_sharp =
+  static const IconData arrowDropUpSharp =
       IconData(0xe799, fontFamily: 'MaterialIcons');
 
   @override
@@ -22,27 +22,27 @@ class Path_Mask extends ConsumerWidget {
         children: [
           //close Button
           IconButton(
-            icon: const Icon(arrow_drop_up_sharp),
+            icon: const Icon(arrowDropUpSharp),
             onPressed: () {
               //close entity editor
-              int dirId = ref.read(path_directory_id_provider);
-              ref.watch(show_creator_provider.notifier).set(false);
-              ref.read(path_entity_provider.notifier).remove_object(dirId, 0);
-              ref.read(path_directory_lock_provider.notifier);
-              ref.read(path_directory_lock_provider.notifier).set(false);
-              if (hide_model_creation_window) {
-                ref.read(show_model_provider.notifier).set(true);
+              int dirId = ref.read(pathDirectoryIdProvider);
+              ref.watch(showCreatorProvider.notifier).set(false);
+              ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
+              ref.read(pathDirectoryLockProvider.notifier);
+              ref.read(pathDirectoryLockProvider.notifier).set(false);
+              if (hideModelInCreation) {
+                ref.read(showModelProvider.notifier).set(true);
               }
 
               //close edit overlay
-              ref.read(show_path_editor_provider.notifier).set(false);
-              ref.read(path_directory_id_provider.notifier).set(0);
-              ref.read(path_directory_lock_provider.notifier).set(false);
-              ref.read(show_model_provider.notifier).set(true);
+              ref.read(showPathEditorProvider.notifier).set(false);
+              ref.read(pathDirectoryIdProvider.notifier).set(0);
+              ref.read(pathDirectoryLockProvider.notifier).set(false);
+              ref.read(showModelProvider.notifier).set(true);
             },
           ),
           //G0 Button
-          const G0_Mask()
+          const G0Mask()
         ],
       ),
     );

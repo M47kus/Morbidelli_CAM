@@ -15,7 +15,7 @@ class G0Info extends ConsumerWidget with Info {
           onPressed: () {
             onTab(ref, id);
           },
-          child: const Text("G0")),
+          child: getEntityData(ref, id, "G0")),
     );
   }
 }

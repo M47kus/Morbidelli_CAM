@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../load_settings.dart';
 import '../../path_privider_lib.dart';
 
@@ -12,5 +14,15 @@ mixin Info {
     if (hideModelInCreation) {
       ref.read(showModelProvider.notifier).set(false);
     }
+  }
+
+  Widget getEntityData(ref, id, name) {
+    var entity =
+        ref.read(pathEntityProvider)[ref.watch(pathDirectoryIdProvider)]![id];
+
+    return ListTile(
+      title: Text(name),
+      trailing: Text("${entity.x ?? ""} ${entity.y ?? ""} ${entity.z ?? ""}"),
+    );
   }
 }

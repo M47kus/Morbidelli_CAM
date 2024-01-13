@@ -25,6 +25,10 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
       IconData(0xef47, fontFamily: 'MaterialIcons');
 
   void _init() {
+    xtxt.clear();
+    ytxt.clear();
+    ztxt.clear();
+
     if (widget.x != null) {
       xtxt.text = widget.x.toString();
     }

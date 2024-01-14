@@ -103,6 +103,24 @@ class ShowCreatorNotifier extends StateNotifier<bool> {
 final showCreatorProvider = StateNotifierProvider<ShowCreatorNotifier, bool>(
     (ref) => ShowCreatorNotifier());
 
+class ShownSplinesNotifier extends StateNotifier<Map<int, bool>> {
+  ShownSplinesNotifier() : super({});
+
+  set(Map<int, bool> data) {
+    state = data;
+  }
+
+  update(int dirId, data) {
+    Map<int, bool> old = Map.from(state);
+    old[dirId] = data;
+    state = old;
+  }
+}
+
+final shownSplinesProvider =
+    StateNotifierProvider<ShownSplinesNotifier, Map<int, bool>>(
+        (ref) => ShownSplinesNotifier());
+
 //all code entitys in map
 class PathEntityNotifier extends StateNotifier<Map<int, Map>> {
   PathEntityNotifier() : super({0: {}});

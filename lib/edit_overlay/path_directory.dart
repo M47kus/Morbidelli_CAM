@@ -94,8 +94,14 @@ class _PathObjectState extends ConsumerState<PathDirectory> {
                         //set show path variable
                         if (showPath == true) {
                           showPath = false;
+                          ref
+                              .read(shownSplinesProvider.notifier)
+                              .update(widget.id, false);
                         } else {
                           showPath = true;
+                          ref
+                              .read(shownSplinesProvider.notifier)
+                              .update(widget.id, true);
                         }
                       });
                     },
@@ -131,7 +137,7 @@ class CreatePathButton extends ConsumerWidget {
                 ref
                     .read(pathDirectoryProvider.notifier)
                     .add(newDirId, PathDirectory(id: newDirId));
-
+                ref.read(shownSplinesProvider.notifier).update(newDirId, true);
                 ref
                     .read(pathDirectoryIdProvider.notifier)
                     .set(newDirId); //set new id as active window

@@ -9,6 +9,7 @@ mixin Edit {
       IconData(0xef28, fontFamily: 'MaterialIcons');
   static const IconData checkCircleOutline =
       IconData(0xef47, fontFamily: 'MaterialIcons');
+  static const IconData deleteOutlined = IconData(0xefa8, fontFamily: 'MaterialIcons');
 
   final TextEditingController xtxt = TextEditingController();
   final TextEditingController ytxt = TextEditingController();
@@ -45,6 +46,20 @@ mixin Edit {
     ref.read(modelViewProvider.notifier).setTop();
   }
 
+  void onDelete(ref) {
+    //close entity editor
+    int dirId = ref.read(pathDirectoryIdProvider);
+    int objId = ref.watch(pathObjectIdProvider);
+    ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathEntityProvider.notifier).removeObject(dirId, objId);
+    ref.read(pathDirectoryLockProvider.notifier);
+    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    if (hideModelInCreation) {
+      ref.read(showModelProvider.notifier).set(true);
+    }
+    ref.read(modelViewProvider.notifier).setTop();
+  }
+
   Widget buildAppBar(ref,
       {required name, required Function onSaved, required onCanceled}) {
     return Padding(
@@ -52,6 +67,14 @@ mixin Edit {
       child: AppBar(
         title: Text(name),
         actions: [
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: IconButton(
+                onPressed: () {
+                  onDelete(ref);
+                },
+                icon: const Icon(deleteOutlined)),
+          ),
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: IconButton(

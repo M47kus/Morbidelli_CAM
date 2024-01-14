@@ -30,15 +30,21 @@ class ModelViewNotifier extends StateNotifier<String> {
   }
 
   void setTop() {
+    set("Free");
     set("Top");
   }
 
   void setFront() {
+    set("Free");
     set("Front");
   }
 
   void setSide() {
+    set("Free");
     set("Side");
+  }
+  void setFree() {
+    set("Free");
   }
 }
 

@@ -1,6 +1,7 @@
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/edit_overlay/model/lines.dart';
 import 'package:morbidelli_cam/load_settings.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
@@ -64,13 +65,16 @@ class _EditorState extends ConsumerState<Editor> {
     String modelContents = ref.watch(modelContentProvider);
     String modelView = ref.watch(modelViewProvider);
     String modelApearance = ref.watch(modelApearanceProvider);
+    Group3D modelLines = modelEntityLines(ref);
+
+
 
     if (modelContents.isEmpty) {
       return const CircularProgressIndicator(); //progresscircle
     }
     //load viewport to controller
     if (modelView == "Top") {
-      _controller.rotationX = 90;
+      _controller.rotationX = -90;
       _controller.rotationY = 0;
     }
     if (modelView == "Front") {
@@ -99,6 +103,7 @@ class _EditorState extends ConsumerState<Editor> {
                       return DiTreDi(
                         figures: [
                           ...transformModel(snapshot).toPoints(),
+                          modelLines
                         ],
                         controller: _controller,
                       );
@@ -106,6 +111,7 @@ class _EditorState extends ConsumerState<Editor> {
                       return DiTreDi(
                         figures: [
                           ...transformModel(snapshot).toLines(),
+                          modelLines
                         ],
                         controller: _controller,
                       );
@@ -113,6 +119,7 @@ class _EditorState extends ConsumerState<Editor> {
                       return DiTreDi(
                         figures: [
                           transformModel(snapshot),
+                          modelLines
                         ],
                         controller: _controller,
                       );

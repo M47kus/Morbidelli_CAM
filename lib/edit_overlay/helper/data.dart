@@ -33,4 +33,33 @@ class Data {
       }
     }
   }
+
+  modelX() {
+    double scale = double.parse(modelScaleUnit.text);
+    double dx = double.parse(modelDX.text);
+    double convertx = convertX();
+
+    double offset = dx/scale;
+    return convertx/scale*2 - offset;
+
+  }
+
+  modelY() {
+    double scale = double.parse(modelScaleUnit.text);
+    double dy = double.parse(modelDY.text);
+    double converty = convertY();
+
+    double offset = dy/scale;
+    return dy/scale*2 - converty/scale*2 - offset;
+
+  }
+
+  modelZ() {
+    double scale = double.parse(modelScaleUnit.text);
+    double dz = double.parse(modelDZ.text);
+
+    double offset = dz/scale;
+    return dz/scale*2 - z!/scale*2 - offset;
+
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/provider_lib.dart';
 
 import '../../load_settings.dart';
 import '../../path_privider_lib.dart';
@@ -25,6 +26,7 @@ mixin Edit {
     if (hideModelInCreation) {
       ref.read(showModelProvider.notifier).set(true);
     }
+    ref.read(modelViewProvider.notifier).setTop();
   }
 
   void onConfirm(ref, objId, newObject) {
@@ -40,6 +42,7 @@ mixin Edit {
     if (hideModelInCreation) {
       ref.read(showModelProvider.notifier).set(true);
     }
+    ref.read(modelViewProvider.notifier).setTop();
   }
 
   Widget buildAppBar(ref,

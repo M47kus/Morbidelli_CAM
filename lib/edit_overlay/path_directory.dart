@@ -4,24 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../path_privider_lib.dart';
 
 //Main Splines on left side
-class Path_Directory extends ConsumerStatefulWidget {
-  final id;
-  const Path_Directory({super.key, required this.id});
+class PathDirectory extends ConsumerStatefulWidget {
+  final int id;
+  const PathDirectory({super.key, required this.id});
 
   @override
-  ConsumerState<Path_Directory> createState() => _Path_ObjectState();
+  ConsumerState<PathDirectory> createState() => _PathObjectState();
 }
 
-class _Path_ObjectState extends ConsumerState<Path_Directory> {
-  static const IconData mode_edit_outlined =
+class _PathObjectState extends ConsumerState<PathDirectory> {
+  static const IconData modeEditOutlined =
       IconData(0xf1d8, fontFamily: 'MaterialIcons');
-  static const IconData visibility_off_outlined =
+  static const IconData visibilityOffOutlined =
       IconData(0xf4a0, fontFamily: 'MaterialIcons');
-  static const IconData visibility_outlined =
+  static const IconData visibilityOutlined =
       IconData(0xf4a1, fontFamily: 'MaterialIcons');
+  static const IconData deleteOutlined =
+      IconData(0xefa8, fontFamily: 'MaterialIcons');
 
   bool edit = false;
-  bool show_path = true;
+  bool showPath = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
               ? FilledButton(
                   onPressed:
                       ref.watch(pathDirectoryLockProvider) ? null : () {},
-                  child: const Icon(mode_edit_outlined),
+                  child: const Icon(modeEditOutlined),
                 )
               : OutlinedButton(
                   onPressed: ref.watch(pathDirectoryLockProvider)
@@ -57,41 +59,61 @@ class _Path_ObjectState extends ConsumerState<Path_Directory> {
                                 .read(pathDirectoryIdProvider.notifier)
                                 .set(widget.id);
                             //show spline creaton window
-                            ref
-                                .read(showPathEditorProvider.notifier)
-                                .set(true);
+                            ref.read(showPathEditorProvider.notifier).set(true);
                           });
                         },
-                  child: const Icon(mode_edit_outlined),
+                  child: const Icon(modeEditOutlined),
                 ),
           //hide Button
-          trailing: OutlinedButton(
-            onPressed: ref.watch(pathDirectoryLockProvider)
-                ? null
-                : () {
-                    setState(() {
-                      //set show path variable
-                      if (show_path == true) {
-                        show_path = false;
-                      } else {
-                        show_path = true;
-                      }
-                    });
-                  },
-            //change icon
-            child: show_path == true
-                ? const Icon(visibility_outlined)
-                : const Icon(visibility_off_outlined),
+          trailing: Visibility(
+            visible: !edit,
+            replacement: OutlinedButton(
+                onPressed: ref.watch(pathDirectoryLockProvider)
+                    ? null
+                    : () {
+                        ref
+                            .read(pathEntityProvider.notifier)
+                            .removeDirectory(ref.read(pathDirectoryIdProvider));
+                        ref
+                            .read(pathDirectoryProvider.notifier)
+                            .remove(ref.read(pathDirectoryIdProvider));
+
+                        //close edit overlay
+                        ref.read(showPathEditorProvider.notifier).set(false);
+                        ref.read(pathDirectoryIdProvider.notifier).set(0);
+                        ref.read(pathDirectoryLockProvider.notifier).set(false);
+                        ref.read(showModelProvider.notifier).set(true);
+                      },
+                //change icon
+                child: const Icon(deleteOutlined)),
+            child: OutlinedButton(
+              onPressed: ref.watch(pathDirectoryLockProvider)
+                  ? null
+                  : () {
+                      setState(() {
+                        //set show path variable
+                        if (showPath == true) {
+                          showPath = false;
+                        } else {
+                          showPath = true;
+                        }
+                      });
+                    },
+              //change icon
+              child: showPath == true
+                  ? const Icon(visibilityOutlined)
+                  : const Icon(visibilityOffOutlined),
+            ),
           ),
         ));
   }
 }
 
 //Button for spline creaton
-class Create_Path_Button extends ConsumerWidget {
-  const Create_Path_Button({super.key});
+class CreatePathButton extends ConsumerWidget {
+  const CreatePathButton({super.key});
 
-  static const IconData add_box_outlined =
+  static const IconData addBoxOutlined =
       IconData(0xee3c, fontFamily: 'MaterialIcons');
 
   @override
@@ -104,10 +126,11 @@ class Create_Path_Button extends ConsumerWidget {
             : () {
                 //open edit overlay
                 ref.read(showPathEditorProvider.notifier).set(true);
-                int newDirId = ref.read(pathDirectoryProvider).length + 1;
+                int newDirId =
+                    ref.read(pathDirectoryProvider.notifier).getNewId();
                 ref
                     .read(pathDirectoryProvider.notifier)
-                    .add(Path_Directory(id: newDirId));
+                    .add(newDirId, PathDirectory(id: newDirId));
 
                 ref
                     .read(pathDirectoryIdProvider.notifier)
@@ -115,7 +138,7 @@ class Create_Path_Button extends ConsumerWidget {
                 ref.read(pathEntityProvider.notifier).newDirectory(
                     newDirId); //create new directory in main data structure
               },
-        child: const Icon(add_box_outlined),
+        child: const Icon(addBoxOutlined),
       ),
     );
   }

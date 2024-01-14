@@ -17,7 +17,7 @@ class PathEditor extends ConsumerStatefulWidget {
 class _PathEditorState extends ConsumerState<PathEditor> {
   @override
   Widget build(BuildContext context) {
-    List pathDirectory = ref.watch(pathDirectoryProvider);
+    Map<int, PathDirectory> pathDirectory = ref.watch(pathDirectoryProvider);
     return Column(
       children: [
         //if true the selection bar is shown
@@ -37,8 +37,8 @@ class _PathEditorState extends ConsumerState<PathEditor> {
                   child: ListView(
                     children: [
                       //imports all splines from provider list
-                      for (var item in pathDirectory) item,
-                      const Create_Path_Button()
+                      for (var item in pathDirectory.values) item,
+                      const CreatePathButton()
                     ],
                   ),
                 ),

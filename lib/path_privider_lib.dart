@@ -8,20 +8,37 @@ final showPathEditorProvider =
         (ref) => ShowPathEditorNotifier());
 
 //list of buttons for path objects (on left side in overlay)
-class PathDirectoryNotifier extends StateNotifier<List<Path_Directory>> {
-  PathDirectoryNotifier() : super([]);
+class PathDirectoryNotifier extends StateNotifier<Map<int, PathDirectory>> {
+  PathDirectoryNotifier() : super({});
 
-  set(List<Path_Directory> data) {
+  set(Map<int, PathDirectory> data) {
     state = data;
   }
 
-  add(Path_Directory data) {
-    state = List.from(state)..add(data);
+  getNewId() {
+    List keys = Map.from(state).keys.toList();
+    int id = 1;
+    if (keys.isNotEmpty) {
+      id = keys.reduce((curr, next) => curr > next ? curr : next) + 1;
+    }
+    return id;
+  }
+
+  add(int dirId, PathDirectory data) {
+    Map<int, PathDirectory> old = Map.from(state);
+    old[dirId] = data;
+    state = old;
+  }
+
+  remove(int dirId) {
+    Map<int, PathDirectory> old = Map.from(state);
+    old.remove(dirId);
+    state = old;
   }
 }
 
 final pathDirectoryProvider =
-    StateNotifierProvider<PathDirectoryNotifier, List<Path_Directory>>(
+    StateNotifierProvider<PathDirectoryNotifier, Map<int, PathDirectory>>(
         (ref) => PathDirectoryNotifier());
 
 //lock path objects
@@ -118,6 +135,12 @@ class PathEntityNotifier extends StateNotifier<Map<int, Map>> {
   removeObject(int dirId, int objId) {
     Map<int, Map> old = Map.from(state);
     old[dirId]!.remove(objId);
+    state = old;
+  }
+
+  removeDirectory(int dirId) {
+    Map<int, Map> old = Map.from(state);
+    old.remove(dirId);
     state = old;
   }
 }

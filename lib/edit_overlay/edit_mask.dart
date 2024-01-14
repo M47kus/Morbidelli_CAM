@@ -29,7 +29,6 @@ class PathMask extends ConsumerWidget {
               int dirId = ref.read(pathDirectoryIdProvider);
               ref.watch(showCreatorProvider.notifier).set(false);
               ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
-              ref.read(pathDirectoryLockProvider.notifier);
               ref.read(pathDirectoryLockProvider.notifier).set(false);
               if (hideModelInCreation) {
                 ref.read(showModelProvider.notifier).set(true);

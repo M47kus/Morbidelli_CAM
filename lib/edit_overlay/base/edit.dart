@@ -9,7 +9,8 @@ mixin Edit {
       IconData(0xef28, fontFamily: 'MaterialIcons');
   static const IconData checkCircleOutline =
       IconData(0xef47, fontFamily: 'MaterialIcons');
-  static const IconData deleteOutlined = IconData(0xefa8, fontFamily: 'MaterialIcons');
+  static const IconData deleteOutlined =
+      IconData(0xefa8, fontFamily: 'MaterialIcons');
 
   final TextEditingController xtxt = TextEditingController();
   final TextEditingController ytxt = TextEditingController();

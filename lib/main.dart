@@ -11,19 +11,22 @@ import 'AppBar/drill/drill.dart';
 import 'edit_overlay/overlay.dart';
 import 'model_editor/editor.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initSettings();
   runApp(const ProviderScope(child: MorbidelliCAM()));
 }
 
-class MorbidelliCAM extends ConsumerWidget {
+class MorbidelliCAM extends ConsumerStatefulWidget {
   const MorbidelliCAM({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    initSettings(); //read settings from yaml + TextEditingController
-    ref
-        .read(drillclassprovider.notifier)
-        .initDrills(); //read drills.yaml + create Drill classes
+  ConsumerState<MorbidelliCAM> createState() => _MorbidelliCAMState();
+}
+
+class _MorbidelliCAMState extends ConsumerState<MorbidelliCAM> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
           brightness: Brightness.dark,
@@ -34,16 +37,14 @@ class MorbidelliCAM extends ConsumerWidget {
   }
 }
 
-class MainScreen extends ConsumerStatefulWidget {
+class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
 
   @override
-  ConsumerState<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends ConsumerState<MainScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref
+        .read(drillclassprovider.notifier)
+        .initDrills(); //read drills.yaml + create Drill classes
     return Scaffold(
         appBar: AppBar(
           actions: const [

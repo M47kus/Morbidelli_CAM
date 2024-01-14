@@ -1,8 +1,11 @@
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/load_settings.dart';
 import 'package:morbidelli_cam/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+
+import 'model_render.dart';
 
 //Editor in Main Window
 //Shows the 3d Modell
@@ -28,7 +31,16 @@ class _EditorState extends ConsumerState<Editor> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //read default object from file
-      ref.read(modelContentProvider.notifier).readObject();
+      if (initShowDefaultModel) {
+        ref
+            .read(modelContentProvider.notifier)
+            .readObject('assets/default.obj');
+      } else {
+        String wavefront = modelBase();
+        //update model in provider
+        ref.read(modelContentProvider.notifier).set(wavefront);
+      }
+
       //set viewport to top
       ref.read(modelViewProvider.notifier).setTop();
       setState(() {}); //update
@@ -36,7 +48,7 @@ class _EditorState extends ConsumerState<Editor> {
   }
 
   //Model transform wraped in function
-  TransformModifier3D transform_model(snapshot) {
+  TransformModifier3D transformModel(snapshot) {
     return TransformModifier3D(
         Group3D(snapshot.data!),
         Matrix4.identity()
@@ -86,21 +98,21 @@ class _EditorState extends ConsumerState<Editor> {
                     if (modelApearance == "Points") {
                       return DiTreDi(
                         figures: [
-                          ...transform_model(snapshot).toPoints(),
+                          ...transformModel(snapshot).toPoints(),
                         ],
                         controller: _controller,
                       );
                     } else if (modelApearance == "Wireframe") {
                       return DiTreDi(
                         figures: [
-                          ...transform_model(snapshot).toLines(),
+                          ...transformModel(snapshot).toLines(),
                         ],
                         controller: _controller,
                       );
                     } else {
                       return DiTreDi(
                         figures: [
-                          transform_model(snapshot),
+                          transformModel(snapshot),
                         ],
                         controller: _controller,
                       );

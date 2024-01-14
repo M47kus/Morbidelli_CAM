@@ -12,8 +12,8 @@ class ModelContentNotifier extends StateNotifier<String> {
     state = file;
   }
 
-  void readObject() {
-    set(File('assets/default.obj').readAsStringSync());
+  void readObject(path) {
+    set(File(path).readAsStringSync());
   }
 }
 

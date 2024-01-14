@@ -66,7 +66,7 @@ class _PathEditorState extends ConsumerState<PathEditor> {
                 flex: 300,
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: SizedBox(width: 300, child: Path_SubObject()),
+                  child: SizedBox(width: 300, child: PathSubObject()),
                 ),
               ),
             )

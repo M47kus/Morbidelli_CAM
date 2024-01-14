@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_mask.dart';
+import 'package:morbidelli_cam/edit_overlay/g1/g1_mask.dart';
 import '../load_settings.dart';
 import '../path_privider_lib.dart';
 
@@ -42,7 +43,8 @@ class PathMask extends ConsumerWidget {
             },
           ),
           //G0 Button
-          const G0Mask()
+          const G0Mask(),
+          const G1Mask()
         ],
       ),
     );

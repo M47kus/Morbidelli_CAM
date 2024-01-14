@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/edit_overlay/g0/go_info.dart';
+import 'package:morbidelli_cam/edit_overlay/helper/data.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 
 import '../../path_privider_lib.dart';
 import '../base/edit.dart';
-import '../helper/data.dart';
 import '../helper/origin_point.dart';
+import 'g1_info.dart';
 
-class G0Creator extends ConsumerStatefulWidget {
+class G1Creator extends ConsumerStatefulWidget {
   final double? x;
   final double? y;
   final double? z;
   final int? fix;
   final bool isNew;
-  const G0Creator(
+  const G1Creator(
       {this.x, this.y, this.z, this.fix, super.key, this.isNew = false});
 
   @override
-  ConsumerState<G0Creator> createState() => _G0CreatorState();
+  ConsumerState<G1Creator> createState() => _G1CreatorState();
 }
 
-class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
+class _G1CreatorState extends ConsumerState<G1Creator> with Edit {
   void _init() {
     xtxt.clear();
     ytxt.clear();
@@ -47,7 +47,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
   }
 
   @override
-  void didUpdateWidget(G0Creator oldWidget) {
+  void didUpdateWidget(G1Creator oldWidget) {
     super.didUpdateWidget(oldWidget);
     _init();
   }
@@ -56,7 +56,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildAppBar(ref, name: "G0", onCanceled: onCancel, onSaved: () {
+        buildAppBar(ref, name: "G1", onCanceled: onCancel, onSaved: () {
           int dirId = ref.read(pathDirectoryIdProvider);
           int objId = ref.read(pathEntityProvider.notifier).getNewObjId(dirId);
           //if object is already created update old object
@@ -67,7 +67,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
           onConfirm(
               ref,
               objId,
-              G0Data(
+              G1Data(
                   id: objId,
                   x: double.parse(xtxt.text),
                   y: double.parse(ytxt.text),
@@ -88,7 +88,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
   }
 }
 
-class G0Data extends Data {
+class G1Data extends Data {
   int id;
   @override
   double? x;
@@ -98,11 +98,10 @@ class G0Data extends Data {
   double? z;
   @override
   int? fix;
-  G0Data({required this.id, this.x, this.y, this.z, this.fix});
+  G1Data({required this.id, this.x, this.y, this.z, this.fix});
 
   Widget getInfoButton() {
-    return G0Info(id: id);
+    return G1Info(id: id);
   }
-
 
 }

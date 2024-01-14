@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../load_settings.dart';
 import '../../path_privider_lib.dart';
 
@@ -22,7 +21,8 @@ mixin Info {
 
     return ListTile(
       title: Text(name),
-      trailing: Text("${entity.x ?? ""} ${entity.y ?? ""} ${entity.z ?? ""}"),
+      trailing: Text(
+          "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}"),
     );
   }
 }

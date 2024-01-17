@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../load_settings.dart';
-import '../../path_privider_lib.dart';
+import '../../editor_functions/data_parse.dart';
+import '../../main/load_settings.dart';
+import '../../provider/path_privider_lib.dart';
 
 mixin Info {
   void onTab(ref, id) {
@@ -17,7 +18,7 @@ mixin Info {
 
   Widget getEntityData(ref, id, name) {
     var entity =
-        ref.read(pathEntityProvider)[ref.watch(pathDirectoryIdProvider)]![id];
+        ref.read(entityProvider)[ref.watch(pathDirectoryIdProvider)]![id];
 
     return ListTile(
       title: Text(name),

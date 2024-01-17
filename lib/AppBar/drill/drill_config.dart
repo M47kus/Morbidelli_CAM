@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
+import 'package:morbidelli_cam/provider/provider_lib.dart';
 
 //Config Window for all imported drills
 class DrillConfig extends ConsumerWidget {

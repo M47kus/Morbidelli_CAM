@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../load_settings.dart';
-import '../../path_privider_lib.dart';
+import '../../editor_functions/data_parse.dart';
+import '../../main/load_settings.dart';
+import '../../provider/path_privider_lib.dart';
 
 mixin Mask {
   void onTab(ref, widget) {
     //create new empty entity in data structure
     int dirId = ref.read(pathDirectoryIdProvider);
-    ref.read(pathEntityProvider.notifier).newObject(dirId, 0, widget);
+    ref.read(entityProvider.notifier).newObject(dirId, 0, widget);
     ref.read(pathObjectIdProvider.notifier).set(0);
     ref.watch(showCreatorProvider.notifier).set(true);
     //disable directory buttons

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/AppBar/Files/settings.dart';
-import '../../provider_lib.dart';
+import '../../provider/provider_lib.dart';
 import 'import.dart';
 
 //files Tab in MainWindow

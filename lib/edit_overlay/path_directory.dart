@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../path_privider_lib.dart';
+import '../editor_functions/data_parse.dart';
+import '../provider/path_privider_lib.dart';
 
 //Main Splines on left side
 class PathDirectory extends ConsumerStatefulWidget {
@@ -56,6 +57,10 @@ class _PathObjectState extends ConsumerState<PathDirectory> {
                             //set edit to true and change editing privider id
                             edit = true;
                             ref
+                                .read(shownSplinesProvider.notifier)
+                                .update(widget.id, true);
+                            showPath = true;
+                            ref
                                 .read(pathDirectoryIdProvider.notifier)
                                 .set(widget.id);
                             //show spline creaton window
@@ -72,7 +77,7 @@ class _PathObjectState extends ConsumerState<PathDirectory> {
                     ? null
                     : () {
                         ref
-                            .read(pathEntityProvider.notifier)
+                            .read(entityProvider.notifier)
                             .removeDirectory(ref.read(pathDirectoryIdProvider));
                         ref
                             .read(pathDirectoryProvider.notifier)
@@ -141,7 +146,7 @@ class CreatePathButton extends ConsumerWidget {
                 ref
                     .read(pathDirectoryIdProvider.notifier)
                     .set(newDirId); //set new id as active window
-                ref.read(pathEntityProvider.notifier).newDirectory(
+                ref.read(entityProvider.notifier).newDirectory(
                     newDirId); //create new directory in main data structure
               },
         child: const Icon(addBoxOutlined),

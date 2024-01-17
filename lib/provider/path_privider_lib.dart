@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
-import 'edit_overlay/path_directory.dart';
+import 'package:morbidelli_cam/provider/provider_lib.dart';
+import '../edit_overlay/path_directory.dart';
 
 //if true the edit overlay will be shown. used in overlay.dart
 final showPathEditorProvider =
@@ -120,49 +120,3 @@ class ShownSplinesNotifier extends StateNotifier<Map<int, bool>> {
 final shownSplinesProvider =
     StateNotifierProvider<ShownSplinesNotifier, Map<int, bool>>(
         (ref) => ShownSplinesNotifier());
-
-//all code entitys in map
-class PathEntityNotifier extends StateNotifier<Map<int, Map>> {
-  PathEntityNotifier() : super({0: {}});
-
-  set(Map<int, Map> data) {
-    state = data;
-  }
-
-  newDirectory(int id) {
-    Map<int, Map> old = Map.from(state);
-    old[id] = {};
-    state = old;
-  }
-
-  getNewObjId(int dirId) {
-    List keys = Map.from(state)[dirId]!.keys.toList();
-    int id = 1;
-    if (keys.isNotEmpty) {
-      id = keys.reduce((curr, next) => curr > next ? curr : next) + 1;
-    }
-    return id;
-  }
-
-  newObject(int dirId, int objId, data) {
-    Map<int, Map> old = Map.from(state);
-    old[dirId]![objId] = data;
-    state = old;
-  }
-
-  removeObject(int dirId, int objId) {
-    Map<int, Map> old = Map.from(state);
-    old[dirId]!.remove(objId);
-    state = old;
-  }
-
-  removeDirectory(int dirId) {
-    Map<int, Map> old = Map.from(state);
-    old.remove(dirId);
-    state = old;
-  }
-}
-
-final pathEntityProvider =
-    StateNotifierProvider<PathEntityNotifier, Map<int, Map>>(
-        (ref) => PathEntityNotifier());

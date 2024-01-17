@@ -1,4 +1,4 @@
-import '../../load_settings.dart';
+import '../../main/load_settings.dart';
 
 class Data {
   double? x;

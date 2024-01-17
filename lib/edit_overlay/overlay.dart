@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/helper/edit_window_build.dart';
 import 'package:morbidelli_cam/edit_overlay/path_directory.dart';
 import 'package:morbidelli_cam/edit_overlay/path_object.dart';
-import '../path_privider_lib.dart';
+import '../editor_functions/data_parse.dart';
+import '../provider/path_privider_lib.dart';
 import 'edit_mask.dart';
 
 //Stacked editor controlls all panels for path editing
@@ -52,7 +53,7 @@ class _PathEditorState extends ConsumerState<PathEditor> {
                 flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
                 child: Align(
                     alignment: Alignment.topCenter,
-                    child: buildEditWindow(ref.read(pathEntityProvider)[
+                    child: buildEditWindow(ref.read(entityProvider)[
                             ref.watch(pathDirectoryIdProvider)]![
                         ref.watch(pathObjectIdProvider)])),
               ),

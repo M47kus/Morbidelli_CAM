@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
+import 'package:morbidelli_cam/provider/provider_lib.dart';
 
-import '../../load_settings.dart';
-import '../../path_privider_lib.dart';
+import '../../editor_functions/data_parse.dart';
+import '../../main/load_settings.dart';
+import '../../provider/path_privider_lib.dart';
 
 mixin Edit {
   static const IconData cancelOutlined =
@@ -22,7 +23,7 @@ mixin Edit {
     //close entity editor
     int dirId = ref.read(pathDirectoryIdProvider);
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
+    ref.read(entityProvider.notifier).removeObject(dirId, 0);
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     if (hideModelInCreation) {
@@ -35,11 +36,11 @@ mixin Edit {
     int dirId = ref.read(pathDirectoryIdProvider);
 
     //save data to data structure in provider
-    ref.read(pathEntityProvider.notifier).newObject(dirId, objId, newObject);
+    ref.read(entityProvider.notifier).newObject(dirId, objId, newObject);
 
     //close entity edit window
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(pathEntityProvider.notifier).removeObject(dirId, 0);
+    ref.read(entityProvider.notifier).removeObject(dirId, 0);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     if (hideModelInCreation) {
       ref.read(showModelProvider.notifier).set(true);
@@ -52,7 +53,7 @@ mixin Edit {
     int dirId = ref.read(pathDirectoryIdProvider);
     int objId = ref.watch(pathObjectIdProvider);
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(pathEntityProvider.notifier).removeObject(dirId, objId);
+    ref.read(entityProvider.notifier).removeObject(dirId, objId);
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     if (hideModelInCreation) {

@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_info.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 
-import '../../path_privider_lib.dart';
+import '../../editor_functions/data_parse.dart';
+import '../../provider/path_privider_lib.dart';
 import '../base/edit.dart';
 import '../helper/data.dart';
 import '../helper/origin_point.dart';
@@ -58,7 +59,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
       children: [
         buildAppBar(ref, name: "G0", onCanceled: onCancel, onSaved: () {
           int dirId = ref.read(pathDirectoryIdProvider);
-          int objId = ref.read(pathEntityProvider.notifier).getNewObjId(dirId);
+          int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
           //if object is already created update old object
 
           if (widget.isNew == false) {

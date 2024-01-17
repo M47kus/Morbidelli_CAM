@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:yaml/yaml.dart";
-import 'AppBar/drill/drill_class.dart';
+import '../AppBar/drill/drill_class.dart';
 
 //Presented Model in Editor
 class ModelContentNotifier extends StateNotifier<String> {

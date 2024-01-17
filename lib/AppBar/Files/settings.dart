@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:morbidelli_cam/load_settings.dart';
+import 'package:morbidelli_cam/main/load_settings.dart';
 import '../../helper/check_button.dart';
 import '../../helper/textinput.dart';
 

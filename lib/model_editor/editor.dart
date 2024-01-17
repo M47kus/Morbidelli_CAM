@@ -1,9 +1,9 @@
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/edit_overlay/model/lines.dart';
-import 'package:morbidelli_cam/load_settings.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
+import 'package:morbidelli_cam/editor_functions/data_parse.dart';
+import 'package:morbidelli_cam/main/load_settings.dart';
+import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 import 'model_render.dart';
@@ -65,7 +65,7 @@ class _EditorState extends ConsumerState<Editor> {
     String modelContents = ref.watch(modelContentProvider);
     String modelView = ref.watch(modelViewProvider);
     String modelApearance = ref.watch(modelApearanceProvider);
-    Group3D modelLines = modelEntityLines(ref);
+    Group3D modelLines = ref.read(entityProvider.notifier).toLines(ref);
 
 
 

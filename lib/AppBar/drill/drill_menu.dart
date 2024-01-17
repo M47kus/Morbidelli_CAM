@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:morbidelli_cam/AppBar/drill/save_drill.dart";
 import "package:morbidelli_cam/helper/textinput.dart";
-import "package:morbidelli_cam/provider_lib.dart";
+import 'package:morbidelli_cam/provider/provider_lib.dart';
 
 //Menu, called from Drill class
 class DrillMenu extends ConsumerStatefulWidget {

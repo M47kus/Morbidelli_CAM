@@ -1,4 +1,4 @@
-import 'package:morbidelli_cam/load_settings.dart';
+import 'package:morbidelli_cam/main/load_settings.dart';
 
 //create obj file from bounds
 String modelBase() {

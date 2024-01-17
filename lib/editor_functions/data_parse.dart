@@ -48,6 +48,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
     state = old;
   }
 
+  //todo: later in export format to Data classes with drill info
   void toGFormat(ref) {
     int? lineStart;
     List spline = [];
@@ -57,20 +58,14 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
       //All Entitys from top to bottom
       for (var entity in ref.read(entityProvider)[dirId].values) {
 
-
-        if (entity is G0Data) {
-        } else if (entity is G1Data && lineStart != null) {
-          if (entity.id > lineStart) {
-            spline.add(entity);
-          }
-        }
       }
     }
   }
 
-  Group3D toLines(ref) {
-    List<Line3D> modelLines = [];
-    int? lineStart;
+  //convert all entitys in state to Line3D
+  Group3D toVisibleLines(ref) {
+    List<Line3D> modelLines = []; //final Line3D list
+    int? lineStart; //start id of entity to ignore all unrelevant entitys
     List spline = [];
 
     for (int dirId in state.keys) {
@@ -78,21 +73,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
         if (ref.read(shownSplinesProvider)[dirId]) {
           for (var entity in state[dirId]!.values) {
             if (entity is G0Data) {
-              if (spline.isNotEmpty) {
-                for (int index = 0; index < spline.length; index++) {
-                  if (index < spline.length - 1) {
-                    modelLines.add(Line3D(
-                        Vector3(spline[index].modelX(), spline[index].modelZ(),
-                            spline[index].modelY()),
-                        Vector3(
-                            spline[index + 1].modelX(),
-                            spline[index + 1].modelZ(),
-                            spline[index + 1].modelY()),
-                        width: 1));
-                  }
-                }
-                spline.clear();
-              }
+              (modelLines, spline) = _addModelLine(modelLines, spline);
 
               lineStart = entity.id;
               spline.add(entity);
@@ -103,23 +84,31 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
             }
           }
 
-          if (spline.isNotEmpty) {
-            for (int index = 0; index < spline.length; index++) {
-              if (index < spline.length - 1) {
-                modelLines.add(Line3D(
-                    Vector3(spline[index].modelX(), spline[index].modelZ(),
-                        spline[index].modelY()),
-                    Vector3(spline[index + 1].modelX(),
-                        spline[index + 1].modelZ(), spline[index + 1].modelY()),
-                    width: 1));
-              }
-            }
-            spline.clear();
-          }
+          (modelLines, spline) = _addModelLine(modelLines, spline);
         }
       }
     }
     return Group3D(modelLines);
+  }
+
+  //pull spline data to modellines and empty spline
+  (List<Line3D>, List) _addModelLine(modelLines, spline) {
+    if (spline.isNotEmpty) {
+      for (int index = 0; index < spline.length; index++) {
+        if (index < spline.length - 1) {
+          modelLines.add(Line3D(
+              Vector3(spline[index].modelX(), spline[index].modelZ(),
+                  spline[index].modelY()),
+              Vector3(
+                  spline[index + 1].modelX(),
+                  spline[index + 1].modelZ(),
+                  spline[index + 1].modelY()),
+              width: 1));
+        }
+      }
+      spline.clear();
+    }
+    return (modelLines, spline);
   }
 
 }

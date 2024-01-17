@@ -65,7 +65,7 @@ class _EditorState extends ConsumerState<Editor> {
     String modelContents = ref.watch(modelContentProvider);
     String modelView = ref.watch(modelViewProvider);
     String modelApearance = ref.watch(modelApearanceProvider);
-    Group3D modelLines = ref.read(entityProvider.notifier).toLines(ref);
+    Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref);
 
 
 

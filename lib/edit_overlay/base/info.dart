@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/edit_overlay/drill/drill_edit.dart';
 import '../../editor_functions/data_parse.dart';
 import '../../main/load_settings.dart';
 import '../../provider/path_privider_lib.dart';
@@ -16,14 +17,21 @@ mixin Info {
     }
   }
 
+  String _getEntityText(entity) {
+     if(entity is DrillData) {
+      return "${entity.drill}";
+    } else {
+       return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
+     }
+  }
+
   Widget getEntityData(ref, id, name) {
     var entity =
         ref.read(entityProvider)[ref.watch(pathDirectoryIdProvider)]![id];
 
     return ListTile(
       title: Text(name),
-      trailing: Text(
-          "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}"),
+      trailing: Text(_getEntityText(entity)),
     );
   }
 }

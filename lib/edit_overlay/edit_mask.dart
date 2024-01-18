@@ -5,6 +5,7 @@ import 'package:morbidelli_cam/edit_overlay/g1/g1_mask.dart';
 import '../editor_functions/data_parse.dart';
 import '../main/load_settings.dart';
 import '../provider/path_privider_lib.dart';
+import 'drill/drill_mask.dart';
 
 //Mask for adding new commands to cnc list
 class PathMask extends ConsumerWidget {
@@ -43,6 +44,7 @@ class PathMask extends ConsumerWidget {
             },
           ),
           //G0 Button
+          const DrillMask(),
           const G0Mask(),
           const G1Mask()
         ],

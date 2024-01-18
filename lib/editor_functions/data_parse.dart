@@ -5,8 +5,7 @@ import 'package:ditredi/ditredi.dart';
 import '../edit_overlay/g0/go_edit.dart';
 import '../edit_overlay/g1/g1_edit.dart';
 import '../provider/path_privider_lib.dart';
-
-
+        
 //all code entitys in map
 class EntityNotifier extends StateNotifier<Map<int, Map>> {
   EntityNotifier() : super({0: {}});

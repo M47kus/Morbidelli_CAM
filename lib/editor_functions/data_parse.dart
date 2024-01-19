@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vector_math/vector_math_64.dart';
 import 'package:ditredi/ditredi.dart';
@@ -96,13 +98,14 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
       for (int index = 0; index < spline.length; index++) {
         if (index < spline.length - 1) {
           modelLines.add(Line3D(
+
               Vector3(spline[index].modelX(), spline[index].modelZ(),
                   spline[index].modelY()),
               Vector3(
                   spline[index + 1].modelX(),
                   spline[index + 1].modelZ(),
                   spline[index + 1].modelY()),
-              width: 1));
+              width: 1, color: const Color.fromARGB(255, 58, 211, 21)));
         }
       }
       spline.clear();

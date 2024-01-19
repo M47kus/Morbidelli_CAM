@@ -77,13 +77,17 @@ class _EditorState extends ConsumerState<Editor> {
       _controller.rotationX = -90;
       _controller.rotationY = 0;
     }
-    if (modelView == "Front") {
+    else if (modelView == "Front") {
       _controller.rotationX = 0;
       _controller.rotationY = 0;
     }
-    if (modelView == "Side") {
+    else if (modelView == "SideRight") {
       _controller.rotationX = 0;
       _controller.rotationY = 90;
+    }
+    else if (modelView == "SideLeft") {
+      _controller.rotationX = 0;
+      _controller.rotationY = -90;
     }
 
     return SafeArea(
@@ -93,6 +97,8 @@ class _EditorState extends ConsumerState<Editor> {
         children: [
           Expanded(
             child: DiTreDiDraggable(
+              rotationEnabled: true,
+              scaleEnabled: true,
               controller: _controller,
               child: FutureBuilder(
                 future: ObjParser().parse(modelContents),

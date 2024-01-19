@@ -24,48 +24,30 @@ class _AppBar_ViewState extends ConsumerState<AppBar_View> {
               return [
                 const PopupMenuItem<int>(
                   value: 0,
-                  child: Text("Top"),
-                ),
-                const PopupMenuItem<int>(
-                  value: 1,
-                  child: Text("Front"),
-                ),
-                const PopupMenuItem<int>(
-                  value: 2,
-                  child: Text("Side"),
-                ),
-                const PopupMenuItem<int>(
-                  value: 3,
                   child: Text("Solid"),
                 ),
                 const PopupMenuItem<int>(
-                  value: 4,
+                  value: 1,
                   child: Text("Wireframe"),
                 ),
                 const PopupMenuItem<int>(
-                  value: 5,
+                  value: 2,
                   child: Text("Points"),
                 ),
                 const PopupMenuItem<int>(
-                  value: 6,
+                  value: 3,
                   child: Text("Re-Render"),
                 ),
               ];
             },
             onSelected: (value) {
               if (value == 0) {
-                ref.read(modelViewProvider.notifier).setTop();
-              } else if (value == 1) {
-                ref.read(modelViewProvider.notifier).setFront();
-              } else if (value == 2) {
-                ref.read(modelViewProvider.notifier).setSide();
-              } else if (value == 3) {
                 ref.read(modelApearanceProvider.notifier).setSolid();
-              } else if (value == 4) {
+              } else if (value == 1) {
                 ref.read(modelApearanceProvider.notifier).setWireframe();
-              } else if (value == 5) {
+              } else if (value == 2) {
                 ref.read(modelApearanceProvider.notifier).setPoints();
-              } else if (value == 6) {
+              } else if (value == 3) {
                 //re-load base model and load to provider
                 String wavefront = modelBase();
                 ref.read(modelContentProvider.notifier).set(wavefront);

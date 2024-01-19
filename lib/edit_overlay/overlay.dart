@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/helper/edit_window_build.dart';
 import 'package:morbidelli_cam/edit_overlay/path_directory.dart';
 import 'package:morbidelli_cam/edit_overlay/path_object.dart';
+import 'package:morbidelli_cam/edit_overlay/helper/view_selector.dart';
 import '../editor_functions/data_parse.dart';
 import '../provider/path_privider_lib.dart';
 import 'edit_mask.dart';
@@ -49,6 +50,13 @@ class _PathEditorState extends ConsumerState<PathEditor> {
 
             Visibility(
               visible: ref.watch(showCreatorProvider),
+              replacement: Expanded(
+                flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
+                child: const Align(
+                  alignment: Alignment.topRight,
+                  child: ViewSelector(),
+                ),
+              ),
               child: Expanded(
                 flex: (MediaQuery.of(context).size.width - 300 * 2).round(),
                 child: Align(
@@ -63,11 +71,22 @@ class _PathEditorState extends ConsumerState<PathEditor> {
 
             Visibility(
               visible: ref.watch(showPathEditorProvider),
-              child: const Expanded(
+              child: Expanded(
                 flex: 300,
                 child: Align(
                   alignment: Alignment.topRight,
-                  child: SizedBox(width: 300, child: PathSubObject()),
+                  child: SizedBox(
+                    width: 300,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          border:
+                              Border(left: BorderSide(color: Colors.white))),
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8, right: 8),
+                        child: PathSubObject(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             )

@@ -46,7 +46,7 @@ class _DrillCreatorState extends ConsumerState<DrillCreator> with Edit {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildAppBar(ref, name: "G0", onCanceled: onCancel, onSaved: () {
+        buildAppBar(ref, name: "Drill", onCanceled: onCancel, onSaved: () {
           int dirId = ref.read(pathDirectoryIdProvider);
           int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
           //if object is already created update old object

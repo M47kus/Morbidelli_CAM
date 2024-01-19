@@ -25,7 +25,7 @@ mixin Info {
         return "";
       }
     } else {
-      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
+      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""} ${entity.correct ?? "p"}";
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_info.dart';
+import 'package:morbidelli_cam/edit_overlay/helper/offset_corection.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 
 import '../../editor_functions/data_parse.dart';
@@ -14,9 +15,16 @@ class G0Creator extends ConsumerStatefulWidget {
   final double? y;
   final double? z;
   final int? fix;
+  final int? correction;
   final bool isNew;
   const G0Creator(
-      {this.x, this.y, this.z, this.fix, super.key, this.isNew = false});
+      {this.x,
+      this.y,
+      this.z,
+      this.fix,
+      this.correction,
+      super.key,
+      this.isNew = false});
 
   @override
   ConsumerState<G0Creator> createState() => _G0CreatorState();
@@ -39,6 +47,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
     }
 
     fixpoint = widget.fix ?? 1;
+    correction = widget.correction ?? 0;
   }
 
   @override
@@ -73,13 +82,27 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
                   x: double.parse(xtxt.text),
                   y: double.parse(ytxt.text),
                   z: double.parse(ztxt.text),
-                  fix: fixpoint));
+                  fix: fixpoint,
+                  correct: correction));
         }),
         Expanded(
             child: Column(children: [
-          FixPointChose(fixpoint, (state) {
-            fixpoint = state;
-          }),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FixPointChose(fixpoint, (state) {
+                fixpoint = state;
+              }),
+              DrillCorrection(
+                data: correction,
+                returnvalue: (data) {
+                  setState(() {
+                    correction = data;
+                  });
+                },
+              )
+            ],
+          ),
           ConfigTextInput(label: "X", controller: xtxt),
           ConfigTextInput(label: "Y", controller: ytxt),
           ConfigTextInput(label: "Z", controller: ztxt)
@@ -91,6 +114,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
 
 class G0Data extends Data {
   int id;
+  int? correct;
   @override
   double? x;
   @override
@@ -99,11 +123,9 @@ class G0Data extends Data {
   double? z;
   @override
   int? fix;
-  G0Data({required this.id, this.x, this.y, this.z, this.fix});
+  G0Data({required this.id, this.x, this.y, this.z, this.fix, this.correct});
 
   Widget getInfoButton() {
     return G0Info(id: id);
   }
-
-
 }

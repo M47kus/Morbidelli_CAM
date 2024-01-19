@@ -18,6 +18,7 @@ Widget buildEditWindow(type) {
       y: type.y,
       z: type.z,
       fix: type.fix,
+      correction: type.correct,
       isNew: isNew,
     );
   } else if (type is G1Data) {

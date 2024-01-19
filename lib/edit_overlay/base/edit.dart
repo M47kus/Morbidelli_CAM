@@ -18,6 +18,7 @@ mixin Edit {
   final TextEditingController ztxt = TextEditingController();
 
   int fixpoint = 1;
+  int correction = 0;
 
   void onCancel(ref) {
     //close entity editor

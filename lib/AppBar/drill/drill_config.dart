@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 
+import 'drill_class.dart';
+
 //Config Window for all imported drills
 class DrillConfig extends ConsumerWidget {
   const DrillConfig({super.key});
@@ -22,8 +24,8 @@ class DrillConfig extends ConsumerWidget {
             crossAxisCount: 10,
             children: [
               //import all drills from global drill class Provider
-              for (int i = 0; i < ref.read(drillclassprovider).length; i++)
-                ref.read(drillclassprovider)[i]
+              for (Drill drill in ref.read(drillclassprovider).values)
+                drill
             ]));
   }
 }

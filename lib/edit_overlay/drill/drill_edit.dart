@@ -20,7 +20,14 @@ class DrillCreator extends ConsumerStatefulWidget {
 }
 
 class _DrillCreatorState extends ConsumerState<DrillCreator> with Edit {
+  TextEditingController drilltxt = TextEditingController();
+
   void _init() {
+    if (widget.drill != null) {
+      drilltxt.text = widget.drill!.name;
+    } else {
+      drilltxt.text = ref.read(drillclassprovider).values.toList()[0].name;
+    }
   }
 
   @override
@@ -51,32 +58,27 @@ class _DrillCreatorState extends ConsumerState<DrillCreator> with Edit {
               ref,
               objId,
               DrillData(
-                drill: null,//todo: change to drill, drill provider to map
+                drill: ref.read(drillclassprovider)[drilltxt.text],
                 id: objId,
               ));
         }),
         Expanded(
             child: Column(children: [
-          DropdownButtonFormField(
-              elevation: 1,
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              onChanged: (String? data) {},
-              items: ref
-                  .read(drillclassprovider)
-                  .map<DropdownMenuItem<String>>((var value) {
-                return DropdownMenuItem<String>(
-                  child: Text(value.name),
-                  value: widget.drill != null ? widget.drill!.name : "",
-                );
-              }).toList())
-        ]))
+          DropdownMenu<Drill>(
+            initialSelection: ref.read(drillclassprovider)[drilltxt.text],
+            controller: drilltxt,
+            requestFocusOnTap: true,
+            dropdownMenuEntries: ref
+                .read(drillclassprovider)
+                .values
+                .map<DropdownMenuEntry<Drill>>((Drill drill) {
+              return DropdownMenuEntry<Drill>(
+                value: drill,
+                label: drill.name,
+              );
+            }).toList(),
+          ),
+        ])),
       ],
     );
   }

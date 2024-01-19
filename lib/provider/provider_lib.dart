@@ -43,6 +43,7 @@ class ModelViewNotifier extends StateNotifier<String> {
     set("Free");
     set("Side");
   }
+
   void setFree() {
     set("Free");
   }
@@ -77,10 +78,10 @@ final modelApearanceProvider =
         (ref) => ModelApearanceNotifier());
 
 //Drill Notifier which updates the Drill classes
-class DrillClassNotifier extends StateNotifier<List> {
-  DrillClassNotifier() : super([]);
+class DrillClassNotifier extends StateNotifier<Map<String, Drill>> {
+  DrillClassNotifier() : super({});
 
-  set(List list) {
+  set(Map<String, Drill> list) {
     state = list;
   }
 
@@ -88,44 +89,43 @@ class DrillClassNotifier extends StateNotifier<List> {
   Future<void> initDrills() async {
     final data = await rootBundle.loadString('assets/drills.yaml');
     final mapData = loadYaml(data);
-
-    set([]);
+    ;
     //print(mapData);
     mapData.forEach((key, value) {
-      List drillButtonClass = state;
-      drillButtonClass.add(Drill(
+      Map<String, Drill> drillButtonClass = state;
+      drillButtonClass[key.toString()] = Drill(
         name: key,
         d: value["d"],
         l: value["l"],
         form: value["form"],
         dt: value["dt"],
         a: value["a"],
-      ));
-      set(drillButtonClass);
+      );
+      state = drillButtonClass;
     });
   }
 
   //update all Drill classes
   void refreshDrills(mapData) {
-    set([]);
     //print(mapData);
     mapData.forEach((key, value) {
-      List drillButtonClass = state;
-      drillButtonClass.add(Drill(
+      Map<String, Drill> drillButtonClass = state;
+      drillButtonClass[key] = Drill(
         name: key,
         d: value["d"],
         l: value["l"],
         form: value["form"],
         dt: value["dt"],
         a: value["a"],
-      ));
-      set(drillButtonClass);
+      );
+      state = drillButtonClass;
     });
   }
 }
 
-final drillclassprovider = StateNotifierProvider<DrillClassNotifier, List>(
-    (ref) => DrillClassNotifier());
+final drillclassprovider =
+    StateNotifierProvider<DrillClassNotifier, Map<String, Drill>>(
+        (ref) => DrillClassNotifier());
 
 //Path Editor hide
 class ShowPathEditorNotifier extends StateNotifier<bool> {

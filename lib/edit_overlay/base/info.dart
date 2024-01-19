@@ -18,11 +18,15 @@ mixin Info {
   }
 
   String _getEntityText(entity) {
-     if(entity is DrillData) {
-      return "${entity.drill}";
+    if (entity is DrillData) {
+      if (entity.drill != null) {
+        return entity.drill!.name;
+      } else {
+        return "";
+      }
     } else {
-       return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
-     }
+      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
+    }
   }
 
   Widget getEntityData(ref, id, name) {

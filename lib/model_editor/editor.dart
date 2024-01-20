@@ -26,7 +26,6 @@ class _EditorState extends ConsumerState<Editor> {
     lightStrength: 1,
   );
 
-  //runs at startup
   @override
   void initState() {
     super.initState();
@@ -48,7 +47,7 @@ class _EditorState extends ConsumerState<Editor> {
     });
   }
 
-  //Model transform wraped in function
+  //Model transform
   TransformModifier3D transformModel(snapshot) {
     return TransformModifier3D(
         Group3D(snapshot.data!),
@@ -67,11 +66,10 @@ class _EditorState extends ConsumerState<Editor> {
     String modelApearance = ref.watch(modelApearanceProvider);
     Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref);
 
-
-
     if (modelContents.isEmpty) {
-      return const CircularProgressIndicator(); //progresscircle
+      return const CircularProgressIndicator();
     }
+
     //load viewport to controller
     if (modelView == "Top") {
       _controller.rotationX = -90;

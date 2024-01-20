@@ -34,14 +34,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
             //todo: default setting TXTC for dxyz
             ConfigTextInput(
                 label: "Scale Unit obj import", controller: modelScaleUnit),
-            ConfigBooleanButton(
-              txt: "hide model in creation window",
-              isActive: hideModelInCreation,
-              onTap: () {
-                hideModelInCreation = !hideModelInCreation;
-                setState(() {});
-              },
-            ),
+
           ],
         ));
   }

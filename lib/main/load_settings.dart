@@ -6,7 +6,6 @@ final TextEditingController modelScaleUnit = TextEditingController(text: "X");
 final TextEditingController modelDX = TextEditingController(text: "X");
 final TextEditingController modelDY = TextEditingController(text: "X");
 final TextEditingController modelDZ = TextEditingController(text: "X");
-bool hideModelInCreation = true;
 bool initShowDefaultModel = false;
 
 //load default settings from yaml file
@@ -22,5 +21,4 @@ Future<void> initSettings() async {
   modelScaleUnit.text = mapData["scale"].toString();
 
   initShowDefaultModel = mapData["initialDefaultModel"];
-  hideModelInCreation = mapData["hideModelInCreation"];
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/edit_overlay/drill/drill_edit.dart';
 import '../../editor_functions/data_parse.dart';
-import '../../main/load_settings.dart';
 import '../../provider/path_privider_lib.dart';
 
 mixin Info {
@@ -12,9 +11,6 @@ mixin Info {
 
     //disable directory buttons
     ref.read(pathDirectoryLockProvider.notifier).set(true);
-    if (hideModelInCreation) {
-      ref.read(showModelProvider.notifier).set(false);
-    }
   }
 
   String _getEntityText(entity) {
@@ -25,7 +21,7 @@ mixin Info {
         return "";
       }
     } else {
-      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""} ${entity.correct ?? "p"}";
+      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
     }
   }
 

@@ -132,11 +132,3 @@ final drillclassprovider =
     StateNotifierProvider<DrillClassNotifier, Map<String, Drill>>(
         (ref) => DrillClassNotifier());
 
-//Path Editor hide
-class ShowPathEditorNotifier extends StateNotifier<bool> {
-  ShowPathEditorNotifier() : super(false);
-
-  set(bool data) {
-    state = data;
-  }
-}

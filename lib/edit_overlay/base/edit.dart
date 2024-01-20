@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 
 import '../../editor_functions/data_parse.dart';
-import '../../main/load_settings.dart';
 import '../../provider/path_privider_lib.dart';
 
 mixin Edit {
@@ -27,9 +26,6 @@ mixin Edit {
     ref.read(entityProvider.notifier).removeObject(dirId, 0);
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
-    if (hideModelInCreation) {
-      ref.read(showModelProvider.notifier).set(true);
-    }
     ref.read(modelViewProvider.notifier).setTop();
   }
 
@@ -43,9 +39,6 @@ mixin Edit {
     ref.watch(showCreatorProvider.notifier).set(false);
     ref.read(entityProvider.notifier).removeObject(dirId, 0);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
-    if (hideModelInCreation) {
-      ref.read(showModelProvider.notifier).set(true);
-    }
     ref.read(modelViewProvider.notifier).setTop();
   }
 
@@ -57,9 +50,6 @@ mixin Edit {
     ref.read(entityProvider.notifier).removeObject(dirId, objId);
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
-    if (hideModelInCreation) {
-      ref.read(showModelProvider.notifier).set(true);
-    }
     ref.read(modelViewProvider.notifier).setTop();
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_mask.dart';
 import 'package:morbidelli_cam/edit_overlay/g1/g1_mask.dart';
 import '../editor_functions/data_parse.dart';
-import '../main/load_settings.dart';
 import '../provider/path_privider_lib.dart';
 import 'drill/drill_mask.dart';
 
@@ -32,9 +31,6 @@ class PathMask extends ConsumerWidget {
               ref.watch(showCreatorProvider.notifier).set(false);
               ref.read(entityProvider.notifier).removeObject(dirId, 0);
               ref.read(pathDirectoryLockProvider.notifier).set(false);
-              if (hideModelInCreation) {
-                ref.read(showModelProvider.notifier).set(true);
-              }
 
               //close edit overlay
               ref.read(showPathEditorProvider.notifier).set(false);

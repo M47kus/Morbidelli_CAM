@@ -1,8 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/provider/provider_lib.dart';
 import '../edit_overlay/path_directory.dart';
 
 //if true the edit overlay will be shown. used in overlay.dart
+//Path Editor hide
+class ShowPathEditorNotifier extends StateNotifier<bool> {
+  ShowPathEditorNotifier() : super(false);
+
+  set(bool data) {
+    state = data;
+  }
+}
+
+
 final showPathEditorProvider =
     StateNotifierProvider<ShowPathEditorNotifier, bool>(
         (ref) => ShowPathEditorNotifier());

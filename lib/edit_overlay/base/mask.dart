@@ -13,9 +13,6 @@ mixin Mask {
     ref.watch(showCreatorProvider.notifier).set(true);
     //disable directory buttons
     ref.read(pathDirectoryLockProvider.notifier).set(true);
-    if (hideModelInCreation) {
-      ref.read(showModelProvider.notifier).set(false);
-    }
   }
 
   Widget pathMask({required Widget child}) {

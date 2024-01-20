@@ -58,13 +58,23 @@ class _EditorState extends ConsumerState<Editor> {
           ..translate(-0.0, 0.0, -0.0));
   }
 
+  dynamic transformView(transformModel, modelApearance) {
+    if (modelApearance == "Points") {
+      return transformModel.toPoints();
+    } else if (modelApearance == "Wireframe") {
+      return transformModel.toLines();
+    } else {
+      return [transformModel];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     //load Provider to variable
     String modelContents = ref.watch(modelContentProvider);
     String modelView = ref.watch(modelViewProvider);
-    String modelApearance = ref.watch(modelApearanceProvider);
     Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref);
+    String modelApearance = ref.watch(modelApearanceProvider);
 
     if (modelContents.isEmpty) {
       return const CircularProgressIndicator();
@@ -74,16 +84,13 @@ class _EditorState extends ConsumerState<Editor> {
     if (modelView == "Top") {
       _controller.rotationX = -90;
       _controller.rotationY = 0;
-    }
-    else if (modelView == "Front") {
+    } else if (modelView == "Front") {
       _controller.rotationX = 0;
       _controller.rotationY = 0;
-    }
-    else if (modelView == "SideRight") {
+    } else if (modelView == "SideRight") {
       _controller.rotationX = 0;
       _controller.rotationY = 90;
-    }
-    else if (modelView == "SideLeft") {
+    } else if (modelView == "SideLeft") {
       _controller.rotationX = 0;
       _controller.rotationY = -90;
     }
@@ -103,31 +110,14 @@ class _EditorState extends ConsumerState<Editor> {
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data != null) {
                     //return right body for selected appearance
-                    if (modelApearance == "Points") {
-                      return DiTreDi(
-                        figures: [
-                          ...transformModel(snapshot).toPoints(),
-                          modelLines
-                        ],
-                        controller: _controller,
-                      );
-                    } else if (modelApearance == "Wireframe") {
-                      return DiTreDi(
-                        figures: [
-                          ...transformModel(snapshot).toLines(),
-                          modelLines
-                        ],
-                        controller: _controller,
-                      );
-                    } else {
-                      return DiTreDi(
-                        figures: [
-                          transformModel(snapshot),
-                          modelLines
-                        ],
-                        controller: _controller,
-                      );
-                    }
+                    return DiTreDi(
+                      figures: [
+                        ...transformView(
+                            transformModel(snapshot), modelApearance),
+                        modelLines
+                      ],
+                      controller: _controller,
+                    );
                   } else {
                     return const CircularProgressIndicator();
                   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../editor_functions/data_parse.dart';
-import '../../main/load_settings.dart';
 import '../../provider/path_privider_lib.dart';
 
 mixin Mask {
@@ -13,6 +12,7 @@ mixin Mask {
     ref.watch(showCreatorProvider.notifier).set(true);
     //disable directory buttons
     ref.read(pathDirectoryLockProvider.notifier).set(true);
+    ref.read(showModelProvider.notifier).set(false);
   }
 
   Widget pathMask({required Widget child}) {

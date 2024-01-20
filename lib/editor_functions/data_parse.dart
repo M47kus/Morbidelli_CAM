@@ -50,18 +50,18 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
   }
 
   //todo: later in export format to Data classes with drill info
-  void toGFormat(ref) {
-    int? lineStart;
-    List spline = [];
-
-    //Directorys
-    for (int dirId in ref.read(entityProvider).keys) {
-      //All Entitys from top to bottom
-      for (var entity in ref.read(entityProvider)[dirId].values) {
-
-      }
-    }
-  }
+  // void toGFormat(ref) {
+  //   int? lineStart;
+  //   List spline = [];
+  //
+  //   //Directorys
+  //   for (int dirId in ref.read(entityProvider).keys) {
+  //     //All Entitys from top to bottom
+  //     for (var entity in ref.read(entityProvider)[dirId].values) {
+  //
+  //     }
+  //   }
+  // }
 
   //convert all entitys in state to Line3D
   Group3D toVisibleLines(ref) {
@@ -105,7 +105,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
                   spline[index + 1].modelX(),
                   spline[index + 1].modelZ(),
                   spline[index + 1].modelY()),
-              width: 1, color: const Color.fromARGB(255, 58, 211, 21)));
+              width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
         }
       }
       spline.clear();

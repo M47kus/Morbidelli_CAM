@@ -27,6 +27,7 @@ mixin Edit {
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     ref.read(modelViewProvider.notifier).setTop();
+    ref.read(showModelProvider.notifier).set(true);
   }
 
   void onConfirm(ref, objId, newObject) {
@@ -40,6 +41,7 @@ mixin Edit {
     ref.read(entityProvider.notifier).removeObject(dirId, 0);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     ref.read(modelViewProvider.notifier).setTop();
+    ref.read(showModelProvider.notifier).set(true);
   }
 
   void onDelete(ref) {
@@ -51,6 +53,7 @@ mixin Edit {
     ref.read(pathDirectoryLockProvider.notifier);
     ref.read(pathDirectoryLockProvider.notifier).set(false);
     ref.read(modelViewProvider.notifier).setTop();
+    ref.read(showModelProvider.notifier).set(true);
   }
 
   Widget buildAppBar(ref,

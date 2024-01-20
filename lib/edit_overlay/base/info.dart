@@ -11,6 +11,7 @@ mixin Info {
 
     //disable directory buttons
     ref.read(pathDirectoryLockProvider.notifier).set(true);
+    ref.read(showModelProvider.notifier).set(false);
   }
 
   String _getEntityText(entity) {

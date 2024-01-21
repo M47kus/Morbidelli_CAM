@@ -7,7 +7,9 @@ import 'package:ditredi/ditredi.dart';
 import '../edit_overlay/g0/go_edit.dart';
 import '../edit_overlay/g1/g1_edit.dart';
 import '../provider/path_privider_lib.dart';
-        
+
+enum LineAxis { x, xr, y, z, f }
+
 //all code entitys in map
 class EntityNotifier extends StateNotifier<Map<int, Map>> {
   EntityNotifier() : super({0: {}});
@@ -64,7 +66,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
   // }
 
   //convert all entitys in state to Line3D
-  Group3D toVisibleLines(ref) {
+  Group3D toVisibleLines(ref, LineAxis axis) {
     List<Line3D> modelLines = []; //final Line3D list
     int? lineStart; //start id of entity to ignore all unrelevant entitys
     List spline = [];
@@ -74,7 +76,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
         if (ref.read(shownSplinesProvider)[dirId]) {
           for (var entity in state[dirId]!.values) {
             if (entity is G0Data) {
-              (modelLines, spline) = _addModelLine(modelLines, spline);
+              (modelLines, spline) = _addModelLine(modelLines, spline, axis);
 
               lineStart = entity.id;
               spline.add(entity);
@@ -85,7 +87,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
             }
           }
 
-          (modelLines, spline) = _addModelLine(modelLines, spline);
+          (modelLines, spline) = _addModelLine(modelLines, spline, axis);
         }
       }
     }
@@ -93,28 +95,29 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
   }
 
   //pull spline data to modellines and empty spline
-  (List<Line3D>, List) _addModelLine(modelLines, spline) {
+  (List<Line3D>, List) _addModelLine(modelLines, spline, LineAxis axis) {
+
     if (spline.isNotEmpty) {
       for (int index = 0; index < spline.length; index++) {
         if (index < spline.length - 1) {
           modelLines.add(Line3D(
-
-              Vector3(spline[index].modelX(), spline[index].modelZ(),
-                  spline[index].modelY()),
               Vector3(
-                  spline[index + 1].modelX(),
-                  spline[index + 1].modelZ(),
-                  spline[index + 1].modelY()),
-              width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
+                  spline[index].modelX(axis),
+                  spline[index].modelZ(axis),
+                  spline[index].modelY(axis)),
+              Vector3(
+                  spline[index + 1].modelX(axis),
+                  spline[index + 1].modelZ(axis),
+                  spline[index + 1].modelY(axis)),
+              width: 1.5,
+              color: const Color.fromARGB(255, 58, 211, 21)));
         }
       }
       spline.clear();
     }
     return (modelLines, spline);
   }
-
 }
 
 final entityProvider = StateNotifierProvider<EntityNotifier, Map<int, Map>>(
-        (ref) => EntityNotifier());
-
+    (ref) => EntityNotifier());

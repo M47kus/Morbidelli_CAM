@@ -12,7 +12,6 @@ import 'model_render.dart';
 //Shows the 3d Modell
 class Editor extends ConsumerStatefulWidget {
   const Editor({super.key});
-
   @override
   ConsumerState<Editor> createState() => _EditorState();
 }
@@ -73,8 +72,8 @@ class _EditorState extends ConsumerState<Editor> {
     //load Provider to variable
     String modelContents = ref.watch(modelContentProvider);
     String modelView = ref.watch(modelViewProvider);
-    Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref);
     String modelApearance = ref.watch(modelApearanceProvider);
+    LineAxis axis = LineAxis.f;
 
     if (modelContents.isEmpty) {
       return const CircularProgressIndicator();
@@ -84,16 +83,22 @@ class _EditorState extends ConsumerState<Editor> {
     if (modelView == "Top") {
       _controller.rotationX = -90;
       _controller.rotationY = 0;
+      axis = LineAxis.z;
     } else if (modelView == "Front") {
       _controller.rotationX = 0;
       _controller.rotationY = 0;
+      axis = LineAxis.y;
     } else if (modelView == "SideRight") {
       _controller.rotationX = 0;
       _controller.rotationY = 90;
+      axis = LineAxis.xr;
     } else if (modelView == "SideLeft") {
       _controller.rotationX = 0;
       _controller.rotationY = -90;
+      axis = LineAxis.x;
     }
+
+    Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref, axis);
 
     return SafeArea(
       child: Flex(

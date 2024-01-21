@@ -1,3 +1,5 @@
+import 'package:morbidelli_cam/editor_functions/data_parse.dart';
+
 import '../../main/load_settings.dart';
 
 class Data {
@@ -34,29 +36,41 @@ class Data {
     }
   }
 
-  modelX() {
+  modelX(axis) {
     double scale = double.parse(modelScaleUnit.text);
     double dx = double.parse(modelDX.text);
     double convertx = convertX();
 
     double offset = dx / scale;
-    return convertx / scale * 2 - offset;
+    switch(axis) {
+      case LineAxis.x: return 0 / scale * 2 - offset;
+      case LineAxis.xr: return dx / scale * 2 - offset;
+      default: return convertx / scale * 2 - offset;
+    }
   }
 
-  modelY() {
+  modelY(axis) {
     double scale = double.parse(modelScaleUnit.text);
     double dy = double.parse(modelDY.text);
     double converty = convertY();
 
     double offset = dy / scale;
-    return dy / scale * 2 - converty / scale * 2 - offset;
+    switch(axis) {
+      case LineAxis.y: return 0 / scale * 2 - 0 / scale * 2 - offset;
+      default: return dy / scale * 2 - converty / scale * 2 - offset;
+    }
+
   }
 
-  modelZ() {
+  modelZ(axis) {
     double scale = double.parse(modelScaleUnit.text);
     double dz = double.parse(modelDZ.text);
 
     double offset = dz / scale;
-    return dz / scale * 2 - z! / scale * 2 - offset;
+    switch(axis) {
+      case LineAxis.z: return (dz - 0 / (scale * 2 - z!)) / scale * 2 - offset;
+      default: return dz / scale * 2 - z! / scale * 2 - offset;
+    }
+
   }
 }

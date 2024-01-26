@@ -58,12 +58,13 @@ class _EditorState extends ConsumerState<Editor> {
   }
 
   dynamic transformView(transformModel, modelApearance) {
-    if (modelApearance == "Points") {
-      return transformModel.toPoints();
-    } else if (modelApearance == "Wireframe") {
-      return transformModel.toLines();
-    } else {
-      return [transformModel];
+    switch (modelApearance) {
+      case ModelApearance.points:
+        return transformModel.toPoints();
+      case ModelApearance.wire:
+        return transformModel.toLines();
+      default:
+        return [transformModel];
     }
   }
 
@@ -71,8 +72,8 @@ class _EditorState extends ConsumerState<Editor> {
   Widget build(BuildContext context) {
     //load Provider to variable
     String modelContents = ref.watch(modelContentProvider);
-    String modelView = ref.watch(modelViewProvider);
-    String modelApearance = ref.watch(modelApearanceProvider);
+    ModelView modelView = ref.watch(modelViewProvider);
+    ModelApearance modelApearance = ref.watch(modelApearanceProvider);
     LineAxis axis = LineAxis.f;
 
     if (modelContents.isEmpty) {
@@ -80,25 +81,35 @@ class _EditorState extends ConsumerState<Editor> {
     }
 
     //load viewport to controller
-    if (modelView == "Top") {
-      _controller.rotationX = -90;
-      _controller.rotationY = 0;
-      axis = LineAxis.z;
-    } else if (modelView == "Front") {
-      _controller.rotationX = 0;
-      _controller.rotationY = 0;
-      axis = LineAxis.y;
-    } else if (modelView == "SideRight") {
-      _controller.rotationX = 0;
-      _controller.rotationY = 90;
-      axis = LineAxis.xr;
-    } else if (modelView == "SideLeft") {
-      _controller.rotationX = 0;
-      _controller.rotationY = -90;
-      axis = LineAxis.x;
+    switch (modelView) {
+      case ModelView.front:
+        _controller.rotationX = 0;
+        _controller.rotationY = 0;
+        axis = LineAxis.y;
+
+      case ModelView.sideRight:
+        _controller.rotationX = 0;
+        _controller.rotationY = 90;
+        axis = LineAxis.xr;
+
+      case ModelView.sideLeft:
+        _controller.rotationX = 0;
+        _controller.rotationY = -90;
+        axis = LineAxis.x;
+
+      case ModelView.free:
+        _controller.rotationX = -45;
+        _controller.rotationY = 45;
+        axis = LineAxis.f;
+
+      default:
+        _controller.rotationX = -90;
+        _controller.rotationY = 0;
+        axis = LineAxis.z;
     }
 
-    Group3D modelLines = ref.read(entityProvider.notifier).toVisibleLines(ref, axis);
+    Group3D modelLines =
+        ref.read(entityProvider.notifier).toVisibleLines(ref, axis);
 
     return SafeArea(
       child: Flex(
@@ -107,7 +118,7 @@ class _EditorState extends ConsumerState<Editor> {
         children: [
           Expanded(
             child: DiTreDiDraggable(
-              rotationEnabled: true,
+              rotationEnabled: ref.read(modelViewProvider) == ModelView.free ? true : false,
               scaleEnabled: true,
               controller: _controller,
               child: FutureBuilder(

@@ -10,7 +10,7 @@ class ViewSelector extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: 145,
-      height: 100,
+      height: 180,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -50,6 +50,14 @@ class ViewSelector extends ConsumerWidget {
                     icon: const Text("SR")),
               ),
             ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: IconButton.filledTonal(
+                onPressed: () {
+                  ref.read(modelViewProvider.notifier).setFree();
+                },
+                icon: const Text("Space")),
           ),
         ],
       ),

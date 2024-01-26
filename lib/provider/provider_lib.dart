@@ -21,65 +21,73 @@ final modelContentProvider =
     StateNotifierProvider<ModelContentNotifier, String>(
         (ref) => ModelContentNotifier());
 
-//change view for Model
-class ModelViewNotifier extends StateNotifier<String> {
-  ModelViewNotifier() : super("Top");
+enum ModelView{
+  top, front, sideLeft, sideRight, free
+}
 
-  set(String file) {
+//change view for Model
+class ModelViewNotifier extends StateNotifier<ModelView> {
+  ModelViewNotifier() : super(ModelView.top);
+
+  set(ModelView file) {
     state = file;
   }
 
   void setTop() {
-    set("Free");
-    set("Top");
+    state = ModelView.free;
+    state = ModelView.top;
   }
 
   void setFront() {
-    set("Free");
-    set("Front");
+    state = ModelView.free;
+    state = ModelView.front;
   }
 
   void setSideRight() {
-    set("Free");
-    set("SideRight");
+    state = ModelView.free;
+    state = ModelView.sideRight;
   }
 
   void setSideLeft() {
-    set("Free");
-    set("SideLeft");
+    state = ModelView.free;
+    state = ModelView.sideLeft;
   }
 
   void setFree() {
-    set("Free");
+    state = ModelView.free;
   }
 }
 
-final modelViewProvider = StateNotifierProvider<ModelViewNotifier, String>(
+enum ModelApearance{
+  solid, wire, points
+}
+
+final modelViewProvider = StateNotifierProvider<ModelViewNotifier, ModelView>(
     (ref) => ModelViewNotifier());
 
 //change Appearance for Model
-class ModelApearanceNotifier extends StateNotifier<String> {
-  ModelApearanceNotifier() : super("Solid");
+class ModelApearanceNotifier extends StateNotifier<ModelApearance> {
+  ModelApearanceNotifier() : super(ModelApearance.solid);
 
-  set(String file) {
+  set(ModelApearance file) {
     state = file;
   }
 
   void setSolid() {
-    set("Solid");
+    state = ModelApearance.solid;
   }
 
   void setWireframe() {
-    set("Wireframe");
+    state = ModelApearance.wire;
   }
 
   void setPoints() {
-    set("Points");
+    state = ModelApearance.points;
   }
 }
 
 final modelApearanceProvider =
-    StateNotifierProvider<ModelApearanceNotifier, String>(
+    StateNotifierProvider<ModelApearanceNotifier, ModelApearance>(
         (ref) => ModelApearanceNotifier());
 
 //Drill Notifier which updates the Drill classes
@@ -94,7 +102,6 @@ class DrillClassNotifier extends StateNotifier<Map<String, Drill>> {
   Future<void> initDrills() async {
     final data = await rootBundle.loadString('assets/drills.yaml');
     final mapData = loadYaml(data);
-    ;
     //print(mapData);
     mapData.forEach((key, value) {
       Map<String, Drill> drillButtonClass = state;

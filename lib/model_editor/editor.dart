@@ -98,8 +98,8 @@ class _EditorState extends ConsumerState<Editor> {
         axis = LineAxis.x;
 
       case ModelView.free:
-        _controller.rotationX = -45;
-        _controller.rotationY = 45;
+        // _controller.rotationX = -45;
+        // _controller.rotationY = 45;
         axis = LineAxis.f;
 
       default:

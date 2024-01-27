@@ -118,7 +118,8 @@ class _EditorState extends ConsumerState<Editor> {
         children: [
           Expanded(
             child: DiTreDiDraggable(
-              rotationEnabled: ref.read(modelViewProvider) == ModelView.free ? true : false,
+              rotationEnabled:
+                  ref.read(modelViewProvider) == ModelView.free ? true : false,
               scaleEnabled: true,
               controller: _controller,
               child: FutureBuilder(

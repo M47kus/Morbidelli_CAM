@@ -22,10 +22,6 @@ class _AppBarFilesState extends ConsumerState<AppBarFiles> {
             itemBuilder: (context) {
               return [
                 const PopupMenuItem<int>(
-                  value: 0,
-                  child: Text("Import"),
-                ),
-                const PopupMenuItem<int>(
                   value: 1,
                   child: Text("Save"),
                 ),
@@ -34,12 +30,16 @@ class _AppBarFilesState extends ConsumerState<AppBarFiles> {
                   child: Text("Open"),
                 ),
                 const PopupMenuItem<int>(
-                  value: 3,
-                  child: Text("Settings"),
+                  value: 0,
+                  child: Text("Import"),
                 ),
                 const PopupMenuItem<int>(
                   value: 4,
                   child: Text("Export"),
+                ),
+                const PopupMenuItem<int>(
+                  value: 3,
+                  child: Text("Settings"),
                 ),
               ];
             },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/edit_overlay/circle3p/cir3p_edit.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 import 'package:morbidelli_cam/edit_overlay/g1/g1_edit.dart';
 
@@ -32,6 +33,18 @@ Widget buildEditWindow(type) {
   } else if (type is DrillData) {
     return DrillCreator(
       drill: type.drill,
+      isNew: isNew,
+    );
+  } else if (type is Cir3PData) {
+    return Cir3PCreator(
+      x: type.x,
+      y: type.y,
+      z: type.z,
+      xp: type.xp,
+      yp: type.yp,
+      zp: type.zp,
+      fix: type.fix,
+      fixp: type.fixp,
       isNew: isNew,
     );
   } else {

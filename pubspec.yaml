@@ -77,6 +77,7 @@ flutter:
     - assets/icons/B.bmp
     - assets/icons/Xl2p.bmp
     - assets/icons/drill.jpg
+    - assets/icons/bogen.pgm
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -5,14 +5,14 @@ import 'package:morbidelli_cam/provider/provider_lib.dart';
 import '../model_editor/model_render.dart';
 
 //View Tab in AppBar
-class AppBar_View extends ConsumerStatefulWidget {
-  const AppBar_View({super.key});
+class AppBarView extends ConsumerStatefulWidget {
+  const AppBarView({super.key});
 
   @override
-  ConsumerState<AppBar_View> createState() => _AppBar_ViewState();
+  ConsumerState<AppBarView> createState() => _AppBarViewState();
 }
 
-class _AppBar_ViewState extends ConsumerState<AppBar_View> {
+class _AppBarViewState extends ConsumerState<AppBarView> {
   //set view angles and appearance modes
   @override
   Widget build(BuildContext context) {

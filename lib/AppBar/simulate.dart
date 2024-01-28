@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 //Simulation Tab in AppBar
-class AppBar_simulate extends StatelessWidget {
-  const AppBar_simulate({super.key});
+class AppBarSimulate extends StatelessWidget {
+  const AppBarSimulate({super.key});
 
   @override
   Widget build(BuildContext context) {

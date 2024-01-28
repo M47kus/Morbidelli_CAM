@@ -11,7 +11,6 @@ import '../AppBar/view.dart';
 import '../AppBar/simulate.dart';
 import '../AppBar/drill/drill.dart';
 import '../edit_overlay/overlay.dart';
-import '../model_editor/editor.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,9 +56,9 @@ class _MainScreenState extends ConsumerState<MainScreen> {
           actions: const [
             AppBarFiles(),
             AppBarEdit(),
-            AppBar_View(),
+            AppBarView(),
             AppBarDrill(),
-            AppBar_simulate()
+            AppBarSimulate()
           ],
         ),
         body: Stack(

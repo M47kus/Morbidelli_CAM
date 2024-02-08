@@ -21,6 +21,7 @@ class _EditorState extends ConsumerState<Editor> {
   final _controller = DiTreDiController(
     rotationX: 90,
     rotationY: 0,
+    userScale: 3,
     light: vector.Vector3(-0.5, -0.5, 0.5),
     lightStrength: 1,
   );

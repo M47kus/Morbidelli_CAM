@@ -138,6 +138,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
                   width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
               relativePos = movePos;
             } else if (entity is Cir3PData) {
+              //todo
               Vector2 center;
               double radius;
               (center, radius) = findCircle(
@@ -162,7 +163,6 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
               double aEnd = aA > aC ? aA : aC;
 
               if (entity.rotation == Cir3PAxisRotation.dynamic) {
-                print("dynamic");
                 aStart = [aA, aB, aC].reduce(min);
                 aEnd = [aA, aB, aC].reduce(max);
               }

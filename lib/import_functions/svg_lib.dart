@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:morbidelli_cam/edit_overlay/circle3p/cir3p_edit.dart';
 import 'package:morbidelli_cam/edit_overlay/g0/go_edit.dart';
 import 'package:morbidelli_cam/main/load_settings.dart';
 
@@ -161,7 +160,7 @@ class SvgC {
       required this.sy});
 
   void convert(ref, dirId) {
-    int n = 10; //must be follow this schema: (n-1)/3 = int
+    int n = 16; //must be follow this schema: (n-1)/3 = int
 
     Point A = Point(sx, sy);
     Point B = Point(x1, y1);
@@ -185,8 +184,29 @@ class SvgC {
       points.add(Point(px, py));
     }
 
-    for (int entityId = 0; entityId < points.length; entityId++) {
+    for (int entityId = 1; entityId < points.length; entityId++) {
       if (entityId < points.length - 1) {
+        // if(entityId.isOdd) {
+        //   int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+        //   ref.read(entityProvider.notifier).newObject(
+        //       dirId,
+        //       objId,
+        //
+        //       Cir3PData(
+        //         id: objId,
+        //         x: points[entityId].x,
+        //         y: points[entityId].y,
+        //         z: importDepth,
+        //         xp: points[entityId + 1].x,
+        //         yp: points[entityId + 1].y,
+        //         zp: importDepth,
+        //         rotation: Cir3PAxisRotation.dynamic,
+        //         fix: 1,
+        //         fixp: 1,
+        //       ));
+        //
+        //
+        // }
         int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
         ref.read(entityProvider.notifier).newObject(
             dirId,
@@ -219,15 +239,3 @@ class SvgA {
       required this.l,
       required this.s});
 }
-// Cir3PData(
-// id: id,
-// x: points[entityId].x,
-// y: points[entityId].y,
-// z: importDepth,
-// xp: points[entityId + 1].x,
-// yp: points[entityId + 1].y,
-// zp: importDepth,
-// rotation: Cir3PAxisRotation.dynamic,
-// fix: 1,
-// fixp: 1,
-// )

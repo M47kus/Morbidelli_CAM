@@ -18,7 +18,8 @@ class Data {
           return x! + dx / 2;
         case 3 || 6 || 9:
           return dx - x!;
-        default: return x;
+        default:
+          return x;
       }
     }
   }
@@ -33,7 +34,8 @@ class Data {
           return y! + dy / 2;
         case 7 || 8 || 9:
           return dy - y!;
-        default: return x;
+        default:
+          return x;
       }
     }
   }
@@ -44,10 +46,13 @@ class Data {
     double convertx = convertX();
 
     double offset = dx / scale;
-    switch(axis) {
-      case LineAxis.x: return 0 / scale * 2 - offset;
-      case LineAxis.xr: return dx / scale * 2 - offset;
-      default: return convertx / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.x:
+        return 0 / scale * 2 - offset;
+      case LineAxis.xr:
+        return dx / scale * 2 - offset;
+      default:
+        return convertx / scale * 2 - offset;
     }
   }
 
@@ -57,11 +62,12 @@ class Data {
     double converty = convertY();
 
     double offset = dy / scale;
-    switch(axis) {
-      case LineAxis.y: return 0 / scale * 2 - 0 / scale * 2 - offset;
-      default: return dy / scale * 2 - converty / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.y:
+        return 0 / scale * 2 - 0 / scale * 2 - offset;
+      default:
+        return dy / scale * 2 - converty / scale * 2 - offset;
     }
-
   }
 
   modelZ(axis) {
@@ -69,10 +75,11 @@ class Data {
     double dz = double.parse(modelDZ.text);
 
     double offset = dz / scale;
-    switch(axis) {
-      case LineAxis.z: return (dz - 0 / (scale * 2 - z!)) / scale * 2 - offset;
-      default: return dz / scale * 2 - z! / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.z:
+        return (dz - 0 / (scale * 2 - z!)) / scale * 2 - offset;
+      default:
+        return dz / scale * 2 - z! / scale * 2 - offset;
     }
-
   }
 }

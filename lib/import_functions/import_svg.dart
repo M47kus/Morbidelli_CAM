@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:morbidelli_cam/import_functions/convert_svg.dart';
-import 'package:morbidelli_cam/import_functions/svgLib.dart';
+import 'package:morbidelli_cam/import_functions/svg_lib.dart';
 import 'package:xml/xml.dart';
 
 void convertSVG(filePath, ref) {
@@ -52,20 +52,23 @@ void convertSVG(filePath, ref) {
                   isRelative = true;
                 }
 
-                svgData.add(addsvgData(splits[entryId].toString().toUpperCase(),
-                    splits, entryId, svgData, lastPoint, firstPoint, true, isRelative));
+                svgData.add(addsvgData(
+                    splits[entryId].toString().toUpperCase(),
+                    splits,
+                    entryId,
+                    svgData,
+                    lastPoint,
+                    firstPoint,
+                    true,
+                    isRelative));
                 activeId += paramlenght + 1;
                 lastPoint = Point(svgData.last.x, svgData.last.y);
 
                 //save to first point for z close
-                if(splits[entryId].toString().toUpperCase() == "M") {
+                if (splits[entryId].toString().toUpperCase() == "M") {
                   firstPoint = Point(svgData.last.x, svgData.last.y);
                 }
-
-                print("${svgData.last} ${svgData.last.x}");
-              } else {
-                print("error key not found");
-              }
+              } else {}
             } else {
               int paramlenght = svGParams[activeKey];
 
@@ -107,12 +110,13 @@ dynamic addsvgData(
     }
     return svGKeys[key](double.parse(splits[entryId + counter]) + offset.x,
         double.parse(splits[entryId + counter + 1]) + offset.y);
-  }else if (key == "L") {
+  } else if (key == "L") {
     return svGKeys[key](double.parse(splits[entryId + counter]) + offset.x,
         double.parse(splits[entryId + counter + 1]) + offset.y);
   } else if (key == "C") {
     return svGKeys[key](
-      lastPoint.x, lastPoint.y,
+        lastPoint.x,
+        lastPoint.y,
         double.parse(splits[entryId + counter]) + offset.x,
         double.parse(splits[entryId + counter + 1]) + offset.y,
         double.parse(splits[entryId + counter + 2]) + offset.x,

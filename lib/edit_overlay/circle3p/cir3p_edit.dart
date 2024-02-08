@@ -11,12 +11,7 @@ import '../helper/data.dart';
 import '../helper/origin_point.dart';
 import 'cir3p_info.dart';
 
-
-enum Cir3PAxisRotation {
-  left,
-  right,
-  dynamic
-}
+enum Cir3PAxisRotation { left, right, dynamic }
 
 class Cir3PCreator extends ConsumerStatefulWidget {
   final double? x;
@@ -40,7 +35,7 @@ class Cir3PCreator extends ConsumerStatefulWidget {
       this.xp,
       this.yp,
       this.zp,
-        this.rotation,
+      this.rotation,
       this.fixp});
 
   @override
@@ -84,7 +79,7 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
     }
 
     rotation = widget.rotation ?? Cir3PAxisRotation.right;
-    leftdrill = rotation == Cir3PAxisRotation.left? true : false;
+    leftdrill = rotation == Cir3PAxisRotation.left ? true : false;
     fixpoint = widget.fix ?? 1;
     fixpointp = widget.fixp ?? 1;
   }
@@ -197,15 +192,20 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
                 )
               ],
             ),
-            ConfigBooleanButton(isActive: leftdrill, onTap: () {setState(() {
-              if(leftdrill == false) {
-                rotation = Cir3PAxisRotation.left;
-              } else {
-                rotation = Cir3PAxisRotation.right;
-              }
-              leftdrill = rotation == Cir3PAxisRotation.left? true : false;
-
-            });} , txt: "Left Drill")
+            ConfigBooleanButton(
+                isActive: leftdrill,
+                onTap: () {
+                  setState(() {
+                    if (leftdrill == false) {
+                      rotation = Cir3PAxisRotation.left;
+                    } else {
+                      rotation = Cir3PAxisRotation.right;
+                    }
+                    leftdrill =
+                        rotation == Cir3PAxisRotation.left ? true : false;
+                  });
+                },
+                txt: "Left Drill")
           ],
         )),
       ],
@@ -279,10 +279,13 @@ class Cir3PData extends Data {
     double convertx = convertXP();
 
     double offset = dx / scale;
-    switch(axis) {
-      case LineAxis.x: return 0 / scale * 2 - offset;
-      case LineAxis.xr: return dx / scale * 2 - offset;
-      default: return convertx / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.x:
+        return 0 / scale * 2 - offset;
+      case LineAxis.xr:
+        return dx / scale * 2 - offset;
+      default:
+        return convertx / scale * 2 - offset;
     }
   }
 
@@ -292,11 +295,12 @@ class Cir3PData extends Data {
     double converty = convertYP();
 
     double offset = dy / scale;
-    switch(axis) {
-      case LineAxis.y: return 0 / scale * 2 - 0 / scale * 2 - offset;
-      default: return dy / scale * 2 - converty / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.y:
+        return 0 / scale * 2 - 0 / scale * 2 - offset;
+      default:
+        return dy / scale * 2 - converty / scale * 2 - offset;
     }
-
   }
 
   modelZP(axis) {
@@ -304,10 +308,11 @@ class Cir3PData extends Data {
     double dz = double.parse(modelDZ.text);
 
     double offset = dz / scale;
-    switch(axis) {
-      case LineAxis.z: return (dz - 0 / (scale * 2 - zp!)) / scale * 2 - offset;
-      default: return dz / scale * 2 - zp! / scale * 2 - offset;
+    switch (axis) {
+      case LineAxis.z:
+        return (dz - 0 / (scale * 2 - zp!)) / scale * 2 - offset;
+      default:
+        return dz / scale * 2 - zp! / scale * 2 - offset;
     }
-
   }
 }

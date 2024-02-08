@@ -1,34 +1,30 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
+import 'package:morbidelli_cam/import_functions/import_svg.dart';
+
+import '../../provider/provider_lib.dart';
 
 //File picker return new or old file
-Future<String> changeFile({state}) async {
-  FilePickerResult? result = await FilePicker.platform.pickFiles();
+Future<void> importFile(ref) async {
+  FilePickerResult? result = await FilePicker.platform.pickFiles(
+    type: FileType.custom,
+    allowedExtensions: ['obj', 'svg'],
+  );
 
   if (result != null) {
-    String fileContent = File(result.files.single.path!).readAsStringSync();
-    return fileContent;
+    PlatformFile file = result.files.first;
+    if (file.extension.toString() == "svg") {
+      print("svg");
+      convertSVG(file.path, ref);
+
+    } else if (file.extension.toString() == "obj") {
+      print("obj");
+      String fileContent = File(result.files.single.path!).readAsStringSync();
+      ref.read(modelContentProvider.notifier).set(fileContent);
+    }
+    
   } else {
-    return state;
+    //do nothing
   }
 }
 
-// File plainSVG = File("/home/markus/IdeaProjects/Zeichnung.svg");
-// XmlDocument document = XmlDocument.parse(plainSVG.readAsStringSync());
-// int pathLenght = document
-//     .findAllElements("g")
-//     .map((element) => element.findAllElements("path").length)
-//     .elementAt(0);
-// for (int i = 0; i < pathLenght; i++) {
-// List an = document
-//     .findAllElements("g")
-//     .map((element) =>
-// element.findAllElements("path").elementAt(i).attributes)
-//     .toList()[0];
-// for (int i = 0; i < an.length; i++) {
-// if (an[i].name.toString() == "d") {
-// String value = an[i].value;
-// print(value);
-// }
-// }
-// }

@@ -22,7 +22,10 @@ mixin Info {
         return "";
       }
     } else {
-      return "${entity.convertX() ?? ""}   ${entity.convertY() ?? ""}   ${entity.z ?? ""}";
+      if (entity.convertX() != null && entity.convertY() != null) {
+        return "${num.parse(entity.convertX().toStringAsFixed(2))}  ${num.parse(entity.convertY().toStringAsFixed(2))}  ${num.parse(entity.z.toStringAsFixed(2))}";
+      }
+      return "";
     }
   }
 

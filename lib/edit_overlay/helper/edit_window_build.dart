@@ -45,6 +45,7 @@ Widget buildEditWindow(type) {
       zp: type.zp,
       fix: type.fix,
       fixp: type.fixp,
+      rotation: type.rotation,
       isNew: isNew,
     );
   } else {

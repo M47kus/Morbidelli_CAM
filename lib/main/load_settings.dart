@@ -7,6 +7,7 @@ final TextEditingController modelDX = TextEditingController(text: "X");
 final TextEditingController modelDY = TextEditingController(text: "X");
 final TextEditingController modelDZ = TextEditingController(text: "X");
 bool initShowDefaultModel = false;
+double importDepth = 1.0;
 
 //load default settings from yaml file
 Future<void> initSettings() async {

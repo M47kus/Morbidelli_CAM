@@ -18,6 +18,7 @@ class Data {
           return x! + dx / 2;
         case 3 || 6 || 9:
           return dx - x!;
+        default: return x;
       }
     }
   }
@@ -32,6 +33,7 @@ class Data {
           return y! + dy / 2;
         case 7 || 8 || 9:
           return dy - y!;
+        default: return x;
       }
     }
   }

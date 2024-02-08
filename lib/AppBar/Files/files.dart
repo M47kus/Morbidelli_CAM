@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/AppBar/Files/settings.dart';
+import '../../import_functions/import_svg.dart';
 import '../../provider/provider_lib.dart';
 import 'import.dart';
 
@@ -48,13 +49,13 @@ class _AppBarFilesState extends ConsumerState<AppBarFiles> {
               if (value == 0) {
                 //Import
                 //open file picker, get file
-                var importedFile =
-                    await changeFile(state: ref.read(modelContentProvider));
+                await importFile(ref);
                 //set model content to file content
-                ref.read(modelContentProvider.notifier).set(importedFile);
+                
               } else if (value == 1) {
                 //Save
               } else if (value == 2) {
+                convertSVG("/home/markus/IdeaProjects/Zeichnung.svg", ref);
                 //Open
               } else if (value == 3) {
                 //Settings

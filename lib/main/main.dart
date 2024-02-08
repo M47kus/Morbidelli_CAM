@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/import_functions/import_svg.dart';
 import 'package:morbidelli_cam/main/keyboardlistener.dart';
 import 'package:morbidelli_cam/main/load_settings.dart';
+import 'package:morbidelli_cam/model_editor/editor.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import '../AppBar/Files/files.dart';
@@ -48,6 +50,7 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
+
     ref
         .read(drillclassprovider.notifier)
         .initDrills(); //read drills.yaml + create Drill classes
@@ -64,7 +67,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         body: Stack(
           children: [
             if (ref.watch(showModelProvider) == true)
-              const KeyBoardListenerGlobal(),
+              const Editor(),
             const PathEditor()
           ],
         ));

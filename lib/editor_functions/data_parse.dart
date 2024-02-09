@@ -59,60 +59,6 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
 
   //todo: later in export format to Data classes with drill info
 
-  //convert all entitys in state to Line3D
-  Group3D toVisibleLines(ref, LineAxis axis) {
-    List<Line3D> modelLines = []; //final Line3D list
-    int? lineStart; //start id of entity to ignore all unrelevant entitys
-    List spline = [];
-
-    for (int dirId in state.keys) {
-      if (ref.watch(shownSplinesProvider)[dirId] != null) {
-        if (ref.read(shownSplinesProvider)[dirId]) {
-          for (var entity in state[dirId]!.values) {
-            if (entity is G0Data) {
-              (modelLines, spline) = _addModelLine(modelLines, spline, axis);
-
-              lineStart = entity.id;
-              spline.add(entity);
-            } else if (entity is G1Data && lineStart != null) {
-              if (entity.id > lineStart) {
-                spline.add(entity);
-              }
-            } else if (entity is Cir3PData && lineStart != null) {
-              if (entity.id > lineStart) {
-                spline.add(entity);
-              }
-            }
-          }
-
-          (modelLines, spline) = _addModelLine(modelLines, spline, axis);
-        }
-      }
-    }
-    return Group3D(modelLines);
-  }
-
-  //pull spline data to modellines and empty spline
-  (List<Line3D>, List) _addModelLine(modelLines, spline, LineAxis axis) {
-    if (spline.isNotEmpty) {
-      for (int index = 0; index < spline.length; index++) {
-        if (index < spline.length - 1) {
-          modelLines.add(Line3D(
-              Vector3(spline[index].modelX(axis), spline[index].modelZ(axis),
-                  spline[index].modelY(axis)),
-              Vector3(
-                  spline[index + 1].modelX(axis),
-                  spline[index + 1].modelZ(axis),
-                  spline[index + 1].modelY(axis)),
-              width: 1.5,
-              color: const Color.fromARGB(255, 58, 211, 21)));
-        }
-      }
-      spline.clear();
-    }
-    return (modelLines, spline);
-  }
-
   Group3D parseLine3D(ref, LineAxis lineAxis) {
     List<Line3D> lines = [];
 

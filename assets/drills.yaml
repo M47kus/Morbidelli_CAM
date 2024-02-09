@@ -1,14 +1,17 @@
 Kugel30: 
+  id: 112
   d: 30.0
   l: 30.0
   form: 'sphere'
 wepla10: 
+  id: 106
   d: 10.0
   l: 25.0
   form: 'flat'
   dt: null
   a: null
 schrift: 
+  id: 101
   d: 25.0
   l: 30.0
   form: 'cone'

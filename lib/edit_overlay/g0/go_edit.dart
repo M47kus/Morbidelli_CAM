@@ -128,4 +128,8 @@ class G0Data extends Data {
   Widget getInfoButton() {
     return G0Info(id: id);
   }
+
+  String getXXLData(drill) {
+    return "\nXG0 X=${convertX()} Y=${convertY()} Z=$z T=${drill.id}";
+  }
 }

@@ -5,6 +5,7 @@ import "drill_menu.dart";
 //Drill class which inherits all data and button widget
 class Drill extends ConsumerWidget {
   final String name;
+  final int id;
   final double d;
   final double l;
   final String form;
@@ -14,6 +15,7 @@ class Drill extends ConsumerWidget {
   const Drill(
       {super.key,
       required this.name,
+        required this.id,
       required this.d,
       required this.l,
       required this.form,
@@ -29,7 +31,7 @@ class Drill extends ConsumerWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DrillMenu(
-                    name: name, d: d, l: l, form: form, dt: dt, a: a)));
+                    name: name, id: id, d: d, l: l, form: form, dt: dt, a: a)));
       },
     );
   }

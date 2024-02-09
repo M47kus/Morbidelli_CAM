@@ -107,6 +107,7 @@ class DrillClassNotifier extends StateNotifier<Map<String, Drill>> {
       Map<String, Drill> drillButtonClass = state;
       drillButtonClass[key.toString()] = Drill(
         name: key,
+        id: value["id"],
         d: value["d"],
         l: value["l"],
         form: value["form"],
@@ -124,6 +125,7 @@ class DrillClassNotifier extends StateNotifier<Map<String, Drill>> {
       Map<String, Drill> drillButtonClass = state;
       drillButtonClass[key] = Drill(
         name: key,
+        id: value["id"],
         d: value["d"],
         l: value["l"],
         form: value["form"],

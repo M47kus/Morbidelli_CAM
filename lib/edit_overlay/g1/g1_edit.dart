@@ -105,4 +105,7 @@ class G1Data extends Data {
     return G1Info(id: id);
   }
 
+  String getXXLData() {
+    return "\nXL2P X=${convertX()} Y=${convertY()} Z=$z";
+  }
 }

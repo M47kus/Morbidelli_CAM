@@ -5,6 +5,7 @@ import 'package:yaml_writer/yaml_writer.dart';
 Map updateDrill(
     {required drillbuttonClass,
     required name,
+      required id,
     required d,
     required l,
     required form,
@@ -12,10 +13,13 @@ Map updateDrill(
     a}) {
   Map drillFile = {};
 
+  print(drillbuttonClass);
   for (int i = 0; i < drillbuttonClass.length; i++) {
-    if (drillbuttonClass[i].name == name) {
+    if (drillbuttonClass.values
+        .toList()[i].name == name) {
       //Map changed data
       drillFile[name] = {};
+      drillFile[name]["id"] = int.parse(id);
       drillFile[name]["d"] = double.parse(d);
       drillFile[name]["l"] = double.parse(l);
       drillFile[name]["form"] = form;
@@ -27,12 +31,13 @@ Map updateDrill(
       }
     } else {
       //Map original Data
-      drillFile[drillbuttonClass[i].name] = {};
-      drillFile[drillbuttonClass[i].name]["d"] = drillbuttonClass[i].d;
-      drillFile[drillbuttonClass[i].name]["l"] = drillbuttonClass[i].l;
-      drillFile[drillbuttonClass[i].name]["form"] = drillbuttonClass[i].form;
-      drillFile[drillbuttonClass[i].name]["dt"] = drillbuttonClass[i].dt;
-      drillFile[drillbuttonClass[i].name]["a"] = drillbuttonClass[i].a;
+      drillFile[drillbuttonClass.values.toList()[i].name] = {};
+      drillFile[drillbuttonClass.values.toList()[i].name]["id"] = drillbuttonClass.values.toList()[i].id;
+      drillFile[drillbuttonClass.values.toList()[i].name]["d"] = drillbuttonClass.values.toList()[i].d;
+      drillFile[drillbuttonClass.values.toList()[i].name]["l"] = drillbuttonClass.values.toList()[i].l;
+      drillFile[drillbuttonClass.values.toList()[i].name]["form"] = drillbuttonClass.values.toList()[i].form;
+      drillFile[drillbuttonClass.values.toList()[i].name]["dt"] = drillbuttonClass.values.toList()[i].dt;
+      drillFile[drillbuttonClass.values.toList()[i].name]["a"] = drillbuttonClass.values.toList()[i].a;
     }
   }
 

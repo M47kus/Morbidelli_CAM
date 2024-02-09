@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/Files/import/import_page.dart';
 import 'package:morbidelli_cam/AppBar/Files/settings.dart';
 import 'package:morbidelli_cam/AppBar/export_functions/export_data.dart';
 import '../../import_functions/import_svg.dart';
-import 'import.dart';
+import 'import/import.dart';
 
 //files Tab in MainWindow
 class AppBarFiles extends ConsumerStatefulWidget {
@@ -49,7 +50,10 @@ class _AppBarFilesState extends ConsumerState<AppBarFiles> {
               if (value == 0) {
                 //Import
                 //open file picker, get file
-                await importFile(ref);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ImportRoute()));
                 //set model content to file content
               } else if (value == 1) {
                 //Save

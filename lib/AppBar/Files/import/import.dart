@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:morbidelli_cam/import_functions/import_svg.dart';
 
-import '../../provider/provider_lib.dart';
+import '../../../provider/provider_lib.dart';
 
 //File picker return new or old file
 Future<void> importFile(ref) async {

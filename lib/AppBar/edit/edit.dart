@@ -15,24 +15,12 @@ class AppBarEdit extends StatelessWidget {
             return [
               const PopupMenuItem<int>(
                 value: 0,
-                child: Text("Create Path"),
-              ),
-              const PopupMenuItem<int>(
-                value: 1,
-                child: Text("Load Path"),
-              ),
-              const PopupMenuItem<int>(
-                value: 2,
                 child: Text("Edit Base"),
               ),
             ];
           },
           onSelected: (value) {
-            if (value == 0) {
-              //Create Path
-            } else if (value == 1) {
-              //Load Path
-            } else if (value == 2) {
+              if (value == 0) {
               //Edit Base
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const EditBase()));

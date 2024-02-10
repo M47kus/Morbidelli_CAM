@@ -7,6 +7,8 @@ import 'package:morbidelli_cam/main/load_settings.dart';
 import '../../../provider/provider_lib.dart';
 import '../../drill/drill_class.dart';
 
+enum ImportFileType { svg, obj }
+
 class ImportRoute extends ConsumerStatefulWidget {
   const ImportRoute({super.key});
 
@@ -18,6 +20,8 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
   TextEditingController drilltxt = TextEditingController();
   TextEditingController dephttxt = TextEditingController();
   double detail = importDetail;
+  ImportFileType importType = ImportFileType.svg;
+  String extension = "svg";
 
   void initState() {
     super.initState();
@@ -28,64 +32,136 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Import"),),
+      appBar: AppBar(
+        title: const Text("Import"),
+      ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          Row(
+            children: [
+              importType == ImportFileType.svg
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FilledButton(
+                          onPressed: () {
+                            setState(() {
+                              importType = ImportFileType.svg;
+                              extension = "svg";
+                            });
+                          },
+                          child: const Text("SVG")),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              importType = ImportFileType.svg;
+                              extension = "svg";
+                            });
+                          },
+                          child: const Text("SVG")),
+                    ),
+              const VerticalDivider(),
+              importType == ImportFileType.obj
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FilledButton(
+                          onPressed: () {
+                            setState(() {
+                              importType = ImportFileType.obj;
+                              extension = "obj";
+                            });
+                          },
+                          child: const Text("OBJ")),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton(
+                          onPressed: () {
+                            setState(() {
+                              importType = ImportFileType.obj;
+                              extension = "obj";
+                            });
+                          },
+                          child: const Text("OBJ")),
+                    )
+            ],
+          ),
+          Visibility(
+            visible: importType == ImportFileType.svg,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Drill",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  DropdownMenu<Drill>(
+                    initialSelection:
+                        ref.read(drillclassprovider)[drilltxt.text],
+                    controller: drilltxt,
+                    requestFocusOnTap: true,
+                    dropdownMenuEntries: ref
+                        .read(drillclassprovider)
+                        .values
+                        .map<DropdownMenuEntry<Drill>>((Drill drill) {
+                      return DropdownMenuEntry<Drill>(
+                        value: drill,
+                        label: drill.name,
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Visibility(
+            visible: importType == ImportFileType.svg,
+            child: const Divider(),
+          ),
+          Visibility(
+            visible: importType == ImportFileType.svg,
+            child: ConfigTextInput(label: "Depht", controller: dephttxt),
+          ),
+          Visibility(
+            visible: importType == ImportFileType.svg,
+            child: const Divider(),
+          ),
+          Visibility(
+            visible: importType == ImportFileType.svg,
             child: Row(
               children: [
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    "Drill",
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  child: Text("Detail"),
                 ),
-                DropdownMenu<Drill>(
-                  initialSelection: ref.read(drillclassprovider)[drilltxt.text],
-                  controller: drilltxt,
-                  requestFocusOnTap: true,
-                  dropdownMenuEntries: ref
-                      .read(drillclassprovider)
-                      .values
-                      .map<DropdownMenuEntry<Drill>>((Drill drill) {
-                    return DropdownMenuEntry<Drill>(
-                      value: drill,
-                      label: drill.name,
-                    );
-                  }).toList(),
-                ),
+                Slider(
+                    value: detail,
+                    max: 20,
+                    min: 1,
+                    divisions: 19,
+                    label: detail.toString(),
+                    onChanged: (value) {
+                      setState(() {
+                        detail = value;
+                      });
+                    }),
               ],
             ),
           ),
-          const Divider(),
-          ConfigTextInput(label: "Depht", controller: dephttxt),
-          const Divider(),
-          Row(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("Detail"),
-              ),
-              Slider(
-                  value: detail,
-                  max: 20,
-                  min: 1,
-                  divisions: 19,
-                  label: detail.toString(),
-                  onChanged: (value) {
-                    setState(() {
-                      detail = value;
-                    });
-                  }),
-            ],
-          ),
-          ElevatedButton(onPressed: () {
-            importDepth = double.parse(dephttxt.text);
-            importDrill = ref.read(drillclassprovider)[drilltxt.text];
-            importDetail = detail;
-            importFile(ref);}, child: const Text("Import file"))
+          ElevatedButton(
+              onPressed: () {
+                importDepth = double.parse(dephttxt.text);
+                importDrill = ref.read(drillclassprovider)[drilltxt.text];
+                importDetail = detail;
+                importFile(ref, extension);
+              },
+              child: const Text("Import file"))
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/Files/export_page.dart';
 import 'package:morbidelli_cam/AppBar/Files/import/import_page.dart';
 import 'package:morbidelli_cam/AppBar/Files/settings.dart';
 import 'package:morbidelli_cam/AppBar/export_functions/export_data.dart';
@@ -68,7 +69,10 @@ class _AppBarFilesState extends ConsumerState<AppBarFiles> {
                         builder: (context) => const SettingsMenu()));
               } else if (value == 4) {
                 //Export
-                exportXXL(ref);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ExportRoute()));
               }
             }));
   }

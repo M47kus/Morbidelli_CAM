@@ -155,11 +155,13 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
             ),
           ),
           ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 importDepth = double.parse(dephttxt.text);
                 importDrill = ref.read(drillclassprovider)[drilltxt.text];
                 importDetail = detail;
-                importFile(ref, extension);
+                await importFile(ref, extension);
+                print("finsih");
+                Navigator.of(context).pop();
               },
               child: const Text("Import file"))
         ],

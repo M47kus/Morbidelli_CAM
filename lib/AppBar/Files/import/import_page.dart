@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/AppBar/Files/import/import.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
+import 'package:morbidelli_cam/main/load_settings.dart';
 
 import '../../../provider/provider_lib.dart';
 import '../../drill/drill_class.dart';
@@ -15,7 +17,7 @@ class ImportRoute extends ConsumerStatefulWidget {
 class _ImportRouteState extends ConsumerState<ImportRoute> {
   TextEditingController drilltxt = TextEditingController();
   TextEditingController dephttxt = TextEditingController();
-  double detail = 10;
+  double detail = importDetail;
 
   void initState() {
     super.initState();
@@ -26,7 +28,7 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text("Import"),),
       body: Column(
         children: [
           Padding(
@@ -57,19 +59,33 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
               ],
             ),
           ),
-          Divider(),
+          const Divider(),
           ConfigTextInput(label: "Depht", controller: dephttxt),
-          Divider(),
-          Slider(
-              value: detail,
-              max: 20,
-              min: 1,
-              label: detail.toString(),
-              onChanged: (value) {
-                setState(() {
-                  detail = value;
-                });
-              })
+          const Divider(),
+          Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Detail"),
+              ),
+              Slider(
+                  value: detail,
+                  max: 20,
+                  min: 1,
+                  divisions: 19,
+                  label: detail.toString(),
+                  onChanged: (value) {
+                    setState(() {
+                      detail = value;
+                    });
+                  }),
+            ],
+          ),
+          ElevatedButton(onPressed: () {
+            importDepth = double.parse(dephttxt.text);
+            importDrill = ref.read(drillclassprovider)[drilltxt.text];
+            importDetail = detail;
+            importFile(ref);}, child: const Text("Import file"))
         ],
       ),
     );

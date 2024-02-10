@@ -2,12 +2,16 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:yaml/yaml.dart";
 
+import "../AppBar/drill/drill_class.dart";
+
 final TextEditingController modelScaleUnit = TextEditingController(text: "X");
 final TextEditingController modelDX = TextEditingController(text: "X");
 final TextEditingController modelDY = TextEditingController(text: "X");
 final TextEditingController modelDZ = TextEditingController(text: "X");
 bool initShowDefaultModel = false;
 double importDepth = 1.0;
+Drill? importDrill;
+double importDetail = 16;
 
 //load default settings from yaml file
 Future<void> initSettings() async {

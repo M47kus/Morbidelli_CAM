@@ -5,7 +5,7 @@ import 'package:morbidelli_cam/import_functions/import_svg.dart';
 import '../../../provider/provider_lib.dart';
 
 //File picker return new or old file
-Future<void> importFile(ref) async {
+Future<String?> importFile(ref) async {
   FilePickerResult? result = await FilePicker.platform.pickFiles(
     type: FileType.custom,
     allowedExtensions: ['obj', 'svg'],

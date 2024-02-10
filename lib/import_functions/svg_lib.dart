@@ -160,7 +160,7 @@ class SvgC {
       required this.sy});
 
   void convert(ref, dirId) {
-    int n = 16; //must be follow this schema: (n-1)/3 = int
+    int n = importDetail.round(); //must be follow this schema: (n-1)/3 = int
 
     Point A = Point(sx, sy);
     Point B = Point(x1, y1);

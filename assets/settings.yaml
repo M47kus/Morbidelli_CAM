@@ -4,3 +4,5 @@ dx: 600
 dy: 300
 dz: 19
 scale: 200
+initialDefaultModel: false
+hideModelInCreation: true

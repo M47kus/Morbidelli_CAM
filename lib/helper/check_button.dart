@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BooleanCircleIconButton extends StatelessWidget {
+class ConfigBooleanButton extends StatelessWidget {
   static const IconData cancelOutlined =
       IconData(0xef28, fontFamily: 'MaterialIcons');
   static const IconData checkCircleOutline =
@@ -9,7 +9,7 @@ class BooleanCircleIconButton extends StatelessWidget {
   final bool isActive;
   final void Function() onTap;
   final String txt;
-  const BooleanCircleIconButton(
+  const ConfigBooleanButton(
       {Key? key,
       required this.isActive,
       required this.onTap,

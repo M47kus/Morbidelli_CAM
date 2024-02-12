@@ -39,6 +39,7 @@ dependencies:
   file_picker: ^6.1.1
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +75,9 @@ flutter:
     - assets/settings.yaml
     - assets/drills.yaml
     - assets/icons/B.bmp
+    - assets/icons/Xl2p.bmp
+    - assets/icons/drill.jpg
+    - assets/icons/bogen.pgm
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

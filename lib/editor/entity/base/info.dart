@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
-import 'package:morbidelli_cam/editor/drill/drill_data.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
+
+import '../drill/drill_data.dart';
 
 mixin Info {
   void onTab(ref, id) {

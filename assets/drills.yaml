@@ -3,6 +3,8 @@ Kugel30:
   d: 30.0
   l: 30.0
   form: 'sphere'
+  dt: null
+  a: null
 wepla10: 
   id: 106
   d: 10.0
@@ -16,4 +18,4 @@ schrift:
   l: 30.0
   form: 'cone'
   dt: 0.01
-  a: 20.0
+  a: 20.5

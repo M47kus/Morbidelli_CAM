@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'circle3p/cir3p_data.dart';
-import 'drill/drill_data.dart';
+import 'entity/circle3p/cir3p_data.dart';
 import 'entity/circle3p/cir3p_edit.dart';
+import 'entity/drill/drill_data.dart';
 import 'entity/drill/drill_edit.dart';
 import 'entity/g0/go_data.dart';
 import 'entity/g0/go_edit.dart';

@@ -1,8 +1,9 @@
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
-import 'package:morbidelli_cam/editor/drill/drill_data.dart';
 import 'package:morbidelli_cam/editor/overlay/path_directory.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
+
+import '../../../../editor/entity/drill/drill_data.dart';
 
 void translateSVG(svgData, ref) {
   int newDirId = ref.read(pathDirectoryProvider.notifier).getNewId();

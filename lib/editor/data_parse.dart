@@ -3,14 +3,14 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/circle3p/cir3p_data.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
 import '../helper/math/circle_3p.dart';
 import '../provider/path_privider_lib.dart';
 import '../provider/provider_lib.dart';
-import 'drill/drill_data.dart';
+import 'entity/circle3p/cir3p_data.dart';
 import 'entity/circle3p/cir3p_edit.dart';
+import 'entity/drill/drill_data.dart';
 import 'entity/g0/go_data.dart';
 import 'entity/g1/g1_data.dart';
 

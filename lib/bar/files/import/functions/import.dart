@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 
-import '../../../provider/provider_lib.dart';
-import 'functions/convert_svg.dart';
+import '../../../../provider/provider_lib.dart';
+import 'convert_svg.dart';
 
 //File picker return new or old file
 Future<void> importFile(ref, [extension]) async {

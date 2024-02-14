@@ -1,8 +1,8 @@
-#default settings
-
-dx: 600
-dy: 300
-dz: 19
-scale: 200
-initialDefaultModel: false
-hideModelInCreation: true
+model: 
+  scale: 200.0
+  dx: 600.0
+  dy: 300.0
+  dz: 19.0
+svg: 
+  detail: 12.0
+  depth: 1.0

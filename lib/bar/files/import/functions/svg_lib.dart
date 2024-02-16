@@ -5,6 +5,9 @@ import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/entity/g0/go_data.dart';
 import 'package:morbidelli_cam/editor/entity/g1/g1_data.dart';
 
+import '../../../../editor/entity/circle3p/cir3p_data.dart';
+import '../../../../editor/entity/circle3p/cir3p_edit.dart';
+
 Map svGKeys = {
   "M": (x, y) {
     return SvgM(x: x, y: y);
@@ -185,37 +188,38 @@ class SvgC {
 
     for (int entityId = 1; entityId < points.length; entityId++) {
       if (entityId < points.length - 1) {
-        // if(entityId.isOdd) {
-        //   int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
-        //   ref.read(entityProvider.notifier).newObject(
-        //       dirId,
-        //       objId,
-        //
-        //       Cir3PData(
-        //         id: objId,
-        //         x: points[entityId].x,
-        //         y: points[entityId].y,
-        //         z: importDepth,
-        //         xp: points[entityId + 1].x,
-        //         yp: points[entityId + 1].y,
-        //         zp: importDepth,
-        //         rotation: Cir3PAxisRotation.dynamic,
-        //         fix: 1,
-        //         fixp: 1,
-        //       ));
-        //
-        //
-        // }
-        int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
-        ref.read(entityProvider.notifier).newObject(
-            dirId,
-            objId,
-            G1Data(
+
+        if(entityId.isOdd) {
+          int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+          ref.read(entityProvider.notifier).newObject(
+              dirId,
+              objId,
+
+              Cir3PData(
                 id: objId,
                 x: points[entityId].x,
                 y: points[entityId].y,
                 z: importDepth,
-                fix: 1));
+                xp: points[entityId + 1].x,
+                yp: points[entityId + 1].y,
+                zp: importDepth,
+                rotation: Cir3PAxisRotation.dynamic,
+                fix: 1,
+                fixp: 1,
+              ));
+
+
+        }
+        // int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+        // ref.read(entityProvider.notifier).newObject(
+        //     dirId,
+        //     objId,
+        //     G1Data(
+        //         id: objId,
+        //         x: points[entityId].x,
+        //         y: points[entityId].y,
+        //         z: importDepth,
+        //         fix: 1));
       }
     }
   }

@@ -105,38 +105,82 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
               double aB = atan2(vB.y, vB.x);
               double aC = atan2(vC.y, vC.x);
 
-              print("$aA $aB $aC");
+              if(aC< 0 ) aC += pi*2;
+              if(aA< 0 ) aA += pi*2;
+              if(aB< 0 ) aB += pi*2;
 
-              double aStart = aA;
-              double aEnd = aC;
 
-              if (aA < 0) aStart = aA + pi * 2;
-              if (aC < 0) aEnd = aC + pi * 2;
+              print("o $aA $aB $aC");
 
-              // if (entity.rotation == Cir3PAxisRotation.dynamic) {
-              //   aStart = [aA, aB, aC].reduce(min);
-              //   aEnd = [aA, aB, aC].reduce(max);
-              // }
+
+              Cir3PAxisRotation dynamicRotation = Cir3PAxisRotation.dynamic;
+
+              if (entity.rotation == Cir3PAxisRotation.dynamic) {
+
+                double aStartr = aA;
+                double aEndr = aC;
+
+                if (aStartr > aEndr) aStartr -= pi * 2;
+
+                print("$aStartr $aB ${aB-pi*2} $aEndr");
+
+                if(aB > aStartr && aB < aEndr || aB-pi*2 > aStartr && aB-pi*2 < aEndr) {
+                  dynamicRotation = Cir3PAxisRotation.right;
+                  print("right");
+                }
+
+                double aStartl = aC;
+                double aEndl = aA;
+
+                if (aStartl > aEndl) aStartl -= pi * 2;
+
+                print("$aStartl $aB ${aB-pi*2} $aEndl");
+
+                if(aB > aStartl && aB < aEndl || aB-pi*2 > aStartl && aB-pi*2 < aEndl) {
+                  dynamicRotation = Cir3PAxisRotation.left;
+                  print("left");
+                }
+
+              }
 
               double t = 25;
 
-              if (entity.rotation == Cir3PAxisRotation.left) {
-                for (double i = 0; i >= -t; i--) {
-                  double a =
-                      ((pi * 2 - (aStart - aEnd)).abs() / t * i) + aStart;
+              if (entity.rotation == Cir3PAxisRotation.left ||
+                  dynamicRotation == Cir3PAxisRotation.left) {
+                List reverseLines = [];
+                double aStart = aC;
+                double aEnd = aA;
 
+                if (aStart > aEnd) aStart -= pi * 2;
+
+                print("left: $aStart $aEnd");
+
+                for (double i = 1; i >= -1 / t; i -= 1 / t) {
+                  double a = ((1 - i) * aStart + i * aEnd);
+                  print(a);
                   Vector3 movePos = Vector3(center.x + radius * cos(a),
                       entity.modelZ(lineAxis), center.y + radius * sin(a));
 
-                  lines.add(Line3D(relativePos, movePos,
+                  reverseLines.add(Line3D(relativePos, movePos,
                       width: 1.5,
                       color: const Color.fromARGB(255, 58, 211, 21)));
                   relativePos = movePos;
                 }
-              } else {
-                for (double i = t; i >= 0; i--) {
-                  double a = ((aStart - aEnd).abs() / t * i) + aStart;
+                for (var line in reverseLines.reversed) {
+                  lines.add(line);
+                }
+              } else if (entity.rotation == Cir3PAxisRotation.right ||
+                  dynamicRotation == Cir3PAxisRotation.right) {
+                double aStart = aA;
+                double aEnd = aC;
 
+                if (aStart > aEnd) aStart -= pi * 2;
+
+                print("right: $aStart $aEnd");
+
+                for (double i = 0; i <= 1 + 1 / t; i += 1 / t) {
+                  double a = ((1 - i) * aStart + i * aEnd);
+                  print(a);
                   Vector3 movePos = Vector3(center.x + radius * cos(a),
                       entity.modelZ(lineAxis), center.y + radius * sin(a));
 

@@ -5,7 +5,7 @@ import '../../../../provider/provider_lib.dart';
 import 'convert_svg.dart';
 
 //File picker return new or old file
-Future<void> importFile(ref, [extension]) async {
+Future<void> importFile(ref, [extension, convertType]) async {
   List<String> allowedextension = [];
   if (extension != null) {
     allowedextension.add(extension);
@@ -21,7 +21,7 @@ Future<void> importFile(ref, [extension]) async {
     PlatformFile file = result.files.first;
     if (file.extension.toString() == "svg") {
       print("svg");
-      convertSVG(file.path, ref);
+      convertSVG(file.path, ref, convertType);
     } else if (file.extension.toString() == "obj") {
       print("obj");
       String fileContent = File(result.files.single.path!).readAsStringSync();

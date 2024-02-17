@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:morbidelli_cam/bar/files/import/widgets/svg_settings.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/entity/g0/go_data.dart';
@@ -47,7 +48,7 @@ class SvgM {
   final double y;
   SvgM({required this.x, required this.y});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
     ref.read(entityProvider.notifier).newObject(
         dirId,
@@ -67,7 +68,7 @@ class SvgL {
   final double y;
   SvgL({required this.x, required this.y});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
     ref.read(entityProvider.notifier).newObject(
         dirId,
@@ -87,7 +88,7 @@ class SvgH {
   final double y;
   SvgH({required this.x, required this.y});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
     ref.read(entityProvider.notifier).newObject(
         dirId,
@@ -107,7 +108,7 @@ class SvgV {
   final double y;
   SvgV({required this.x, required this.y});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
     ref.read(entityProvider.notifier).newObject(
         dirId,
@@ -127,7 +128,7 @@ class SvgZ {
   final double y;
   SvgZ({required this.x, required this.y});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
     ref.read(entityProvider.notifier).newObject(
         dirId,
@@ -161,7 +162,7 @@ class SvgC {
       required this.sx,
       required this.sy});
 
-  void convert(ref, dirId) {
+  void convert(ref, dirId, [convertType]) {
     int n = importDetail.round(); //must be follow this schema: (n-1)/3 = int
 
     Point A = Point(sx, sy);
@@ -188,38 +189,37 @@ class SvgC {
 
     for (int entityId = 1; entityId < points.length; entityId++) {
       if (entityId < points.length - 1) {
-
-        if(entityId.isOdd) {
+        if (convertType == null || convertType == SVGConvertType.circles) {
+          if (entityId.isOdd) {
+            int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+            ref.read(entityProvider.notifier).newObject(
+                dirId,
+                objId,
+                Cir3PData(
+                  id: objId,
+                  x: points[entityId].x,
+                  y: points[entityId].y,
+                  z: importDepth,
+                  xp: points[entityId + 1].x,
+                  yp: points[entityId + 1].y,
+                  zp: importDepth,
+                  rotation: Cir3PAxisRotation.dynamic,
+                  fix: 1,
+                  fixp: 1,
+                ));
+          }
+        } else {
           int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
           ref.read(entityProvider.notifier).newObject(
               dirId,
               objId,
-
-              Cir3PData(
-                id: objId,
-                x: points[entityId].x,
-                y: points[entityId].y,
-                z: importDepth,
-                xp: points[entityId + 1].x,
-                yp: points[entityId + 1].y,
-                zp: importDepth,
-                rotation: Cir3PAxisRotation.dynamic,
-                fix: 1,
-                fixp: 1,
-              ));
-
-
+              G1Data(
+                  id: objId,
+                  x: points[entityId].x,
+                  y: points[entityId].y,
+                  z: importDepth,
+                  fix: 1));
         }
-        // int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
-        // ref.read(entityProvider.notifier).newObject(
-        //     dirId,
-        //     objId,
-        //     G1Data(
-        //         id: objId,
-        //         x: points[entityId].x,
-        //         y: points[entityId].y,
-        //         z: importDepth,
-        //         fix: 1));
       }
     }
   }

@@ -35,7 +35,9 @@ Future<void> exportXXL(ref) async {
             lines += entity.getXXLData(selectedDrill);
           } else if (entity is G1Data) {
             lines += entity.getXXLData();
-          } else if (entity is Cir3PData) {}
+          } else if (entity is Cir3PData) {
+            lines += entity.getXXLData();
+          }
         }
       }
     }

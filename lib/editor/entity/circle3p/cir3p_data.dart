@@ -108,4 +108,8 @@ class Cir3PData extends Data {
         return dz / scale * 2 - zp! / scale * 2 - offset;
     }
   }
+
+  String getXXLData() {
+    return "\nXA3P x=${convertX()} y=${convertY()} H=$z X=${convertXP()} Y=${convertYP()} Z=$zp";
+  }
 }

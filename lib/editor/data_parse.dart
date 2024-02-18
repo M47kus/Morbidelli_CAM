@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/entity/base/data.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
 import '../helper/math/circle_3p.dart';
@@ -73,12 +74,13 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
             if (entity is DrillData) {
               selectedDrill = entity.drill!;
             } else if (entity is G0Data) {
-              relativePos = Vector3(entity.modelX(lineAxis),
-                  entity.modelZ(lineAxis), entity.modelY(lineAxis));
+              relativePos =
+                  Vector3(entity.convertX(), entity.z!, entity.convertY());
             } else if (entity is G1Data) {
-              Vector3 movePos = Vector3(entity.modelX(lineAxis),
-                  entity.modelZ(lineAxis), entity.modelY(lineAxis));
-              lines.add(Line3D(relativePos, movePos,
+              Vector3 movePos =
+                  Vector3(entity.convertX(), entity.z!, entity.convertY());
+              lines.add(Line3D(
+                  relativePos.model(lineAxis), movePos.model(lineAxis),
                   width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
               relativePos = movePos;
             } else if (entity is Cir3PData) {
@@ -87,16 +89,17 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
               (center, radius) = findCircle(
                   relativePos.x,
                   relativePos.z,
-                  entity.modelX(lineAxis),
-                  entity.modelY(lineAxis),
-                  entity.modelXP(lineAxis),
-                  entity.modelYP(lineAxis));
+                  entity.convertX(),
+                  entity.convertY(),
+                  entity.convertXP(),
+                  entity.convertYP());
+              Vector3 startPoint = relativePos;
               Vector2 vA =
                   Vector2(relativePos.x - center.x, relativePos.z - center.y);
-              Vector2 vB = Vector2(entity.modelX(lineAxis)! - center.x,
-                  entity.modelY(lineAxis)! - center.y);
-              Vector2 vC = Vector2(entity.modelXP(lineAxis)! - center.x,
-                  entity.modelYP(lineAxis)! - center.y);
+              Vector2 vB = Vector2(
+                  entity.convertX()! - center.x, entity.convertY()! - center.y);
+              Vector2 vC = Vector2(entity.convertXP()! - center.x,
+                  entity.convertYP()! - center.y);
 
               double aA = atan2(vA.y, vA.x);
               double aB = atan2(vB.y, vB.x);
@@ -142,12 +145,22 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
 
                 if (aStart > aEnd) aStart -= pi * 2;
 
+                double _cirz = startPoint.y;
+
                 for (double i = 1; i >= -1 / t; i -= 1 / t) {
                   double a = ((1 - i) * aStart + i * aEnd);
-                  Vector3 movePos = Vector3(center.x + radius * cos(a),
-                      entity.modelZ(lineAxis), center.y + radius * sin(a));
 
-                  reverseLines.add(Line3D(relativePos, movePos,
+                  if (i >= 0.5 - (1 / t) / 2) {
+                    _cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                  } else {
+                    _cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                  }
+
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), _cirz,
+                      center.y + radius * sin(a));
+
+                  reverseLines.add(Line3D(
+                      relativePos.model(lineAxis), movePos.model(lineAxis),
                       width: 1.5,
                       color: const Color.fromARGB(255, 58, 211, 21)));
                   relativePos = movePos;
@@ -161,12 +174,23 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
                 double aEnd = aC;
 
                 if (aStart > aEnd) aStart -= pi * 2;
+
+                double _cirz = startPoint.y;
+
                 for (double i = 0; i <= 1 + 1 / t; i += 1 / t) {
                   double a = ((1 - i) * aStart + i * aEnd);
-                  Vector3 movePos = Vector3(center.x + radius * cos(a),
-                      entity.modelZ(lineAxis), center.y + radius * sin(a));
 
-                  lines.add(Line3D(relativePos, movePos,
+                  if (i <= 0.5 + (1 / t) / 2) {
+                    _cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                  } else {
+                    _cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                  }
+
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), _cirz,
+                      center.y + radius * sin(a));
+
+                  lines.add(Line3D(
+                      relativePos.model(lineAxis), movePos.model(lineAxis),
                       width: 1.5,
                       color: const Color.fromARGB(255, 58, 211, 21)));
                   relativePos = movePos;

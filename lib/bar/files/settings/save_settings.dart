@@ -1,14 +1,14 @@
 import "dart:io";
 import 'package:yaml_writer/yaml_writer.dart';
 
-void updateSettings({
-  required modelScaleUnit,
-  required dx,
-  required dy,
-  required dz,
-  required svgDetail,
-  required svgDepth
-}) {
+void updateSettings(
+    {required modelScaleUnit,
+    required dx,
+    required dy,
+    required dz,
+    required svgDetail,
+    required svgDepth,
+    required circleTMin}) {
   Map settings = {};
   String model = "model";
   settings[model] = {};
@@ -20,6 +20,9 @@ void updateSettings({
   settings[svg] = {};
   settings[svg]["detail"] = svgDetail;
   settings[svg]["depth"] = svgDepth;
+  String editor = "editor";
+  settings[editor] = {};
+  settings[editor]["circleTMin"] = circleTMin;
 
   //convert to yaml string
   var yamlWriter = YAMLWriter();
@@ -40,8 +43,11 @@ void saveDefaultSettings() {
   settings[model]["dz"] = 19;
   String svg = "svg";
   settings[svg] = {};
-  settings[svg]["detail"] = 16;
-  settings[svg]["depth"] = 1;
+  settings[svg]["detail"] = 16.0;
+  settings[svg]["depth"] = 1.0;
+  String editor = "editor";
+  settings[editor] = {};
+  settings[editor]["circleTMin"] = 6;
 
   //convert to yaml string
   var yamlWriter = YAMLWriter();

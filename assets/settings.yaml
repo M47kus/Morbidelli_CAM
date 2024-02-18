@@ -4,5 +4,7 @@ model:
   dy: 300
   dz: 19
 svg: 
-  detail: 16
-  depth: 1
+  detail: 16.0
+  depth: 1.0
+editor: 
+  circleTMin: 6

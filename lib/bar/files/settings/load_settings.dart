@@ -12,6 +12,7 @@ final TextEditingController modelDZ = TextEditingController(text: "X");
 TextEditingController defaultDX = TextEditingController();
 TextEditingController defaultDY = TextEditingController();
 TextEditingController defaultDZ = TextEditingController();
+TextEditingController circleTMin = TextEditingController();
 
 bool initShowDefaultModel = false;
 double importDepth = 1.0;
@@ -23,12 +24,16 @@ Future<void> initSettings() async {
   final data = await rootBundle.loadString('assets/settings.yaml');
   final mapData = loadYaml(data);
 
+  //loadData(mapData);
   try {
     loadData(mapData);
   } catch (error) {
     print("Can not load settings: $error");
     //reset to default
     saveDefaultSettings();
+    final data = await rootBundle.loadString('assets/settings.yaml');
+    final mapData = loadYaml(data);
+    loadData(mapData);
   }
 }
 
@@ -41,6 +46,7 @@ void loadData(mapData) {
   defaultDZ.text = mapData["model"]["dz"].toString();
 
   modelScaleUnit.text = mapData["model"]["scale"].toString();
-  importDetail = double.parse(mapData["SVG"]["detail"]);
-  importDepth = double.parse(mapData["SVG"]["depth"]);
+  importDetail = mapData["svg"]["detail"];
+  importDepth = mapData["svg"]["depth"];
+  circleTMin.text = mapData["editor"]["circleTMin"].toString();
 }

@@ -54,6 +54,14 @@ class _SettingsMenuState extends State<SettingsMenu> {
             ),
             ConfigTextInput(label: "defaultDetail", controller: svgDetail),
             ConfigTextInput(label: "defaultDepth", controller: svgDepth),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                "Editor:",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            ConfigTextInput(label: "CircleTMin", controller: circleTMin),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
@@ -64,7 +72,8 @@ class _SettingsMenuState extends State<SettingsMenu> {
                         dy: double.parse(defaultDY.text),
                         dz: double.parse(defaultDZ.text),
                         svgDetail: double.parse(svgDetail.text),
-                        svgDepth: double.parse(svgDepth.text));
+                        svgDepth: double.parse(svgDepth.text),
+                        circleTMin: int.parse(circleTMin.text));
                     Navigator.of(context).pop();
 
                     //load data which is not relevant for editor and has not txtEditing controller
@@ -72,7 +81,7 @@ class _SettingsMenuState extends State<SettingsMenu> {
                     importDepth = double.parse(svgDepth.text);
                   },
                   child: const Text("Save")),
-            )
+            ),
           ],
         ));
   }

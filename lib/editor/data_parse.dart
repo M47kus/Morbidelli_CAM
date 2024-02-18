@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/entity/base/data.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
@@ -101,6 +102,18 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
               Vector2 vC = Vector2(entity.convertXP()! - center.x,
                   entity.convertYP()! - center.y);
 
+              int t = 5; //circle detail
+
+              int lSegment = 5;
+              Vector2 vAC = Vector2(entity.convertXP() - relativePos.x,
+                  entity.convertYP() - relativePos.z);
+              double lAC = sqrt(pow(vAC.x, 2) + pow(vAC.y, 2));
+              if (lAC / lSegment <= int.parse(circleTMin.text)) {
+                t = int.parse(circleTMin.text);
+              } else {
+                t = (lAC / lSegment).round();
+              }
+
               double aA = atan2(vA.y, vA.x);
               double aB = atan2(vB.y, vB.x);
               double aC = atan2(vC.y, vC.x);
@@ -134,8 +147,6 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
                   dynamicRotation = Cir3PAxisRotation.left;
                 }
               }
-
-              double t = 25; //circle detail
 
               if (entity.rotation == Cir3PAxisRotation.left ||
                   dynamicRotation == Cir3PAxisRotation.left) {

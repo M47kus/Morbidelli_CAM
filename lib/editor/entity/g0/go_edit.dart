@@ -79,8 +79,8 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
               G0Data(
                   id: objId,
                   x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                  y: xtxt.text == "" ? 0 : double.parse(ytxt.text),
-                  z: xtxt.text == "" ? 0 : double.parse(ztxt.text),
+                  y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
+                  z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
                   fix: fixpoint,
                   correct: correction));
         }),

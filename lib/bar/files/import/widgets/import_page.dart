@@ -62,16 +62,17 @@ class _ImportRouteState extends ConsumerState<ImportRoute> {
                           },
                           child: const Text("OBJ")),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
+                  : const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: OutlinedButton(
-                          onPressed: () {
-                            setState(() {
-                              importType = ImportFileType.obj;
-                              extension = "obj";
-                            });
-                          },
-                          child: const Text("OBJ")),
+                        //todo: fix obj import, re render must be deactivaded when obj import is used, parse dx, dy, dz from obj file, change edit base system to global variable system
+                          onPressed: null, //() {
+                          //   setState(() {
+                          //     importType = ImportFileType.obj;
+                          //     extension = "obj";
+                          //   });
+                          // },
+                          child: Text("OBJ")),
                     )
             ],
           ),

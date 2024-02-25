@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/widgets/origin_point.dart';
-import 'package:morbidelli_cam/helper/check_button.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 import '../base/edit.dart';
@@ -46,7 +45,8 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
 
   int fixpointp = 1;
   Cir3PAxisRotation rotation = Cir3PAxisRotation.right;
-  bool leftdrill = false;
+
+  List<bool> _selectedAxis = <bool>[false, false, true];
 
   void _init() {
     xtxt.clear();
@@ -75,8 +75,14 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
       zptxt.text = widget.zp.toString();
     }
 
-    rotation = widget.rotation ?? Cir3PAxisRotation.right;
-    leftdrill = rotation == Cir3PAxisRotation.left ? true : false;
+    rotation = widget.rotation ?? Cir3PAxisRotation.dynamic;
+
+    if (rotation == Cir3PAxisRotation.left) {
+      _selectedAxis = [true, false, false];
+    } else if (rotation == Cir3PAxisRotation.right) {
+      _selectedAxis = [false, true, false];
+    }
+
     fixpoint = widget.fix ?? 1;
     fixpointp = widget.fixp ?? 1;
   }
@@ -111,11 +117,11 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
               objId,
               Cir3PData(
                 x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                y: xtxt.text == "" ? 0 : double.parse(ytxt.text),
-                z: xtxt.text == "" ? 0 : double.parse(ztxt.text),
+                y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
+                z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
                 xp: xptxt.text == "" ? 0 : double.parse(xptxt.text),
-                yp: xptxt.text == "" ? 0 : double.parse(yptxt.text),
-                zp: xptxt.text == "" ? 0 : double.parse(zptxt.text),
+                yp: yptxt.text == "" ? 0 : double.parse(yptxt.text),
+                zp: zptxt.text == "" ? 0 : double.parse(zptxt.text),
                 fix: fixpoint,
                 fixp: fixpointp,
                 rotation: rotation,
@@ -189,20 +195,32 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
                 )
               ],
             ),
-            ConfigBooleanButton(
-                isActive: leftdrill,
-                onTap: () {
-                  setState(() {
-                    if (leftdrill == false) {
-                      rotation = Cir3PAxisRotation.left;
-                    } else {
-                      rotation = Cir3PAxisRotation.right;
-                    }
-                    leftdrill =
-                        rotation == Cir3PAxisRotation.left ? true : false;
-                  });
-                },
-                txt: "Left Drill")
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ToggleButtons(
+                  isSelected: _selectedAxis,
+                  onPressed: (int index) {
+                    setState(() {
+                      // The button that is tapped is set to true, and the others to false.
+                      for (int i = 0; i < _selectedAxis.length; i++) {
+                        _selectedAxis[i] = i == index;
+                      }
+                      if (_selectedAxis[0]) {
+                        rotation = Cir3PAxisRotation.left;
+                      } else if (_selectedAxis[1]) {
+                        rotation = Cir3PAxisRotation.right;
+                      } else {
+                        rotation = Cir3PAxisRotation.dynamic;
+                      }
+                    });
+                  },
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  constraints: const BoxConstraints(
+                    minHeight: 40.0,
+                    minWidth: 80.0,
+                  ),
+                  children: const [Text("left"), Text("right"), Text("dynamic")]),
+            )
           ],
         )),
       ],

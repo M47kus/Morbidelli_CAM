@@ -5,7 +5,7 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 
 import '../../../../editor/entity/drill/drill_data.dart';
 
-void translateSVG(svgData, ref) {
+void translateSVG(svgData, ref, [convertType]) {
   int newDirId = ref.read(pathDirectoryProvider.notifier).getNewId();
   ref
       .read(pathDirectoryProvider.notifier)
@@ -20,6 +20,6 @@ void translateSVG(svgData, ref) {
       .read(entityProvider.notifier)
       .newObject(newDirId, objId, DrillData(id: objId, drill: importDrill));
   for (var entity in svgData) {
-    entity.convert(ref, newDirId);
+    entity.convert(ref, newDirId, convertType);
   }
 }

@@ -70,8 +70,8 @@ class _G1CreatorState extends ConsumerState<G1Creator> with Edit {
               G1Data(
                   id: objId,
                   x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                  y: xtxt.text == "" ? 0 : double.parse(ytxt.text),
-                  z: xtxt.text == "" ? 0 : double.parse(ztxt.text),
+                  y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
+                  z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
                   fix: fixpoint));
         }),
         Expanded(

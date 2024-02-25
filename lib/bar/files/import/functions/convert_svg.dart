@@ -5,7 +5,7 @@ import 'package:xml/xml.dart';
 
 import 'svg_lib.dart';
 
-void convertSVG(filePath, ref) {
+void convertSVG(filePath, ref, [convertType]) {
   File plainSVG = File(filePath);
   XmlDocument document = XmlDocument.parse(plainSVG.readAsStringSync());
   int pathLenght = document
@@ -81,7 +81,7 @@ void convertSVG(filePath, ref) {
           }
         }
 
-        translateSVG(svgData, ref);
+        translateSVG(svgData, ref, convertType);
       }
     }
   }

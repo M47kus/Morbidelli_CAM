@@ -3,8 +3,10 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/entity/base/data.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
+import '../bar/files/settings/load_settings.dart';
 import '../helper/math/circle_3p.dart';
 import '../provider/path_privider_lib.dart';
 import '../provider/provider_lib.dart';
@@ -57,8 +59,6 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
     state = old;
   }
 
-  //todo: later in export format to Data classes with drill info
-
   Group3D parseLine3D(ref, LineAxis lineAxis) {
     List<Line3D> lines = [];
 
@@ -75,72 +75,133 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
             if (entity is DrillData) {
               selectedDrill = entity.drill!;
             } else if (entity is G0Data) {
-              relativePos = Vector3(entity.modelX(lineAxis),
-                  entity.modelZ(lineAxis), entity.modelY(lineAxis));
+              relativePos =
+                  Vector3(entity.convertX(), entity.z!, entity.convertY());
             } else if (entity is G1Data) {
-              Vector3 movePos = Vector3(entity.modelX(lineAxis),
-                  entity.modelZ(lineAxis), entity.modelY(lineAxis));
-              lines.add(Line3D(relativePos, movePos,
+              Vector3 movePos =
+                  Vector3(entity.convertX(), entity.z!, entity.convertY());
+              lines.add(Line3D(
+                  relativePos.model(lineAxis), movePos.model(lineAxis),
                   width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
               relativePos = movePos;
             } else if (entity is Cir3PData) {
-              //todo
               Vector2 center;
               double radius;
               (center, radius) = findCircle(
                   relativePos.x,
                   relativePos.z,
-                  entity.modelX(lineAxis),
-                  entity.modelY(lineAxis),
-                  entity.modelXP(lineAxis),
-                  entity.modelYP(lineAxis));
+                  entity.convertX(),
+                  entity.convertY(),
+                  entity.convertXP(),
+                  entity.convertYP());
+              Vector3 startPoint = relativePos;
               Vector2 vA =
                   Vector2(relativePos.x - center.x, relativePos.z - center.y);
-              Vector2 vB = Vector2(entity.modelX(lineAxis)! - center.x,
-                  entity.modelY(lineAxis)! - center.y);
-              Vector2 vC = Vector2(entity.modelXP(lineAxis)! - center.x,
-                  entity.modelYP(lineAxis)! - center.y);
+              Vector2 vB = Vector2(
+                  entity.convertX()! - center.x, entity.convertY()! - center.y);
+              Vector2 vC = Vector2(entity.convertXP()! - center.x,
+                  entity.convertYP()! - center.y);
+
+              int t = 6; //circle detail
+
+              int lSegment = 5;
+              Vector2 vAC = Vector2(entity.convertXP() - relativePos.x,
+                  entity.convertYP() - relativePos.z);
+              double lAC = sqrt(pow(vAC.x, 2) + pow(vAC.y, 2));
+              if (lAC / lSegment <= int.parse(circleTMin.text)) {
+                t = int.parse(circleTMin.text);
+              } else {
+                t = (lAC / lSegment).round();
+              }
 
               double aA = atan2(vA.y, vA.x);
               double aB = atan2(vB.y, vB.x);
               double aC = atan2(vC.y, vC.x);
 
-              print("$aA $aB $aC");
+              if (aC < 0) aC += pi * 2;
+              if (aA < 0) aA += pi * 2;
+              if (aB < 0) aB += pi * 2;
 
-              double aStart = aA;
-              double aEnd = aC;
+              // print("o $aA $aB $aC"):
 
-              if (aA < 0) aStart = aA + pi * 2;
-              if (aC < 0) aEnd = aC + pi * 2;
+              Cir3PAxisRotation dynamicRotation = Cir3PAxisRotation.dynamic;
 
-              // if (entity.rotation == Cir3PAxisRotation.dynamic) {
-              //   aStart = [aA, aB, aC].reduce(min);
-              //   aEnd = [aA, aB, aC].reduce(max);
-              // }
+              if (entity.rotation == Cir3PAxisRotation.dynamic) {
+                double aStartr = aA;
+                double aEndr = aC;
 
-              double t = 25;
+                if (aStartr > aEndr) aStartr -= pi * 2;
 
-              if (entity.rotation == Cir3PAxisRotation.left) {
-                for (double i = 0; i >= -t; i--) {
-                  double a =
-                      ((pi * 2 - (aStart - aEnd)).abs() / t * i) + aStart;
+                if (aB > aStartr && aB < aEndr ||
+                    aB - pi * 2 > aStartr && aB - pi * 2 < aEndr) {
+                  dynamicRotation = Cir3PAxisRotation.right;
+                }
 
-                  Vector3 movePos = Vector3(center.x + radius * cos(a),
-                      entity.modelZ(lineAxis), center.y + radius * sin(a));
+                double aStartl = aC;
+                double aEndl = aA;
 
-                  lines.add(Line3D(relativePos, movePos,
+                if (aStartl > aEndl) aStartl -= pi * 2;
+
+                if (aB > aStartl && aB < aEndl ||
+                    aB - pi * 2 > aStartl && aB - pi * 2 < aEndl) {
+                  dynamicRotation = Cir3PAxisRotation.left;
+                }
+              }
+
+              if (entity.rotation == Cir3PAxisRotation.left ||
+                  dynamicRotation == Cir3PAxisRotation.left) {
+                List reverseLines = [];
+                double aStart = aC;
+                double aEnd = aA;
+
+                if (aStart > aEnd) aStart -= pi * 2;
+
+                double cirz = startPoint.y;
+
+                for (double i = 1; i >= 0; i -= 1 / t) {
+                  double a = ((1 - i) * aStart + i * aEnd);
+
+                  if (i >= 0.5 - (1 / t) / 2) {
+                    cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                  } else {
+                    cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                  }
+
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,
+                      center.y + radius * sin(a));
+
+                  reverseLines.add(Line3D(
+                      relativePos.model(lineAxis), movePos.model(lineAxis),
                       width: 1.5,
                       color: const Color.fromARGB(255, 58, 211, 21)));
                   relativePos = movePos;
                 }
-              } else {
-                for (double i = t; i >= 0; i--) {
-                  double a = ((aStart - aEnd).abs() / t * i) + aStart;
+                for (var line in reverseLines.reversed) {
+                  lines.add(line);
+                }
+              } else if (entity.rotation == Cir3PAxisRotation.right ||
+                  dynamicRotation == Cir3PAxisRotation.right) {
+                double aStart = aA;
+                double aEnd = aC;
 
-                  Vector3 movePos = Vector3(center.x + radius * cos(a),
-                      entity.modelZ(lineAxis), center.y + radius * sin(a));
+                if (aStart > aEnd) aStart -= pi * 2;
 
-                  lines.add(Line3D(relativePos, movePos,
+                double cirz = startPoint.y;
+
+                for (double i = 0; i <= 1; i += 1 / t) {
+                  double a = ((1 - i) * aStart + i * aEnd);
+
+                  if (i <= 0.5 + (1 / t) / 2) {
+                    cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                  } else {
+                    cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                  }
+
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,
+                      center.y + radius * sin(a));
+
+                  lines.add(Line3D(
+                      relativePos.model(lineAxis), movePos.model(lineAxis),
                       width: 1.5,
                       color: const Color.fromARGB(255, 58, 211, 21)));
                   relativePos = movePos;

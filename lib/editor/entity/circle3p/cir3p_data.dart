@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
-import 'package:morbidelli_cam/editor/data_parse.dart';
 
 import '../base/data.dart';
 import 'cir3p_edit.dart';
@@ -66,46 +65,7 @@ class Cir3PData extends Data {
     }
   }
 
-  modelXP(axis) {
-    double scale = double.parse(modelScaleUnit.text);
-    double dx = double.parse(modelDX.text);
-    double convertx = convertXP();
-
-    double offset = dx / scale;
-    switch (axis) {
-      case LineAxis.x:
-        return 0 / scale * 2 - offset;
-      case LineAxis.xr:
-        return dx / scale * 2 - offset;
-      default:
-        return convertx / scale * 2 - offset;
-    }
-  }
-
-  modelYP(axis) {
-    double scale = double.parse(modelScaleUnit.text);
-    double dy = double.parse(modelDY.text);
-    double converty = convertYP();
-
-    double offset = dy / scale;
-    switch (axis) {
-      case LineAxis.y:
-        return 0 / scale * 2 - 0 / scale * 2 - offset;
-      default:
-        return dy / scale * 2 - converty / scale * 2 - offset;
-    }
-  }
-
-  modelZP(axis) {
-    double scale = double.parse(modelScaleUnit.text);
-    double dz = double.parse(modelDZ.text);
-
-    double offset = dz / scale;
-    switch (axis) {
-      case LineAxis.z:
-        return (dz - 0 / (scale * 2 - zp!)) / scale * 2 - offset;
-      default:
-        return dz / scale * 2 - zp! / scale * 2 - offset;
-    }
+  String getXXLData() {
+    return "\nXA3P x=${convertX()} y=${convertY()} H=$z X=${convertXP()} Y=${convertYP()} Z=$zp";
   }
 }

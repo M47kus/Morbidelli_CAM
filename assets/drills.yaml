@@ -12,6 +12,13 @@ wepla10:
   form: 'flat'
   dt: null
   a: null
+wepla20r:
+  id: 114
+  d: 20.0
+  l: 55.0
+  form: 'flat'
+  dt: null
+  a: null
 schrift: 
   id: 101
   d: 25.0

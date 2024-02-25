@@ -2,15 +2,9 @@
 
 3D CAM for Morbidelli Machines
 
-## Getting Started
+with this tool you can interactively write your cnc code per hand in the code editor
+or import your cnc path from svg inkscape files.
 
-This project is a starting point for a Flutter application.
+For now the export works only for Xilog3 code format.
+General G and M format coming soon.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

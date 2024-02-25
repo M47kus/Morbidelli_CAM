@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/load_settings.dart';
-import 'package:morbidelli_cam/path_privider_lib.dart';
-import 'package:morbidelli_cam/provider_lib.dart';
-import 'AppBar/Files/files.dart';
-import 'AppBar/edit/edit.dart';
-import 'AppBar/view.dart';
-import 'AppBar/simulate.dart';
-import 'AppBar/drill/drill.dart';
-import 'edit_overlay/overlay.dart';
-import 'model_editor/editor.dart';
+import 'package:morbidelli_cam/bar/drill/drill.dart';
+import 'package:morbidelli_cam/bar/edit/edit.dart';
+import 'package:morbidelli_cam/bar/files/files.dart';
+import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
+import 'package:morbidelli_cam/bar/view/view.dart';
+import 'package:morbidelli_cam/editor/model/editor.dart';
+import 'package:morbidelli_cam/editor/overlay/overlay.dart';
+import 'package:morbidelli_cam/provider/path_privider_lib.dart';
+import 'package:morbidelli_cam/provider/provider_lib.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initSettings();
   runApp(const ProviderScope(child: MorbidelliCAM()));
 }
 
-class MorbidelliCAM extends ConsumerWidget {
+class MorbidelliCAM extends ConsumerStatefulWidget {
   const MorbidelliCAM({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    initSettings(); //read settings from yaml + TextEditingController
-    ref
-        .read(drillclassprovider.notifier)
-        .initDrills(); //read drills.yaml + create Drill classes
+  ConsumerState<MorbidelliCAM> createState() => _MorbidelliCAMState();
+}
+
+class _MorbidelliCAMState extends ConsumerState<MorbidelliCAM> {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
           brightness: Brightness.dark,
@@ -44,14 +46,16 @@ class MainScreen extends ConsumerStatefulWidget {
 class _MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    ref
+        .read(drillclassprovider.notifier)
+        .initDrills(); //read drills.yaml + create Drill classes
     return Scaffold(
         appBar: AppBar(
           actions: const [
             AppBarFiles(),
             AppBarEdit(),
-            AppBar_View(),
+            AppBarView(),
             AppBarDrill(),
-            AppBar_simulate()
           ],
         ),
         body: Stack(

@@ -1,6 +1,10 @@
-#default settings
-
-dx: 600
-dy: 300
-dz: 19
-scale: 200
+model: 
+  scale: 200
+  dx: 600
+  dy: 300
+  dz: 19
+svg: 
+  detail: 16.0
+  depth: 1.0
+editor: 
+  circleTMin: 6

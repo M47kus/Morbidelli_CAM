@@ -26,7 +26,7 @@ class _ShowSVGSettingsState extends ConsumerState<ShowSVGSettings> {
   final List<bool> _selectedType = [false, true];
 
   SVGConvertType convertType = SVGConvertType.circles;
-  double maxDetail = 20;
+  double maxDetail = 40;
   int detailDivider = 1;
 
   @override
@@ -36,10 +36,10 @@ class _ShowSVGSettingsState extends ConsumerState<ShowSVGSettings> {
     dephttxt.text = 1.toString();
 
     if (_selectedType[0]) {
-      detailDivider = 19;
+      detailDivider = 39;
       convertType = SVGConvertType.lines;
     } else {
-      detailDivider = (19 / 3).round();
+      detailDivider = (39 / 3).round();
       convertType = SVGConvertType.circles;
     }
   }
@@ -94,10 +94,10 @@ class _ShowSVGSettingsState extends ConsumerState<ShowSVGSettings> {
                       }
 
                       if (_selectedType[0]) {
-                        detailDivider = 19;
+                        detailDivider = 39;
                         convertType = SVGConvertType.lines;
                       } else {
-                        detailDivider = (19 / 3).round();
+                        detailDivider = (39 / 3).round();
                         convertType = SVGConvertType.circles;
                       }
                     });

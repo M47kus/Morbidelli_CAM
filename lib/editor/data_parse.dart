@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/entity/base/data.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
+import '../bar/files/settings/load_settings.dart';
 import '../helper/math/circle_3p.dart';
 import '../provider/path_privider_lib.dart';
 import '../provider/provider_lib.dart';
@@ -102,7 +102,7 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
               Vector2 vC = Vector2(entity.convertXP()! - center.x,
                   entity.convertYP()! - center.y);
 
-              int t = 5; //circle detail
+              int t = 6; //circle detail
 
               int lSegment = 5;
               Vector2 vAC = Vector2(entity.convertXP() - relativePos.x,
@@ -156,18 +156,18 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
 
                 if (aStart > aEnd) aStart -= pi * 2;
 
-                double _cirz = startPoint.y;
+                double cirz = startPoint.y;
 
-                for (double i = 1; i >= -1 / t; i -= 1 / t) {
+                for (double i = 1; i >= 0; i -= 1 / t) {
                   double a = ((1 - i) * aStart + i * aEnd);
 
                   if (i >= 0.5 - (1 / t) / 2) {
-                    _cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                    cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
                   } else {
-                    _cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                    cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
                   }
 
-                  Vector3 movePos = Vector3(center.x + radius * cos(a), _cirz,
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,
                       center.y + radius * sin(a));
 
                   reverseLines.add(Line3D(
@@ -186,18 +186,18 @@ class EntityNotifier extends StateNotifier<Map<int, Map>> {
 
                 if (aStart > aEnd) aStart -= pi * 2;
 
-                double _cirz = startPoint.y;
+                double cirz = startPoint.y;
 
-                for (double i = 0; i <= 1 + 1 / t; i += 1 / t) {
+                for (double i = 0; i <= 1; i += 1 / t) {
                   double a = ((1 - i) * aStart + i * aEnd);
 
                   if (i <= 0.5 + (1 / t) / 2) {
-                    _cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                    cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
                   } else {
-                    _cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                    cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
                   }
 
-                  Vector3 movePos = Vector3(center.x + radius * cos(a), _cirz,
+                  Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,
                       center.y + radius * sin(a));
 
                   lines.add(Line3D(

@@ -164,7 +164,6 @@ class SvgC {
 
   void convert(ref, dirId, [convertType]) {
     int n = importDetail.round(); //must be follow this schema: (n-1)/3 = int
-
     Point A = Point(sx, sy);
     Point B = Point(x1, y1);
     Point C = Point(x2, y2);
@@ -172,18 +171,9 @@ class SvgC {
 
     List points = [];
     for (double t = 0; t <= 1; t += 1 / n) {
-      double px = (1 - t) *
-              ((1 - t) * ((1 - t) * A.x + t * B.x) +
-                  t * ((1 - t) * B.x + t * C.x)) +
-          t *
-              ((1 - t) * ((1 - t) * B.x + t * C.x) +
-                  t * ((1 - t) * D.x + t * D.x));
-      double py = (1 - t) *
-              ((1 - t) * ((1 - t) * A.y + t * B.y) +
-                  t * ((1 - t) * B.y + t * C.y)) +
-          t *
-              ((1 - t) * ((1 - t) * B.y + t * C.y) +
-                  t * ((1 - t) * C.y + t * D.y));
+      double px = (1 - t) * ((1 - t) * ((1 - t) * A.x + t * B.x) + t * ((1 - t) * B.x + t * C.x)) + t * ((1 - t) * ((1 - t) * B.x + t * C.x) + t * ((1 - t) * D.x + t * D.x));
+      double py = (1 - t) * ((1 - t) * ((1 - t) * A.y + t * B.y) + t * ((1 - t) * B.y + t * C.y)) + t * ((1 - t) * ((1 - t) * B.y + t * C.y) + t * ((1 - t) * C.y + t * D.y));
+      
       points.add(Point(px, py));
     }
 

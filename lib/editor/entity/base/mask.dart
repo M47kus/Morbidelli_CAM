@@ -5,8 +5,8 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 mixin Mask {
   void onTab(ref, widget) {
     //create new empty entity in data structure
-    int dirId = ref.read(pathDirectoryIdProvider);
-    ref.read(entityProvider.notifier).newObject(dirId, 0, widget);
+    //int dirId = ref.read(pathDirectoryIdProvider);
+    ref.read(entityProvider.notifier).newObject(0, widget);
     ref.read(pathObjectIdProvider.notifier).set(0);
     ref.watch(showCreatorProvider.notifier).set(true);
     //disable directory buttons
@@ -18,7 +18,7 @@ mixin Mask {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: SizedBox.fromSize(
-        size: const Size(65, 65),
+        size: const Size(55, 55),
         child: ClipOval(
           child: Material(child: child),
         ),

@@ -3,51 +3,51 @@ import 'package:morbidelli_cam/editor/overlay/path_directory.dart';
 
 //if true the edit overlay will be shown. used in overlay.dart
 //Path Editor hide
-class ShowPathEditorNotifier extends StateNotifier<bool> {
-  ShowPathEditorNotifier() : super(false);
+class CNCModeNotifier extends StateNotifier<bool> {
+  CNCModeNotifier() : super(true);
 
   set(bool data) {
     state = data;
   }
 }
 
-final showPathEditorProvider =
-    StateNotifierProvider<ShowPathEditorNotifier, bool>(
-        (ref) => ShowPathEditorNotifier());
+final cncModeProvider =
+    StateNotifierProvider<CNCModeNotifier, bool>(
+        (ref) => CNCModeNotifier());
 
 //list of buttons for path objects (on left side in overlay)
-class PathDirectoryNotifier extends StateNotifier<Map<int, PathDirectory>> {
-  PathDirectoryNotifier() : super({});
-
-  set(Map<int, PathDirectory> data) {
-    state = data;
-  }
-
-  getNewId() {
-    List keys = Map.from(state).keys.toList();
-    int id = 1;
-    if (keys.isNotEmpty) {
-      id = keys.reduce((curr, next) => curr > next ? curr : next) + 1;
-    }
-    return id;
-  }
-
-  add(int dirId, PathDirectory data) {
-    Map<int, PathDirectory> old = Map.from(state);
-    old[dirId] = data;
-    state = old;
-  }
-
-  remove(int dirId) {
-    Map<int, PathDirectory> old = Map.from(state);
-    old.remove(dirId);
-    state = old;
-  }
-}
-
-final pathDirectoryProvider =
-    StateNotifierProvider<PathDirectoryNotifier, Map<int, PathDirectory>>(
-        (ref) => PathDirectoryNotifier());
+// class PathDirectoryNotifier extends StateNotifier<Map<int, PathDirectory>> {
+//   PathDirectoryNotifier() : super({});
+//
+//   set(Map<int, PathDirectory> data) {
+//     state = data;
+//   }
+//
+//   getNewId() {
+//     List keys = Map.from(state).keys.toList();
+//     int id = 1;
+//     if (keys.isNotEmpty) {
+//       id = keys.reduce((curr, next) => curr > next ? curr : next) + 1;
+//     }
+//     return id;
+//   }
+//
+//   add(int dirId, PathDirectory data) {
+//     Map<int, PathDirectory> old = Map.from(state);
+//     old[dirId] = data;
+//     state = old;
+//   }
+//
+//   remove(int dirId) {
+//     Map<int, PathDirectory> old = Map.from(state);
+//     old.remove(dirId);
+//     state = old;
+//   }
+// }
+//
+// final pathDirectoryProvider =
+//     StateNotifierProvider<PathDirectoryNotifier, Map<int, PathDirectory>>(
+//         (ref) => PathDirectoryNotifier());
 
 //lock path objects
 class PathDirectoryLockNotifier extends StateNotifier<bool> {

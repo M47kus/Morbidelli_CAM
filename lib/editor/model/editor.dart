@@ -1,7 +1,6 @@
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
@@ -30,16 +29,9 @@ class _EditorState extends ConsumerState<Editor> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //read default object from file
-      if (initShowDefaultModel) {
-        ref
-            .read(modelContentProvider.notifier)
-            .readObject('assets/default.obj');
-      } else {
-        String wavefront = modelBase();
-        //update model in provider
-        ref.read(modelContentProvider.notifier).set(wavefront);
-      }
+      String wavefront = modelBase();
+      //update model in provider
+      ref.read(modelContentProvider.notifier).set(wavefront);
 
       //set viewport to top
       ref.read(modelViewProvider.notifier).setTop();

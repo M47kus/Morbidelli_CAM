@@ -8,9 +8,10 @@ class AppBarDrill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 5, right: 5),
         child: PopupMenuButton(
-            icon: const Text("Drill"),
+          iconSize: 15,
+            icon: const Text("Drill", style: TextStyle(fontSize: 12),),
             itemBuilder: (context) {
               return [
                 const PopupMenuItem<int>(

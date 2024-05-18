@@ -106,7 +106,7 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
         buildAppBar(ref, name: "Circle 3 Points", onCanceled: onCancel,
             onSaved: () {
           int dirId = ref.read(pathDirectoryIdProvider);
-          int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+          int objId = ref.read(entityProvider.notifier).getNewObjId();
           //if object is already created update old object
 
           if (widget.isNew == false) {

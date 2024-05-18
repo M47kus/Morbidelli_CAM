@@ -9,10 +9,6 @@ mixin Info {
     //set object_id provider to new active id
     ref.read(pathObjectIdProvider.notifier).set(id);
     ref.watch(showCreatorProvider.notifier).set(true);
-
-    //disable directory buttons
-    ref.read(pathDirectoryLockProvider.notifier).set(true);
-    ref.read(showModelProvider.notifier).set(false);
   }
 
   String _getEntityText(entity) {
@@ -32,10 +28,10 @@ mixin Info {
 
   Widget getEntityData(ref, id, name) {
     var entity =
-        ref.read(entityProvider)[ref.watch(pathDirectoryIdProvider)]![id];
+        ref.read(entityProvider)[id];
 
     return ListTile(
-      title: Text(name),
+      title: Text(name,),
       trailing: Text(_getEntityText(entity)),
     );
   }

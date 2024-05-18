@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/bar/drill/drill.dart';
-import 'package:morbidelli_cam/bar/edit/edit.dart';
-import 'package:morbidelli_cam/bar/files/files.dart';
+import 'package:morbidelli_cam/bar/custom_foot_bar.dart';
+import 'package:morbidelli_cam/bar/custom_menu_bar.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
-import 'package:morbidelli_cam/bar/view/view.dart';
+import 'package:morbidelli_cam/editor/entity/function_mask.dart';
 import 'package:morbidelli_cam/editor/model/editor.dart';
-import 'package:morbidelli_cam/editor/overlay/overlay.dart';
-import 'package:morbidelli_cam/provider/path_privider_lib.dart';
+import 'package:morbidelli_cam/editor/model/main_window.dart';
+import 'package:morbidelli_cam/editor/overlay/path_object.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
+import 'package:resizable_widget/resizable_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,19 +50,32 @@ class _MainScreenState extends ConsumerState<MainScreen> {
         .read(drillclassprovider.notifier)
         .initDrills(); //read drills.yaml + create Drill classes
     return Scaffold(
-        appBar: AppBar(
-          actions: const [
-            AppBarFiles(),
-            AppBarEdit(),
-            AppBarView(),
-            AppBarDrill(),
-          ],
-        ),
-        body: Stack(
-          children: [
-            if (ref.watch(showModelProvider) == true) const Editor(),
-            const PathEditor()
-          ],
-        ));
+      body: ResizableWidget(
+        isHorizontalSeparator: true,
+        percentages: const [0.04, 0.96],
+        children: [
+          const CustomAppBar(),
+          ResizableWidget(
+            isHorizontalSeparator: false,
+            percentages: const [0.2, 0.8],
+            children: [
+              ResizableWidget(isHorizontalSeparator: true, percentages: const [
+                0.8,
+                0.2
+              ], children: [
+                PathSubObject(),
+                Container(
+                  color: Colors.lime,
+                )
+              ]),
+              ResizableWidget(
+                  isHorizontalSeparator: true,
+                  percentages: const [0.1, 0.86, 0.04],
+                  children: const [PathMask(), MainWindow(), CustomFootBar()]),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

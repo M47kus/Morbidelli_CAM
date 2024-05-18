@@ -20,39 +20,28 @@ mixin Edit {
 
   void onCancel(ref) {
     //close entity editor
-    int dirId = ref.read(pathDirectoryIdProvider);
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(entityProvider.notifier).removeObject(dirId, 0);
-    ref.read(pathDirectoryLockProvider.notifier);
-    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    ref.read(entityProvider.notifier).removeObject(0);
     ref.read(modelViewProvider.notifier).setTop();
-    ref.read(showModelProvider.notifier).set(true);
   }
 
   void onConfirm(ref, objId, newObject) {
-    int dirId = ref.read(pathDirectoryIdProvider);
 
     //save data to data structure in provider
-    ref.read(entityProvider.notifier).newObject(dirId, objId, newObject);
+    ref.read(entityProvider.notifier).newObject(objId, newObject);
 
     //close entity edit window
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(entityProvider.notifier).removeObject(dirId, 0);
-    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    ref.read(entityProvider.notifier).removeObject(0);
     ref.read(modelViewProvider.notifier).setTop();
-    ref.read(showModelProvider.notifier).set(true);
   }
 
   void onDelete(ref) {
     //close entity editor
-    int dirId = ref.read(pathDirectoryIdProvider);
     int objId = ref.watch(pathObjectIdProvider);
     ref.watch(showCreatorProvider.notifier).set(false);
-    ref.read(entityProvider.notifier).removeObject(dirId, objId);
-    ref.read(pathDirectoryLockProvider.notifier);
-    ref.read(pathDirectoryLockProvider.notifier).set(false);
+    ref.read(entityProvider.notifier).removeObject(objId);
     ref.read(modelViewProvider.notifier).setTop();
-    ref.read(showModelProvider.notifier).set(true);
   }
 
   Widget buildAppBar(ref,

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/model/model_render.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 
 //View Tab in AppBar
-class FootBarView extends ConsumerStatefulWidget {
-  const FootBarView({super.key});
+class AppBarView extends ConsumerStatefulWidget {
+  const AppBarView({super.key});
 
   @override
-  ConsumerState<FootBarView> createState() => _FootBarViewState();
+  ConsumerState<AppBarView> createState() => _AppBarViewState();
 }
 
-class _FootBarViewState extends ConsumerState<FootBarView> {
+class _AppBarViewState extends ConsumerState<AppBarView> {
   //set view angles and appearance modes
   @override
   Widget build(BuildContext context) {
@@ -19,44 +20,40 @@ class _FootBarViewState extends ConsumerState<FootBarView> {
         child: PopupMenuButton(
             iconSize: 15,
             icon: const Text(
-              "View",
+              "Apearance",
               style: TextStyle(fontSize: 11),
             ),
             itemBuilder: (context) {
               return [
                 const PopupMenuItem<int>(
                   value: 0,
-                  child: Text("Top"),
+                  child: Text("Solid"),
                 ),
                 const PopupMenuItem<int>(
                   value: 1,
-                  child: Text("Front"),
+                  child: Text("Wireframe"),
                 ),
                 const PopupMenuItem<int>(
                   value: 2,
-                  child: Text("Left"),
+                  child: Text("Points"),
                 ),
                 const PopupMenuItem<int>(
                   value: 3,
-                  child: Text("Right"),
-                ),
-                const PopupMenuItem<int>(
-                  value: 4,
-                  child: Text("Free"),
+                  child: Text("Re-Render"),
                 ),
               ];
             },
             onSelected: (value) {
               if (value == 0) {
-                ref.read(modelViewProvider.notifier).setTop();
+                ref.read(modelApearanceProvider.notifier).setSolid();
               } else if (value == 1) {
-                ref.read(modelViewProvider.notifier).setFront();
+                ref.read(modelApearanceProvider.notifier).setWireframe();
               } else if (value == 2) {
-                ref.read(modelViewProvider.notifier).setSideLeft();
+                ref.read(modelApearanceProvider.notifier).setPoints();
               } else if (value == 3) {
-                ref.read(modelViewProvider.notifier).setSideRight();
-              } else if (value == 4) {
-                ref.read(modelViewProvider.notifier).setFree();
+                //re-load base model and load to provider
+                String wavefront = modelBase();
+                ref.read(modelContentProvider.notifier).set(wavefront);
               }
             }));
   }

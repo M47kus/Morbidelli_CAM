@@ -11,11 +11,14 @@ class Cir3PInfo extends ConsumerWidget with Info {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
-      child: OutlinedButton(
-          onPressed: () {
-            onTab(ref, id);
-          },
-          child: getEntityData(ref, id, "Circle 3P")),
+      child: SizedBox(
+        height: 30,
+        child: OutlinedButton(
+            onPressed: () {
+              onTab(ref, id);
+            },
+            child: getEntityData(ref, id, "Circle 3P")),
+      ),
     );
   }
 }

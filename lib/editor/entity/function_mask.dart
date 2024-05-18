@@ -16,37 +16,32 @@ class PathMask extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      height: 80,
-      decoration: const BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.white))),
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          //close Button
-          IconButton(
-            icon: const Icon(arrowDropUpSharp),
-            onPressed: () {
-              //close entity editor
-              int dirId = ref.read(pathDirectoryIdProvider);
-              ref.watch(showCreatorProvider.notifier).set(false);
-              ref.read(entityProvider.notifier).removeObject(dirId, 0);
-              ref.read(pathDirectoryLockProvider.notifier).set(false);
-
-              //close edit overlay
-              ref.read(showPathEditorProvider.notifier).set(false);
-              ref.read(pathDirectoryIdProvider.notifier).set(0);
-              ref.read(pathDirectoryLockProvider.notifier).set(false);
-              ref.read(showModelProvider.notifier).set(true);
-            },
-          ),
-          //G0 Button
-          const DrillMask(),
-          const G0Mask(),
-          const G1Mask(),
-          const Cir3PMask()
-        ],
-      ),
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: const [
+        //close Button
+        // IconButton(
+        //   icon: const Icon(arrowDropUpSharp),
+        //   onPressed: () {
+        //     //close entity editor
+        //     int dirId = ref.read(pathDirectoryIdProvider);
+        //     ref.watch(showCreatorProvider.notifier).set(false);
+        //     ref.read(entityProvider.notifier).removeObject(dirId, 0);
+        //     ref.read(pathDirectoryLockProvider.notifier).set(false);
+        //
+        //     //close edit overlay
+        //     ref.read(cncModeProvider.notifier).set(false);
+        //     ref.read(pathDirectoryIdProvider.notifier).set(0);
+        //     ref.read(pathDirectoryLockProvider.notifier).set(false);
+        //     ref.read(showModelProvider.notifier).set(true);
+        //   },
+        // ),
+        //G0 Button
+        DrillMask(),
+        G0Mask(),
+        G1Mask(),
+        Cir3PMask()
+      ],
     );
   }
 }

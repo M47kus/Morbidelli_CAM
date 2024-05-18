@@ -19,12 +19,12 @@ class PathEditor extends ConsumerStatefulWidget {
 class _PathEditorState extends ConsumerState<PathEditor> {
   @override
   Widget build(BuildContext context) {
-    Map<int, PathDirectory> pathDirectory = ref.watch(pathDirectoryProvider);
+    //Map<int, PathDirectory> pathDirectory = ref.watch(pathDirectoryProvider);
     return Column(
       children: [
         //if true the selection bar is shown
         Visibility(
-            visible: ref.watch(showPathEditorProvider),
+            visible: ref.watch(cncModeProvider),
             child: const PathMask()),
         //shows all splines which are created (left side)
         Expanded(
@@ -39,8 +39,8 @@ class _PathEditorState extends ConsumerState<PathEditor> {
                   child: ListView(
                     children: [
                       //imports all splines from provider list
-                      for (var item in pathDirectory.values) item,
-                      const CreatePathButton()
+                      //for (var item in pathDirectory.values) item,
+                      //const CreatePathButton()
                     ],
                   ),
                 ),
@@ -70,7 +70,7 @@ class _PathEditorState extends ConsumerState<PathEditor> {
             //shows the precise info from spline in left side
 
             Visibility(
-              visible: ref.watch(showPathEditorProvider),
+              visible: ref.watch(cncModeProvider),
               child: Expanded(
                 flex: 300,
                 child: Align(

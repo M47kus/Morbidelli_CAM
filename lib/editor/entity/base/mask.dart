@@ -5,13 +5,9 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 mixin Mask {
   void onTab(ref, widget) {
     //create new empty entity in data structure
-    //int dirId = ref.read(pathDirectoryIdProvider);
     ref.read(entityProvider.notifier).newObject(0, widget);
     ref.read(pathObjectIdProvider.notifier).set(0);
     ref.watch(showCreatorProvider.notifier).set(true);
-    //disable directory buttons
-    ref.read(pathDirectoryLockProvider.notifier).set(true);
-    ref.read(showModelProvider.notifier).set(false);
   }
 
   Widget pathMask({required Widget child}) {

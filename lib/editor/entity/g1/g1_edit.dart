@@ -57,7 +57,6 @@ class _G1CreatorState extends ConsumerState<G1Creator> with Edit {
     return Column(
       children: [
         buildAppBar(ref, name: "G1", onCanceled: onCancel, onSaved: () {
-          int dirId = ref.read(pathDirectoryIdProvider);
           int objId = ref.read(entityProvider.notifier).getNewObjId();
           //if object is already created update old object
 

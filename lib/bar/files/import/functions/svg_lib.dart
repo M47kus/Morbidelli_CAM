@@ -48,10 +48,9 @@ class SvgM {
   final double y;
   SvgM({required this.x, required this.y});
 
-  void convert(ref, dirId, [convertType]) {
-    int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+  void convert(ref, [convertType]) {
+    int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        dirId,
         objId,
         G0Data(
           id: objId,
@@ -68,10 +67,9 @@ class SvgL {
   final double y;
   SvgL({required this.x, required this.y});
 
-  void convert(ref, dirId, [convertType]) {
-    int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+  void convert(ref, [convertType]) {
+    int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        dirId,
         objId,
         G1Data(
           id: objId,
@@ -88,10 +86,9 @@ class SvgH {
   final double y;
   SvgH({required this.x, required this.y});
 
-  void convert(ref, dirId, [convertType]) {
-    int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+  void convert(ref, [convertType]) {
+    int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        dirId,
         objId,
         G1Data(
           id: objId,
@@ -108,10 +105,9 @@ class SvgV {
   final double y;
   SvgV({required this.x, required this.y});
 
-  void convert(ref, dirId, [convertType]) {
-    int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+  void convert(ref, [convertType]) {
+    int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        dirId,
         objId,
         G1Data(
           id: objId,
@@ -128,10 +124,9 @@ class SvgZ {
   final double y;
   SvgZ({required this.x, required this.y});
 
-  void convert(ref, dirId, [convertType]) {
-    int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+  void convert(ref, [convertType]) {
+    int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        dirId,
         objId,
         G1Data(
           id: objId,
@@ -162,7 +157,7 @@ class SvgC {
       required this.sx,
       required this.sy});
 
-  void convert(ref, dirId, [convertType]) {
+  void convert(ref, [convertType]) {
     int n = importDetail.round(); //must be follow this schema: (n-1)/3 = int
     Point A = Point(sx, sy);
     Point B = Point(x1, y1);
@@ -181,9 +176,8 @@ class SvgC {
       if (entityId < points.length - 1) {
         if (convertType == null || convertType == SVGConvertType.circles) {
           if (entityId.isOdd) {
-            int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+            int objId = ref.read(entityProvider.notifier).getNewObjId();
             ref.read(entityProvider.notifier).newObject(
-                dirId,
                 objId,
                 Cir3PData(
                   id: objId,
@@ -199,9 +193,8 @@ class SvgC {
                 ));
           }
         } else {
-          int objId = ref.read(entityProvider.notifier).getNewObjId(dirId);
+          int objId = ref.read(entityProvider.notifier).getNewObjId();
           ref.read(entityProvider.notifier).newObject(
-              dirId,
               objId,
               G1Data(
                   id: objId,

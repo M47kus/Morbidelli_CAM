@@ -10,12 +10,15 @@ class G1Info extends ConsumerWidget with Info {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
-      child: OutlinedButton(
-          onPressed: () {
-            onTab(ref, id);
-          },
-          child: getEntityData(ref, id, "G1")),
+      padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
+      child: ListTile(
+        onTap: () {onTab(ref, id);},
+        dense: true,
+        tileColor: Colors.black12,
+        visualDensity: VisualDensity(vertical: -4),
+        leading: const Text("G1", style: TextStyle(fontSize: 12),),
+        trailing: getEntityData(ref, id),
+      )
     );
   }
 }

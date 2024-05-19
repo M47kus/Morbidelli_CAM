@@ -26,13 +26,8 @@ mixin Info {
     }
   }
 
-  Widget getEntityData(ref, id, name) {
-    var entity =
-        ref.read(entityProvider)[id];
-
-    return ListTile(
-      title: Text(name,),
-      trailing: Text(_getEntityText(entity)),
-    );
+  Widget getEntityData(ref, id,) {
+    var entity = ref.read(entityProvider)[id];
+    return Text(_getEntityText(entity));
   }
 }

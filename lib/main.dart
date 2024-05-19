@@ -4,7 +4,6 @@ import 'package:morbidelli_cam/bar/custom_foot_bar.dart';
 import 'package:morbidelli_cam/bar/custom_menu_bar.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/entity/function_mask.dart';
-import 'package:morbidelli_cam/editor/model/editor.dart';
 import 'package:morbidelli_cam/editor/model/main_window.dart';
 import 'package:morbidelli_cam/editor/overlay/path_object.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';

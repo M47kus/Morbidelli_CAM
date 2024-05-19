@@ -3,6 +3,7 @@ import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 
 import '../drill/drill_data.dart';
+import '../initial/init_data.dart';
 
 mixin Info {
   void onTab(ref, id) {
@@ -18,7 +19,9 @@ mixin Info {
       } else {
         return "";
       }
-    } else {
+    } else if (entity is InitData) {
+      return "${entity.x == null ? "" : num.parse(entity.x!.toStringAsFixed(2))}  ${entity.y == null ? "" : num.parse(entity.y!.toStringAsFixed(2))}  ${entity.z == null ? "" : num.parse(entity.z!.toStringAsFixed(2))}";
+    }else {
       if (entity.convertX() != null && entity.convertY() != null) {
         return "${num.parse(entity.convertX().toStringAsFixed(2))}  ${num.parse(entity.convertY().toStringAsFixed(2))}  ${num.parse(entity.z.toStringAsFixed(2))}";
       }

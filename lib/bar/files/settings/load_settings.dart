@@ -6,13 +6,17 @@ import "package:yaml/yaml.dart";
 import '../../drill/drill_class.dart';
 
 final TextEditingController modelScaleUnit = TextEditingController(text: "X");
-final TextEditingController modelDX = TextEditingController(text: "X");
-final TextEditingController modelDY = TextEditingController(text: "X");
-final TextEditingController modelDZ = TextEditingController(text: "X");
+// final TextEditingController modelDX = TextEditingController(text: "X");
+// final TextEditingController modelDY = TextEditingController(text: "X");
+// final TextEditingController modelDZ = TextEditingController(text: "X");
 TextEditingController defaultDX = TextEditingController();
 TextEditingController defaultDY = TextEditingController();
 TextEditingController defaultDZ = TextEditingController();
 TextEditingController circleTMin = TextEditingController();
+
+double modelDX = 0;
+double modelDY = 0;
+double modelDZ = 0;
 
 double importDepth = 1.0;
 Drill? importDrill;
@@ -37,9 +41,9 @@ Future<void> initSettings() async {
 }
 
 void loadData(mapData) {
-  modelDX.text = mapData["model"]["dx"].toString();
-  modelDY.text = mapData["model"]["dy"].toString();
-  modelDZ.text = mapData["model"]["dz"].toString();
+  modelDX = mapData["model"]["dx"].toDouble();
+  modelDY = mapData["model"]["dy"].toDouble();
+  modelDZ = mapData["model"]["dz"].toDouble();
   defaultDX.text = mapData["model"]["dx"].toString();
   defaultDY.text = mapData["model"]["dy"].toString();
   defaultDZ.text = mapData["model"]["dz"].toString();

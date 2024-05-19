@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/editor/entity/initial/init_data.dart';
+import 'package:morbidelli_cam/editor/entity/initial/init_edit.dart';
 
 import 'entity/circle3p/cir3p_data.dart';
 import 'entity/circle3p/cir3p_edit.dart';
@@ -50,6 +52,16 @@ Widget buildEditWindow(type) {
       fix: type.fix,
       fixp: type.fixp,
       rotation: type.rotation,
+      isNew: isNew,
+    );
+  } else if (type is InitData) {
+    return InitCreator(
+      x: type.x,
+      y: type.y,
+      z: type.z,
+      bx: type.bx,
+      by: type.by,
+      bz: type.bz,
       isNew: isNew,
     );
   } else {

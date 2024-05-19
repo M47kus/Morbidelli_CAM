@@ -5,6 +5,7 @@ import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/entity/g0/go_data.dart';
 import 'package:morbidelli_cam/editor/entity/g1/g1_data.dart';
+import 'package:morbidelli_cam/editor/entity/initial/init_data.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import '../../../editor/entity/circle3p/cir3p_data.dart';
 import '../../../editor/entity/drill/drill_data.dart';
@@ -16,13 +17,16 @@ Future<void> exportXXL(ref) async {
   String lines = "";
   String workspace = "AD";
 
-  lines +=
-      'H DX=${double.parse(modelDX.text)} DY=${double.parse(modelDY.text)} DZ=${double.parse(modelDZ.text)} -$workspace C=0 T=0 R=99 *MM /"W"';
-
   Drill selectedDrill = ref
       .read(drillclassprovider)
       .values
       .toList()[0]; //select first drill in list
+
+  if(state[1] is InitData) {
+    lines += 'H DX=${state[1].x} DY=${state[1].y} DZ=${state[1].z} BX=${state[1].bx} BY=${state[1].by} BZ=${state[1].bz} -$workspace C=0 T=0 R=99 *MM /"W"';
+  } else {
+    lines += 'H DX=${modelDX} DY=${modelDY} DZ=${modelDZ} -$workspace C=0 T=0 R=99 *MM /"W"';
+  }
 
   for (var entity in state.values) {
     if (entity is DrillData) {

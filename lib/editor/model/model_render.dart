@@ -6,9 +6,9 @@ String modelBase() {
   //scale down the object to fit in viewport
   //scale factor from export model programm
   double scale = double.parse(modelScaleUnit.text);
-  double dx = double.parse(modelDX.text);
-  double dy = double.parse(modelDY.text);
-  double dz = double.parse(modelDZ.text);
+  double dx = modelDX;
+  double dy = modelDY;
+  double dz = modelDZ;
 
   String v1 = "v ${-dx / scale} ${dy / scale} ${-dz / scale}\n ";
   String v2 = "v ${-dx / scale} ${dy / scale} ${dz / scale}\n ";

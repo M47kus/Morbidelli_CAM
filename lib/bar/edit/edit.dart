@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:morbidelli_cam/bar/edit/base_model/base.dart';
+
 
 //Edit Tab in AppBar
 class AppBarEdit extends StatelessWidget {
@@ -22,9 +22,6 @@ class AppBarEdit extends StatelessWidget {
           },
           onSelected: (value) {
               if (value == 0) {
-              //Edit Base
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const EditBase()));
             }
           }),
     );

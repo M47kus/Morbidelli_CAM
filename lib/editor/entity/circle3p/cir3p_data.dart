@@ -38,7 +38,7 @@ class Cir3PData extends Data {
   }
 
   convertXP() {
-    double dx = double.parse(modelDX.text);
+    double dx = modelDX;
     if (xp != null) {
       switch (fixp) {
         case 1 || 4 || 7:
@@ -52,7 +52,7 @@ class Cir3PData extends Data {
   }
 
   convertYP() {
-    double dy = double.parse(modelDY.text);
+    double dy = modelDY;
     if (yp != null) {
       switch (fixp) {
         case 1 || 2 || 3:

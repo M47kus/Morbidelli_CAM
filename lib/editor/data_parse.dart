@@ -15,6 +15,7 @@ import 'entity/circle3p/cir3p_edit.dart';
 import 'entity/drill/drill_data.dart';
 import 'entity/g0/go_data.dart';
 import 'entity/g1/g1_data.dart';
+import 'entity/initial/init_data.dart';
 
 enum LineAxis { x, xr, y, z, f }
 
@@ -57,7 +58,11 @@ class EntityNotifier extends StateNotifier<Map> {
           .toList()[0]; //select first drill in list
 
       for (var entity in state.values) {
-        if (entity is DrillData) {
+        if (entity is InitData) {
+          modelDX = entity.x!;
+          modelDY = entity.y!;
+          modelDZ = entity.z!;
+        } else if (entity is DrillData) {
           selectedDrill = entity.drill!;
         } else if (entity is G0Data) {
           relativePos =

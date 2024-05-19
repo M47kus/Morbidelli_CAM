@@ -9,7 +9,7 @@ class Data {
   int? fix;
 
   convertX() {
-    double dx = double.parse(modelDX.text);
+    double dx = modelDX;
     if (x != null) {
       switch (fix) {
         case 1 || 4 || 7:
@@ -25,7 +25,7 @@ class Data {
   }
 
   convertY() {
-    double dy = double.parse(modelDY.text);
+    double dy = modelDY;
     if (y != null) {
       switch (fix) {
         case 1 || 2 || 3:
@@ -44,11 +44,11 @@ class Data {
 extension ModelLine on Vector3 {
   model(axis) {
     double scale = double.parse(modelScaleUnit.text);
-    double dx = double.parse(modelDX.text);
+    double dx = modelDX;
     double offsetx = dx / scale;
-    double dy = double.parse(modelDY.text);
+    double dy = modelDY;
     double offsety = dy / scale;
-    double dz = double.parse(modelDZ.text);
+    double dz = modelDZ;
     double offsetz = dz / scale;
 
     Vector3 newVector = Vector3(0, 0, 0);
@@ -80,7 +80,7 @@ extension ModelLine on Vector3 {
 
   modelX(axis) {
     double scale = double.parse(modelScaleUnit.text);
-    double dx = double.parse(modelDX.text);
+    double dx = modelDX;
     double convertx = x;
 
     double offset = dx / scale;
@@ -96,7 +96,7 @@ extension ModelLine on Vector3 {
 
   modelY(axis) {
     double scale = double.parse(modelScaleUnit.text);
-    double dy = double.parse(modelDY.text);
+    double dy = modelDY;
     double converty = y;
 
     double offset = dy / scale;
@@ -110,7 +110,7 @@ extension ModelLine on Vector3 {
 
   modelZ(axis) {
     double scale = double.parse(modelScaleUnit.text);
-    double dz = double.parse(modelDZ.text);
+    double dz = modelDZ;
 
     double offset = dz / scale;
     switch (axis) {

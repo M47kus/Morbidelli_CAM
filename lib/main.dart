@@ -5,6 +5,7 @@ import 'package:morbidelli_cam/bar/custom_menu_bar.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/entity/function_mask.dart';
 import 'package:morbidelli_cam/editor/model/main_window.dart';
+import 'package:morbidelli_cam/editor/overlay/internal_var.dart';
 import 'package:morbidelli_cam/editor/overlay/path_object.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:resizable_widget/resizable_widget.dart';
@@ -63,9 +64,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 0.2
               ], children: [
                 PathSubObject(),
-                Container(
-                  color: Colors.lime,
-                )
+                VarList(),
               ]),
               ResizableWidget(
                   isHorizontalSeparator: true,

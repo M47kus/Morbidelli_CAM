@@ -21,9 +21,7 @@ final modelContentProvider =
     StateNotifierProvider<ModelContentNotifier, String>(
         (ref) => ModelContentNotifier());
 
-enum ModelView{
-  top, front, sideLeft, sideRight, free
-}
+enum ModelView { top, front, sideLeft, sideRight, free }
 
 //change view for Model
 class ModelViewNotifier extends StateNotifier<ModelView> {
@@ -58,9 +56,7 @@ class ModelViewNotifier extends StateNotifier<ModelView> {
   }
 }
 
-enum ModelApearance{
-  solid, wire, points
-}
+enum ModelApearance { solid, wire, points }
 
 final modelViewProvider = StateNotifierProvider<ModelViewNotifier, ModelView>(
     (ref) => ModelViewNotifier());
@@ -141,3 +137,61 @@ final drillclassprovider =
     StateNotifierProvider<DrillClassNotifier, Map<String, Drill>>(
         (ref) => DrillClassNotifier());
 
+class VarNotifier extends StateNotifier<Map<String, double>> {
+  VarNotifier() : super({});
+
+  set(Map<String, double> data) {
+    state = data;
+  }
+
+  add(String key, double par) {
+    Map<String, double> old = Map.from(state);
+    old[key] = par;
+    state = old;
+  }
+
+  update(String oldkey, String key, double par) {
+    Map<String, double> old = Map.from(state);
+    old.remove(oldkey);
+    old[key] = par;
+    state = old;
+  }
+
+  remove(String objId) {
+    Map<String, double> old = Map.from(state);
+    old.remove(objId);
+    state = old;
+  }
+
+  getNewKey() {
+    int id = 1;
+    if (state.keys.isNotEmpty) {
+      List keyids = [];
+      for (String key in state.keys) {
+        if (key.length >= 4) {
+          if (key.substring(0, 3) == "var") {
+            try {
+              if (key.length == 4) {
+                id = int.parse(key[3]);
+              } else if (key.length == 5) {
+                id = int.parse(key.substring(3, 5));
+              } else if (key.length == 6) {
+                id = int.parse(key.substring(3, 6));
+              }
+
+              keyids.add(id);
+            } finally {}
+          }
+        }
+      }
+
+      if (keyids.isNotEmpty) {
+        id = keyids.reduce((curr, next) => curr > next ? curr : next) + 1;
+      }
+    }
+    return "var$id";
+  }
+}
+
+final varProvider = StateNotifierProvider<VarNotifier, Map<String, double>>(
+    (ref) => VarNotifier());

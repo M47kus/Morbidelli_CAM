@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../base/data.dart';
 import 'init_info.dart';
@@ -6,18 +7,18 @@ import 'init_info.dart';
 class InitData extends Data {
   int id;
   @override
-  double? x;
+  String? x;
   @override
-  double? y;
+  String? y;
   @override
-  double? z;
+  String? z;
 
-  double? bx;
-  double? by;
-  double? bz;
+  String? bx;
+  String? by;
+  String? bz;
 
   @override
-  InitData({required this.id, this.x, this.y, this.z, this.bx, this.by, this.bz,});
+  InitData({required this.id, this.x, this.y, this.z, this.bx, this.by, this.bz});
 
   Widget getInfoButton() {
     return InitInfo(id: id);

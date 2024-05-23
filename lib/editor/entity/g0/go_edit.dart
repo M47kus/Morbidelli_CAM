@@ -10,9 +10,9 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 import 'go_data.dart';
 
 class G0Creator extends ConsumerStatefulWidget {
-  final double? x;
-  final double? y;
-  final double? z;
+  final String? x;
+  final String? y;
+  final String? z;
   final int? fix;
   final int? correction;
   final bool isNew;
@@ -77,9 +77,9 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
               objId,
               G0Data(
                   id: objId,
-                  x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                  y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
-                  z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
+                  x: xtxt.text == "" ? "0" : xtxt.text,
+                  y: ytxt.text == "" ? "0" : ytxt.text,
+                  z: ztxt.text == "" ? "0" : ztxt.text,
                   fix: fixpoint,
                   correct: correction));
         }),

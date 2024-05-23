@@ -11,6 +11,8 @@ import 'entity/g0/go_edit.dart';
 import 'entity/g1/g1_data.dart';
 import 'entity/g1/g1_edit.dart';
 
+List entityList = [G0Data, G1Data, DrillData, Cir3PData, InitData];
+
 Widget buildEditWindow(type) {
   bool isNew = false;
   if (type != null) {

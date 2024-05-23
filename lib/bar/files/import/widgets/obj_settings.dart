@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/bar/files/import/functions/import.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
+
+import '../../../../provider/global.dart';
 
 class ShowOBJSettings extends ConsumerStatefulWidget {
   final String extension;

@@ -7,11 +7,11 @@ class G0Data extends Data {
   int id;
   int? correct;
   @override
-  double? x;
+  String? x;
   @override
-  double? y;
+  String? y;
   @override
-  double? z;
+  String? z;
   @override
   int? fix;
   G0Data({required this.id, this.x, this.y, this.z, this.fix, this.correct});

@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:morbidelli_cam/bar/files/import/widgets/svg_settings.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/entity/g0/go_data.dart';
 import 'package:morbidelli_cam/editor/entity/g1/g1_data.dart';
 
 import '../../../../editor/entity/circle3p/cir3p_data.dart';
 import '../../../../editor/entity/circle3p/cir3p_edit.dart';
+import '../../../../provider/global.dart';
 
 Map svGKeys = {
   "M": (x, y) {
@@ -54,9 +54,9 @@ class SvgM {
         objId,
         G0Data(
           id: objId,
-          x: x,
-          y: y,
-          z: importDepth,
+          x: x.toString(),
+          y: y.toString(),
+          z: importDepth.toString(),
           fix: 1,
         ));
   }
@@ -73,9 +73,9 @@ class SvgL {
         objId,
         G1Data(
           id: objId,
-          x: x,
-          y: y,
-          z: importDepth,
+          x: x.toString(),
+          y: y.toString(),
+          z: importDepth.toString(),
           fix: 1,
         ));
   }
@@ -92,9 +92,9 @@ class SvgH {
         objId,
         G1Data(
           id: objId,
-          x: x,
-          y: y,
-          z: importDepth,
+          x: x.toString(),
+          y: y.toString(),
+          z: importDepth.toString(),
           fix: 1,
         ));
   }
@@ -111,9 +111,9 @@ class SvgV {
         objId,
         G1Data(
           id: objId,
-          x: x,
-          y: y,
-          z: importDepth,
+          x: x.toString(),
+          y: y.toString(),
+          z: importDepth.toString(),
           fix: 1,
         ));
   }
@@ -130,9 +130,9 @@ class SvgZ {
         objId,
         G1Data(
           id: objId,
-          x: x,
-          y: y,
-          z: importDepth,
+          x: x.toString(),
+          y: y.toString(),
+          z: importDepth.toString(),
           fix: 1,
         ));
   }
@@ -181,12 +181,12 @@ class SvgC {
                 objId,
                 Cir3PData(
                   id: objId,
-                  x: points[entityId].x,
-                  y: points[entityId].y,
-                  z: importDepth,
-                  xp: points[entityId + 1].x,
-                  yp: points[entityId + 1].y,
-                  zp: importDepth,
+                  x: points[entityId].x.toString(),
+                  y: points[entityId].y.toString(),
+                  z: importDepth.toString(),
+                  xp: points[entityId + 1].x.toString(),
+                  yp: points[entityId + 1].y.toString(),
+                  zp: importDepth.toString(),
                   rotation: Cir3PAxisRotation.dynamic,
                   fix: 1,
                   fixp: 1,
@@ -198,9 +198,9 @@ class SvgC {
               objId,
               G1Data(
                   id: objId,
-                  x: points[entityId].x,
-                  y: points[entityId].y,
-                  z: importDepth,
+                  x: points[entityId].x.toString(),
+                  y: points[entityId].y.toString(),
+                  z: importDepth.toString(),
                   fix: 1));
         }
       }

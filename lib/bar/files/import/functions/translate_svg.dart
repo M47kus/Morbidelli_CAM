@@ -1,7 +1,7 @@
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 
 import '../../../../editor/entity/drill/drill_data.dart';
+import '../../../../provider/global.dart';
 
 void translateSVG(svgData, ref, [convertType]) {
 

@@ -9,9 +9,9 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 import 'g1_data.dart';
 
 class G1Creator extends ConsumerStatefulWidget {
-  final double? x;
-  final double? y;
-  final double? z;
+  final String? x;
+  final String? y;
+  final String? z;
   final int? fix;
   final bool isNew;
   const G1Creator(
@@ -68,9 +68,9 @@ class _G1CreatorState extends ConsumerState<G1Creator> with Edit {
               objId,
               G1Data(
                   id: objId,
-                  x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                  y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
-                  z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
+                  x: xtxt.text == "" ? "0" : xtxt.text,
+                  y: ytxt.text == "" ? "0" : ytxt.text,
+                  z: ztxt.text == "" ? "0" : ztxt.text,
                   fix: fixpoint));
         }),
         Expanded(

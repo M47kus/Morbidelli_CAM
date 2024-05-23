@@ -1,6 +1,7 @@
 
 //create obj file from bounds
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
+
+import '../../provider/global.dart';
 
 String modelBase() {
   //scale down the object to fit in viewport
@@ -9,6 +10,8 @@ String modelBase() {
   double dx = modelDX;
   double dy = modelDY;
   double dz = modelDZ;
+
+  print("$dx $dy $dz");
 
   String v1 = "v ${-dx / scale} ${dy / scale} ${-dz / scale}\n ";
   String v2 = "v ${-dx / scale} ${dy / scale} ${dz / scale}\n ";

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/provider/global.dart';
 
 import '../../provider/provider_lib.dart';
 
 
-class VarEntity extends ConsumerStatefulWidget {
+class VarEntity extends StatefulWidget {
   String keyid;
   Function selectFunction;
-  VarEntity({super.key, required this.keyid, required this.selectFunction});
+  Function updateFunction;
+  VarEntity({super.key, required this.keyid, required this.selectFunction, required this.updateFunction});
 
   @override
-  ConsumerState<VarEntity> createState() => _VarEntityState();
+  State<VarEntity> createState() => _VarEntityState();
 }
 
-class _VarEntityState extends ConsumerState<VarEntity> {
+class _VarEntityState extends State<VarEntity> {
   TextEditingController keyTxt = TextEditingController();
   TextEditingController valueTxt = TextEditingController();
 
@@ -50,8 +52,9 @@ class _VarEntityState extends ConsumerState<VarEntity> {
         icon: const Icon(check),
         onPressed: () {
           setState(() {
+            globalVar.update(widget.keyid, keyTxt.text, double.parse(valueTxt.text));
             editData = false;
-            ref.read(varProvider.notifier).update(widget.keyid, keyTxt.text, double.parse(valueTxt.text));
+            widget.updateFunction();
           });
         },
         visualDensity: const VisualDensity(horizontal: -4, vertical: -3),
@@ -61,7 +64,7 @@ class _VarEntityState extends ConsumerState<VarEntity> {
           setState(() {
             editData = true;
             keyTxt.text = widget.keyid;
-            valueTxt.text = ref.read(varProvider)[widget.keyid].toString();
+            valueTxt.text = globalVar.state[widget.keyid].toString();
           });
         },
         visualDensity: const VisualDensity(horizontal: -4, vertical: -3),
@@ -100,7 +103,7 @@ class _VarEntityState extends ConsumerState<VarEntity> {
             ),
           ),
         ),
-        child: Text(ref.read(varProvider)[widget.keyid].toString()),
+        child: Text(globalVar.state[widget.keyid].toString()),
       )
     );
   }

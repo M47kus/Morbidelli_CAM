@@ -10,6 +10,8 @@ import 'package:morbidelli_cam/editor/overlay/path_object.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
+import 'editor/model/model_render.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSettings();

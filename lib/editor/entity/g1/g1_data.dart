@@ -6,11 +6,11 @@ import 'g1_info.dart';
 class G1Data extends Data {
   int id;
   @override
-  double? x;
+  String? x;
   @override
-  double? y;
+  String? y;
   @override
-  double? z;
+  String? z;
   @override
   int? fix;
   G1Data({required this.id, this.x, this.y, this.z, this.fix});

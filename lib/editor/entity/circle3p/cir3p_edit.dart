@@ -10,12 +10,12 @@ import 'cir3p_data.dart';
 enum Cir3PAxisRotation { left, right, dynamic }
 
 class Cir3PCreator extends ConsumerStatefulWidget {
-  final double? x;
-  final double? y;
-  final double? z;
-  final double? xp;
-  final double? yp;
-  final double? zp;
+  final String? x;
+  final String? y;
+  final String? z;
+  final String? xp;
+  final String? yp;
+  final String? zp;
   final int? fix;
   final int? fixp;
   final bool isNew;
@@ -115,12 +115,12 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
               ref,
               objId,
               Cir3PData(
-                x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
-                z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
-                xp: xptxt.text == "" ? 0 : double.parse(xptxt.text),
-                yp: yptxt.text == "" ? 0 : double.parse(yptxt.text),
-                zp: zptxt.text == "" ? 0 : double.parse(zptxt.text),
+                x: xtxt.text == "" ? "0" : xtxt.text,
+                y: ytxt.text == "" ? "0" : ytxt.text,
+                z: ztxt.text == "" ? "0" : ztxt.text,
+                xp: xptxt.text == "" ? "0" : xptxt.text,
+                yp: yptxt.text == "" ? "0" : yptxt.text,
+                zp: zptxt.text == "" ? "0" : zptxt.text,
                 fix: fixpoint,
                 fixp: fixpointp,
                 rotation: rotation,

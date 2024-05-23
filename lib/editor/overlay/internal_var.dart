@@ -2,11 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/overlay/var_object.dart';
-import 'package:morbidelli_cam/provider/provider_lib.dart';
+import 'package:morbidelli_cam/provider/global.dart';
 
-class VarList extends ConsumerWidget {
+import '../../provider/provider_lib.dart';
+import '../model/model_render.dart';
+
+class VarList extends ConsumerStatefulWidget {
   VarList({super.key});
+
+  @override
+  ConsumerState<VarList> createState() => _VarListState();
+}
+
+class _VarListState extends ConsumerState<VarList> {
   static const IconData removeButton =
       IconData(0xe518, fontFamily: 'MaterialIcons');
   static const IconData addButton =
@@ -15,8 +25,8 @@ class VarList extends ConsumerWidget {
   List selectedItems = [];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    Map varList = ref.watch(varProvider);
+  Widget build(BuildContext context) {
+    Map varList = globalVar.state;
     return Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(30.0), // here the desired height
@@ -26,9 +36,9 @@ class VarList extends ConsumerWidget {
             actions: [
               IconButton(
                 onPressed: () {
-                  ref
-                      .read(varProvider.notifier)
-                      .add(ref.read(varProvider.notifier).getNewKey(), 0.0);
+                  setState(() {
+                    globalVar.add(globalVar.getNewKey(), 0.0);
+                  });
                 },
                 icon: const Icon(addButton),
                 visualDensity:
@@ -37,13 +47,29 @@ class VarList extends ConsumerWidget {
               IconButton(
                 onPressed: () {
                   for (String entity in selectedItems) {
-                    ref.read(varProvider.notifier).remove(entity);
+                    setState(() {
+                      globalVar.remove(entity);
+                    });
                   }
                 },
                 icon: const Icon(removeButton),
                 visualDensity:
                     const VisualDensity(horizontal: -3, vertical: -3),
-              )
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    LineAxis axis = LineAxis.f;
+                    ref.read(entityProvider.notifier).update();
+                    ref.read(entityProvider.notifier).parseLine3D(ref, axis);
+                    String wavefront = modelBase();
+                    ref.read(modelContentProvider.notifier).set(wavefront);
+                  });
+                },
+                icon: const Icon(Icons.refresh, color: Colors.lightGreen,),
+                visualDensity:
+                    const VisualDensity(horizontal: -3, vertical: -3),
+              ),
             ],
           ),
         ),
@@ -57,6 +83,9 @@ class VarList extends ConsumerWidget {
                 } else {
                   selectedItems.remove(key);
                 }
+              },
+              updateFunction: () {
+                setState(() {});
               },
             )
         ]));

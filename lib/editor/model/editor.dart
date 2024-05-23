@@ -102,7 +102,7 @@ class _EditorState extends ConsumerState<Editor> {
     }
 
     Group3D modelLines =
-        ref.read(entityProvider.notifier).parseLine3D(ref, axis);
+        ref.watch(entityProvider.notifier).parseLine3D(ref, axis);
 
     return SafeArea(
       child: Flex(

@@ -10,12 +10,12 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 import 'init_data.dart';
 
 class InitCreator extends ConsumerStatefulWidget {
-  final double? x;
-  final double? y;
-  final double? z;
-  final double? bx;
-  final double? by;
-  final double? bz;
+  final String? x;
+  final String? y;
+  final String? z;
+  final String? bx;
+  final String? by;
+  final String? bz;
   final bool isNew;
   const InitCreator(
       {this.x,
@@ -89,12 +89,12 @@ class _InitCreatorState extends ConsumerState<InitCreator> with Edit {
               objId,
               InitData(
                 id: objId,
-                x: xtxt.text == "" ? 0 : double.parse(xtxt.text),
-                y: ytxt.text == "" ? 0 : double.parse(ytxt.text),
-                z: ztxt.text == "" ? 0 : double.parse(ztxt.text),
-                bx: bxtxt.text == "" ? 0 : double.parse(bxtxt.text),
-                by: bytxt.text == "" ? 0 : double.parse(bytxt.text),
-                bz: bztxt.text == "" ? 0 : double.parse(bztxt.text),
+                x: xtxt.text == "" ? "0" : xtxt.text,
+                y: ytxt.text == "" ? "0" : ytxt.text,
+                z: ztxt.text == "" ? "0" : ztxt.text,
+                bx: bxtxt.text == "" ? "0" : bxtxt.text,
+                by: bytxt.text == "" ? "0" : bytxt.text,
+                bz: bztxt.text == "" ? "0" : bztxt.text,
               ));
         }),
         Expanded(

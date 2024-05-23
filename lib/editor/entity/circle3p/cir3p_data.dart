@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
+import 'package:morbidelli_cam/helper/extensions/parse_internal_var.dart';
 
+import '../../../provider/global.dart';
 import '../base/data.dart';
 import 'cir3p_edit.dart';
 import 'cir3p_info.dart';
@@ -8,14 +10,14 @@ import 'cir3p_info.dart';
 class Cir3PData extends Data {
   int id;
   @override
-  double? x;
+  String? x;
   @override
-  double? y;
+  String? y;
   @override
-  double? z;
-  double? xp;
-  double? yp;
-  double? zp;
+  String? z;
+  String? xp;
+  String? yp;
+  String? zp;
   @override
   int? fix;
   int? fixp;
@@ -39,28 +41,28 @@ class Cir3PData extends Data {
 
   convertXP() {
     double dx = modelDX;
-    if (xp != null) {
+    if (xp.parseInternalVar() != null) {
       switch (fixp) {
         case 1 || 4 || 7:
-          return xp;
+          return xp.parseInternalVar();
         case 2 || 5 || 8:
-          return xp! + dx / 2;
+          return xp.parseInternalVar()! + dx / 2;
         case 3 || 6 || 9:
-          return dx - xp!;
+          return dx - xp.parseInternalVar()!;
       }
     }
   }
 
   convertYP() {
     double dy = modelDY;
-    if (yp != null) {
+    if (yp.parseInternalVar() != null) {
       switch (fixp) {
         case 1 || 2 || 3:
-          return yp;
+          return yp.parseInternalVar();
         case 4 || 5 || 6:
-          return yp! + dy / 2;
+          return yp.parseInternalVar()! + dy / 2;
         case 7 || 8 || 9:
-          return dy - yp!;
+          return dy - yp.parseInternalVar()!;
       }
     }
   }

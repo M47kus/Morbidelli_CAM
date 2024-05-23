@@ -3,12 +3,12 @@ import 'dart:ui';
 
 import 'package:ditredi/ditredi.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/entity/base/data.dart';
+import 'package:morbidelli_cam/helper/extensions/parse_internal_var.dart';
+import 'package:morbidelli_cam/helper/extensions/view_lines.dart';
 import 'package:vector_math/vector_math_64.dart';
 import '../bar/drill/drill_class.dart';
-import '../bar/files/settings/load_settings.dart';
 import '../helper/math/circle_3p.dart';
-import '../provider/path_privider_lib.dart';
+import '../provider/global.dart';
 import '../provider/provider_lib.dart';
 import 'entity/circle3p/cir3p_data.dart';
 import 'entity/circle3p/cir3p_edit.dart';
@@ -48,6 +48,11 @@ class EntityNotifier extends StateNotifier<Map> {
     state = old;
   }
 
+  update() {
+    Map old = Map.from(state);
+    state = old;
+  }
+
   Group3D parseLine3D(ref, LineAxis lineAxis) {
     List<Line3D> lines = [];
 
@@ -59,17 +64,17 @@ class EntityNotifier extends StateNotifier<Map> {
 
       for (var entity in state.values) {
         if (entity is InitData) {
-          modelDX = entity.x!;
-          modelDY = entity.y!;
-          modelDZ = entity.z!;
+          modelDX = entity.x.parseInternalVar()!;
+          modelDY = entity.y.parseInternalVar()!;
+          modelDZ = entity.z.parseInternalVar()!;
         } else if (entity is DrillData) {
           selectedDrill = entity.drill!;
         } else if (entity is G0Data) {
           relativePos =
-              Vector3(entity.convertX(), entity.z!, entity.convertY());
+              Vector3(entity.convertX(), entity.z.parseInternalVar()!, entity.convertY());
         } else if (entity is G1Data) {
           Vector3 movePos =
-              Vector3(entity.convertX(), entity.z!, entity.convertY());
+              Vector3(entity.convertX(), entity.z.parseInternalVar()!, entity.convertY());
           lines.add(Line3D(
               relativePos.model(lineAxis), movePos.model(lineAxis),
               width: 1.5, color: const Color.fromARGB(255, 58, 211, 21)));
@@ -152,9 +157,9 @@ class EntityNotifier extends StateNotifier<Map> {
               double a = ((1 - i) * aStart + i * aEnd);
 
               if (i >= 0.5 - (1 / t) / 2) {
-                cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                cirz -= (startPoint.y - entity.z.parseInternalVar()!) / ((t + 1) / 2);
               } else {
-                cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                cirz -= (entity.z.parseInternalVar()! - entity.zp.parseInternalVar()!) / ((t + 1) / 2);
               }
 
               Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,
@@ -182,9 +187,9 @@ class EntityNotifier extends StateNotifier<Map> {
               double a = ((1 - i) * aStart + i * aEnd);
 
               if (i <= 0.5 + (1 / t) / 2) {
-                cirz -= (startPoint.y - entity.z!) / ((t + 1) / 2);
+                cirz -= (startPoint.y - entity.z.parseInternalVar()!) / ((t + 1) / 2);
               } else {
-                cirz -= (entity.z! - entity.zp!) / ((t + 1) / 2);
+                cirz -= (entity.z.parseInternalVar()! - entity.zp.parseInternalVar()!) / ((t + 1) / 2);
               }
 
               Vector3 movePos = Vector3(center.x + radius * cos(a), cirz,

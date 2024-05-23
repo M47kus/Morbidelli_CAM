@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
 import 'package:morbidelli_cam/bar/files/settings/save_settings.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
+
+import '../../../provider/global.dart';
 
 //Settings Navigation
 //use of TextEditingController

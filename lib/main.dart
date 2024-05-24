@@ -7,6 +7,7 @@ import 'package:morbidelli_cam/editor/entity/function_mask.dart';
 import 'package:morbidelli_cam/editor/model/main_window.dart';
 import 'package:morbidelli_cam/editor/overlay/internal_var.dart';
 import 'package:morbidelli_cam/editor/overlay/path_object.dart';
+import 'package:morbidelli_cam/helper/prepare_file.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
@@ -51,6 +52,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     ref
         .read(drillclassprovider.notifier)
         .initDrills(); //read drills.yaml + create Drill classes
+    prepareWindow(ref);
     return Scaffold(
       body: ResizableWidget(
         isHorizontalSeparator: true,
@@ -65,7 +67,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 0.8,
                 0.2
               ], children: [
-                PathSubObject(),
+                const PathSubObject(),
                 VarList(),
               ]),
               ResizableWidget(

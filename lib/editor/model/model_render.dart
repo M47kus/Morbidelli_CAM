@@ -11,8 +11,6 @@ String modelBase() {
   double dy = modelDY;
   double dz = modelDZ;
 
-  print("$dx $dy $dz");
-
   String v1 = "v ${-dx / scale} ${dy / scale} ${-dz / scale}\n ";
   String v2 = "v ${-dx / scale} ${dy / scale} ${dz / scale}\n ";
   String v3 = "v ${dx / scale} ${dy / scale} ${-dz / scale}\n ";

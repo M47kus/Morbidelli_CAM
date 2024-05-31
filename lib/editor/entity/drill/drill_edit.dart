@@ -55,6 +55,7 @@ class _DrillCreatorState extends ConsumerState<DrillCreator> with Edit {
           onConfirm(
               ref,
               objId,
+              widget.isNew,
               DrillData(
                 drill: ref.read(drillclassprovider)[drilltxt.text],
                 id: objId,

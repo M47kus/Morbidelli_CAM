@@ -10,15 +10,18 @@ class InitInfo extends ConsumerWidget with Info {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
-      child: ListTile(
-        onTap: () {onTab(ref, id);},
-        dense: true,
-        tileColor: Colors.black12,
-        visualDensity: VisualDensity(vertical: -4),
-        leading: const Text("Init", style: TextStyle(fontSize: 12),),
-        trailing: getEntityData(ref, id),
-      )
+        padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
+        child: ListTile(
+          onTap: () {onTab(ref, id);},
+          dense: true,
+          tileColor: Colors.black12,
+          visualDensity: VisualDensity(vertical: -4),
+          leading: const Text("Init", style: TextStyle(fontSize: 12),),
+          trailing: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: getEntityData(ref, id),
+          ),
+        )
     );
   }
 }

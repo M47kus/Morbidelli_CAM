@@ -75,6 +75,7 @@ class _G0CreatorState extends ConsumerState<G0Creator> with Edit {
           onConfirm(
               ref,
               objId,
+              widget.isNew,
               G0Data(
                   id: objId,
                   x: xtxt.text == "" ? "0" : xtxt.text,

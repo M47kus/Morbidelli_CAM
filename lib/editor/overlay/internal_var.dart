@@ -60,7 +60,7 @@ class _VarListState extends ConsumerState<VarList> {
                 onPressed: () {
                   setState(() {
                     LineAxis axis = LineAxis.f;
-                    ref.read(entityProvider.notifier).update();
+                    //ref.read(entityProvider.notifier).update();
                     ref.read(entityProvider.notifier).parseLine3D(ref, axis);
                     String wavefront = modelBase();
                     ref.read(modelContentProvider.notifier).set(wavefront);

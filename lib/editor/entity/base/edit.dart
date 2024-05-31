@@ -21,17 +21,22 @@ mixin Edit {
   void onCancel(ref) {
     //close entity editor
     ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathObjectIdProvider.notifier).set(-1);
     ref.read(entityProvider.notifier).removeObject(0);
     ref.read(modelViewProvider.notifier).setTop();
   }
 
-  void onConfirm(ref, objId, newObject) {
-
+  void onConfirm(ref, objId, isNew, newObject) {
     //save data to data structure in provider
-    ref.read(entityProvider.notifier).newObject(objId, newObject);
-
+    if(isNew) {
+      ref.read(entityProvider.notifier).newObject(newObject);
+    } else {
+      ref.read(entityProvider.notifier).update(objId, newObject);
+    }
+    
     //close entity edit window
     ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathObjectIdProvider.notifier).set(-1);
     ref.read(entityProvider.notifier).removeObject(0);
     ref.read(modelViewProvider.notifier).setTop();
   }
@@ -40,6 +45,7 @@ mixin Edit {
     //close entity editor
     int objId = ref.watch(pathObjectIdProvider);
     ref.watch(showCreatorProvider.notifier).set(false);
+    ref.read(pathObjectIdProvider.notifier).set(-1); //
     ref.read(entityProvider.notifier).removeObject(objId);
     ref.read(modelViewProvider.notifier).setTop();
   }

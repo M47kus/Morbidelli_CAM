@@ -13,8 +13,7 @@ class MainWindow extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Visibility(
         visible: !ref.watch(showCreatorProvider),
-      replacement: buildEditWindow(ref.watch(entityProvider)[
-      ref.watch(pathObjectIdProvider)]),
+      replacement: ref.watch(pathObjectIdProvider) != -1 ? buildEditWindow(ref.watch(entityProvider.notifier).getEntity(ref.watch(pathObjectIdProvider))) : Container(),
         child: const Editor(),
     );
   }

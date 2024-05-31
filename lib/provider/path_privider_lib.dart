@@ -16,7 +16,7 @@ final cncModeProvider =
 
 //Path edit object id
 class PathObjectIdNotifier extends StateNotifier<int> {
-  PathObjectIdNotifier() : super(0);
+  PathObjectIdNotifier() : super(-1);
 
   set(int data) {
     state = data;

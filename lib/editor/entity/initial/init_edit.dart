@@ -87,6 +87,7 @@ class _InitCreatorState extends ConsumerState<InitCreator> with Edit {
           onConfirm(
               ref,
               objId,
+              widget.isNew,
               InitData(
                 id: objId,
                 x: xtxt.text == "" ? "0" : xtxt.text,

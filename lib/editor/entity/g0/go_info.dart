@@ -17,7 +17,10 @@ class G0Info extends ConsumerWidget with Info {
         tileColor: Colors.black12,
         visualDensity: VisualDensity(vertical: -4),
         leading: const Text("G0", style: TextStyle(fontSize: 12),),
-        trailing: getEntityData(ref, id),
+        trailing: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: getEntityData(ref, id),
+        ),
       )
     );
   }

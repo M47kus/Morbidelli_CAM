@@ -16,8 +16,8 @@ class G0Data extends Data {
   int? fix;
   G0Data({required this.id, this.x, this.y, this.z, this.fix, this.correct});
 
-  Widget getInfoButton() {
-    return G0Info(id: id);
+  Widget getInfoButton(keyId) {
+    return G0Info(id: id, key: Key("$keyId"),);
   }
 
   String getXXLData(drill) {

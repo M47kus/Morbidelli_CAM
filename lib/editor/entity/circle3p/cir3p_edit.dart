@@ -114,6 +114,7 @@ class _Cir3PCreatorState extends ConsumerState<Cir3PCreator> with Edit {
           onConfirm(
               ref,
               objId,
+              widget.isNew,
               Cir3PData(
                 x: xtxt.text == "" ? "0" : xtxt.text,
                 y: ytxt.text == "" ? "0" : ytxt.text,

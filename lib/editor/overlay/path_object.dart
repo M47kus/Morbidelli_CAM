@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/entity/initial/init_info.dart';
 
 import '../data_parse.dart';
 import '../../provider/path_privider_lib.dart';
@@ -14,9 +15,21 @@ class PathSubObject extends ConsumerStatefulWidget {
 class _PathSubObjectState extends ConsumerState<PathSubObject> {
   @override
   Widget build(BuildContext context) {
-    Map subobjectList = ref.watch(entityProvider);
-    return ListView(
-      children: [for (var data in subobjectList.values) data.getInfoButton()],
+    List subobjectList = ref.watch(entityProvider);
+    return ReorderableListView(
+      children: [for (int id =0; id<subobjectList.length; id++) subobjectList[id].getInfoButton(id)],
+
+      onReorder: (int oldIndex, int newIndex) {
+        print("${oldIndex} ${newIndex}");
+        setState(() {
+          if (oldIndex < newIndex) {
+            newIndex -= 1;
+          }
+          final item = ref.read(entityProvider)[oldIndex];
+          ref.read(entityProvider.notifier).removeIndex(oldIndex);
+          ref.read(entityProvider.notifier).insertObject(newIndex, item);
+        });
+      },
     );
   }
 }

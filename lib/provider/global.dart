@@ -11,9 +11,9 @@ TextEditingController defaultDY = TextEditingController();
 TextEditingController defaultDZ = TextEditingController();
 TextEditingController circleTMin = TextEditingController();
 
-double modelDX = 0;
-double modelDY = 0;
-double modelDZ = 0;
+double modelDX = 0.0;
+double modelDY = 0.0;
+double modelDZ = 0.0;
 
 double importDepth = 1.0;
 Drill? importDrill;

@@ -24,7 +24,7 @@ mixin Info {
       }
     }
     return state;
-    }
+  }
 
   String _getEntityText(entity) {
     if (entity is DrillData) {
@@ -47,7 +47,7 @@ mixin Info {
     ref,
     id,
   ) {
-    var entity = ref.read(entityProvider)[id];
+    var entity = ref.read(entityProvider.notifier).getEntity(id);
     return Text(_getEntityText(entity));
   }
 }

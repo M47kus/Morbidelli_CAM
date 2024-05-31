@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:morbidelli_cam/editor/data_parse.dart';
 
 import '../base/data.dart';
 import 'g1_info.dart';
@@ -15,8 +17,8 @@ class G1Data extends Data {
   int? fix;
   G1Data({required this.id, this.x, this.y, this.z, this.fix});
 
-  Widget getInfoButton() {
-    return G1Info(id: id);
+  Widget getInfoButton(keyId) {
+    return G1Info(id: id, key: Key("$keyId"),);
   }
 
   String getXXLData() {

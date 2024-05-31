@@ -5,7 +5,7 @@ import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 mixin Mask {
   void onTab(ref, widget) {
     //create new empty entity in data structure
-    ref.read(entityProvider.notifier).newObject(0, widget);
+    ref.read(entityProvider.notifier).newObject(widget);
     ref.read(pathObjectIdProvider.notifier).set(0);
     ref.watch(showCreatorProvider.notifier).set(true);
   }

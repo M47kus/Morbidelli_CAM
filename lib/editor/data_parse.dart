@@ -20,26 +20,38 @@ import 'entity/initial/init_data.dart';
 enum LineAxis { x, xr, y, z, f }
 
 //all code entitys in map
-class EntityNotifier extends StateNotifier<Map> {
-  EntityNotifier()
-      : super({
-          1: InitData(
-            id: 1,
-            x: "DX",
-            y: "DY",
-            z: "DZ",
-            bx: "0",
-            by: "0",
-            bz: "0",
-          )
-        });
+class EntityNotifier extends StateNotifier<List> {
+  EntityNotifier() : super([InitData(
+        id: 1,
+        x: "DX",
+        y: "DY",
+        z: "DZ",
+        bx: "0",
+        by: "0",
+        bz: "0",
+      )]);
 
-  set(Map data) {
-    state = data;
+  getEntity(int id) {
+    if (state.any((element) => element.id == id)) {
+      return state.firstWhere((entity) => entity.id == id);
+    } else {
+      return null;
+    }
+  }
+
+  getIndex(int id) {
+    if (state.any((element) => element.id == id)) {
+      return state.indexWhere((entity) => entity.id == id);
+    } else {
+      return null;
+    }
   }
 
   getNewObjId() {
-    List keys = state.keys.toList();
+    List keys = [];
+    for (var element in state) {
+      keys.add(element.id);
+    }
     int id = 1;
     if (keys.isNotEmpty) {
       id = keys.reduce((curr, next) => curr > next ? curr : next) + 1;
@@ -47,20 +59,39 @@ class EntityNotifier extends StateNotifier<Map> {
     return id;
   }
 
-  newObject(int objId, data) {
-    Map old = Map.from(state);
-    old[objId] = data;
+  newObject(data) {
+    List old = List.from(state);
+    old.add(data);
+    state = old;
+  }
+
+  insertObject(id, data) {
+    List old = List.from(state);
+    old.insert(id, data);
     state = old;
   }
 
   removeObject(int objId) {
-    Map old = Map.from(state);
-    old.remove(objId);
+    List old = List.from(state);
+    if (getEntity(objId) != null) {
+      old.remove(getEntity(objId));
+    }
+
     state = old;
   }
 
-  update() {
-    Map old = Map.from(state);
+  removeIndex(int objId) {
+    List old = List.from(state);
+    if (old[objId] != null) {
+      old.removeAt(objId);
+    }
+
+    state = old;
+  }
+
+  update(int objId, data) {
+    List old = List.from(state);
+    old[getIndex(objId)] = data;
     state = old;
   }
 
@@ -73,7 +104,14 @@ class EntityNotifier extends StateNotifier<Map> {
         .values
         .toList()[0]; //select first drill in list
 
-    for (var entity in state.values) {
+    List keyList = [];
+    for (var element in state) {
+      keyList.add(element.id);
+    }
+    print(keyList);
+    for (int keyId in keyList) {
+      var entity = getEntity(keyId);
+
       if (entity is InitData) {
         modelDX = entity.x.parseInternalVar()!;
         modelDY = entity.y.parseInternalVar()!;
@@ -224,4 +262,4 @@ class EntityNotifier extends StateNotifier<Map> {
 }
 
 final entityProvider =
-    StateNotifierProvider<EntityNotifier, Map>((ref) => EntityNotifier());
+    StateNotifierProvider<EntityNotifier, List>((ref) => EntityNotifier());

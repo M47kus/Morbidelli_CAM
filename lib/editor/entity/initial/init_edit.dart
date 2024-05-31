@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/editor/entity/base/edit.dart';
-import 'package:morbidelli_cam/editor/widgets/offset_corection.dart';
-import 'package:morbidelli_cam/editor/widgets/origin_point.dart';
 import 'package:morbidelli_cam/helper/textinput.dart';
 import 'package:morbidelli_cam/provider/path_privider_lib.dart';
 
@@ -77,7 +75,8 @@ class _InitCreatorState extends ConsumerState<InitCreator> with Edit {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        buildAppBar(ref, name: "Preferences", onCanceled: onCancel, onSaved: () {
+        buildAppBar(ref, name: "Preferences", onCanceled: onCancel,
+            onSaved: () {
           int objId = ref.read(entityProvider.notifier).getNewObjId();
           //if object is already created update old object
 
@@ -103,7 +102,7 @@ class _InitCreatorState extends ConsumerState<InitCreator> with Edit {
           ConfigTextInput(label: "DX", controller: xtxt),
           ConfigTextInput(label: "DY", controller: ytxt),
           ConfigTextInput(label: "DZ", controller: ztxt),
-          Divider(),
+          const Divider(),
           ConfigTextInput(label: "BX", controller: bxtxt),
           ConfigTextInput(label: "BY", controller: bytxt),
           ConfigTextInput(label: "BZ", controller: bztxt)

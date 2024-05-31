@@ -5,8 +5,6 @@ import 'package:morbidelli_cam/editor/entity/drill/drill_mask.dart';
 import 'package:morbidelli_cam/editor/entity/g0/go_mask.dart';
 import 'package:morbidelli_cam/editor/entity/g1/g1_mask.dart';
 import 'package:morbidelli_cam/editor/entity/initial/init_mask.dart';
-import '../data_parse.dart';
-import '../../provider/path_privider_lib.dart';
 
 //Mask for adding new commands to cnc list
 class PathMask extends ConsumerWidget {

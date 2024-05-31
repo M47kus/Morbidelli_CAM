@@ -6,10 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:morbidelli_cam/helper/extensions/parse_internal_var.dart';
 import 'package:morbidelli_cam/helper/extensions/view_lines.dart';
 import 'package:vector_math/vector_math_64.dart';
-import '../bar/drill/drill_class.dart';
 import '../helper/math/circle_3p.dart';
 import '../provider/global.dart';
-import '../provider/provider_lib.dart';
 import 'entity/circle3p/cir3p_data.dart';
 import 'entity/circle3p/cir3p_edit.dart';
 import 'entity/drill/drill_data.dart';
@@ -99,10 +97,10 @@ class EntityNotifier extends StateNotifier<List> {
     List<Line3D> lines = [];
 
     Vector3 relativePos = Vector3(0, 0, 0);
-    Drill selectedDrill = ref
-        .read(drillclassprovider)
-        .values
-        .toList()[0]; //select first drill in list
+    // Drill selectedDrill = ref
+    //     .read(drillclassprovider)
+    //     .values
+    //     .toList()[0];
 
     List keyList = [];
     for (var element in state) {
@@ -117,7 +115,7 @@ class EntityNotifier extends StateNotifier<List> {
         modelDY = entity.y.parseInternalVar()!;
         modelDZ = entity.z.parseInternalVar()!;
       } else if (entity is DrillData) {
-        selectedDrill = entity.drill!;
+        //selectedDrill = entity.drill!;
       } else if (entity is G0Data) {
         relativePos = Vector3(
             entity.convertX(), entity.z.parseInternalVar()!, entity.convertY());

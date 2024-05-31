@@ -50,8 +50,7 @@ class SvgM {
 
   void convert(ref, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId();
-    ref.read(entityProvider.notifier).newObject(
-        objId,
+    ref.read(entityProvider.notifier).newObject(  
         G0Data(
           id: objId,
           x: x.toString(),
@@ -178,7 +177,6 @@ class SvgC {
           if (entityId.isOdd) {
             int objId = ref.read(entityProvider.notifier).getNewObjId();
             ref.read(entityProvider.notifier).newObject(
-                objId,
                 Cir3PData(
                   id: objId,
                   x: points[entityId].x.toString(),

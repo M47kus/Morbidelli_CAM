@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/data_parse.dart';
 
 import '../base/data.dart';
 import 'g1_info.dart';

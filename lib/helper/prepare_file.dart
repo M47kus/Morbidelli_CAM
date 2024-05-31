@@ -1,5 +1,3 @@
-import 'package:morbidelli_cam/editor/data_parse.dart';
-import 'package:morbidelli_cam/editor/entity/initial/init_data.dart';
 import 'package:morbidelli_cam/provider/global.dart';
 
 void prepareWindow(ref) {

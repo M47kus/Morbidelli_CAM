@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/bar/files/settings/load_settings.dart';
-import 'package:morbidelli_cam/editor/data_parse.dart';
 import 'package:morbidelli_cam/helper/extensions/parse_internal_var.dart';
 
 import '../../../provider/global.dart';

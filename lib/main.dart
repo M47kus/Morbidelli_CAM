@@ -11,8 +11,6 @@ import 'package:morbidelli_cam/helper/prepare_file.dart';
 import 'package:morbidelli_cam/provider/provider_lib.dart';
 import 'package:resizable_widget/resizable_widget.dart';
 
-import 'editor/model/model_render.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSettings();

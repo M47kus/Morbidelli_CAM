@@ -8,7 +8,7 @@ void translateSVG(svgData, ref, [convertType]) {
   int objId = ref.read(entityProvider.notifier).getNewObjId();
   ref
       .read(entityProvider.notifier)
-      .newObject( objId, DrillData(id: objId, drill: importDrill));
+      .newObject(DrillData(id: objId, drill: importDrill));
   for (var entity in svgData) {
     entity.convert(ref, convertType);
   }

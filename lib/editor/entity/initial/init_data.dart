@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:morbidelli_cam/editor/data_parse.dart';
 
 import '../base/data.dart';
 import 'init_info.dart';
@@ -19,10 +17,14 @@ class InitData extends Data {
   String? bz;
 
   @override
-  InitData({required this.id, this.x, this.y, this.z, this.bx, this.by, this.bz});
+  InitData(
+      {required this.id, this.x, this.y, this.z, this.bx, this.by, this.bz});
 
   Widget getInfoButton(keyId) {
-    return InitInfo(id: id, key: Key("$keyId"),);
+    return InitInfo(
+      id: id,
+      key: Key("$keyId"),
+    );
   }
 
   String getXXLData(drill) {

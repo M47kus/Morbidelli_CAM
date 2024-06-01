@@ -69,7 +69,6 @@ class SvgL {
   void convert(ref, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        objId,
         G1Data(
           id: objId,
           x: x.toString(),
@@ -88,7 +87,6 @@ class SvgH {
   void convert(ref, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        objId,
         G1Data(
           id: objId,
           x: x.toString(),
@@ -107,7 +105,6 @@ class SvgV {
   void convert(ref, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        objId,
         G1Data(
           id: objId,
           x: x.toString(),
@@ -126,7 +123,6 @@ class SvgZ {
   void convert(ref, [convertType]) {
     int objId = ref.read(entityProvider.notifier).getNewObjId();
     ref.read(entityProvider.notifier).newObject(
-        objId,
         G1Data(
           id: objId,
           x: x.toString(),
@@ -164,15 +160,26 @@ class SvgC {
     Point D = Point(x, y);
 
     List points = [];
-    for (double t = 0; t <= 1; t += 1 / n) {
-      double px = (1 - t) * ((1 - t) * ((1 - t) * A.x + t * B.x) + t * ((1 - t) * B.x + t * C.x)) + t * ((1 - t) * ((1 - t) * B.x + t * C.x) + t * ((1 - t) * D.x + t * D.x));
-      double py = (1 - t) * ((1 - t) * ((1 - t) * A.y + t * B.y) + t * ((1 - t) * B.y + t * C.y)) + t * ((1 - t) * ((1 - t) * B.y + t * C.y) + t * ((1 - t) * C.y + t * D.y));
-      
-      points.add(Point(px, py));
+
+    for (double t = 1; t >= 0; t -= 1 / n) {
+      // double px = (1 - t) * ((1 - t) * ((1 - t) * A.x + t * B.x) + t * ((1 - t) * B.x + t * C.x)) + t * ((1 - t) * ((1 - t) * B.x + t * C.x) + t * ((1 - t) * D.x + t * D.x));
+      // double py = (1 - t) * ((1 - t) * ((1 - t) * A.y + t * B.y) + t * ((1 - t) * B.y + t * C.y)) + t * ((1 - t) * ((1 - t) * B.y + t * C.y) + t * ((1 - t) * C.y + t * D.y));
+      //print(t);
+      Point E = Point(t*A.x+(1-t)*B.x, t*A.y+(1-t)*B.y);
+      Point F = Point(t*B.x+(1-t)*C.x, t*B.y+(1-t)*C.y);
+      Point G = Point(t*C.x+(1-t)*D.x, t*C.y+(1-t)*D.y);
+
+      Point H = Point(t*E.x+(1-t)*F.x, t*E.y+(1-t)*F.y);
+      Point I = Point(t*F.x+(1-t)*G.x, t*F.y+(1-t)*G.y);
+
+      Point J = Point(t*H.x+(1-t)*I.x, t*H.y+(1-t)*I.y);
+
+      //print("$A $B $C $D : $E $F $G : $H $I : $J");
+      points.add(J);
     }
 
     for (int entityId = 1; entityId < points.length; entityId++) {
-      if (entityId < points.length - 1) {
+      if (entityId < points.length) {
         if (convertType == null || convertType == SVGConvertType.circles) {
           if (entityId.isOdd) {
             int objId = ref.read(entityProvider.notifier).getNewObjId();
@@ -193,7 +200,6 @@ class SvgC {
         } else {
           int objId = ref.read(entityProvider.notifier).getNewObjId();
           ref.read(entityProvider.notifier).newObject(
-              objId,
               G1Data(
                   id: objId,
                   x: points[entityId].x.toString(),

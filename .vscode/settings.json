@@ -1,0 +1,4 @@
+{
+    "CodeGPT.Autocomplete.provider": "Ollama - codellama:code",
+    "CodeGPT.Autocomplete.maxTokens": 1024
+}

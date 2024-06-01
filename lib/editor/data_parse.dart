@@ -106,7 +106,6 @@ class EntityNotifier extends StateNotifier<List> {
     for (var element in state) {
       keyList.add(element.id);
     }
-    print(keyList);
     for (int keyId in keyList) {
       var entity = getEntity(keyId);
 

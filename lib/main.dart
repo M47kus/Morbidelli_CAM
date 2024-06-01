@@ -64,8 +64,8 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               ResizableWidget(isHorizontalSeparator: true, percentages: const [
                 0.8,
                 0.2
-              ], children: [
-                const PathSubObject(),
+              ], children: const [
+                PathSubObject(),
                 VarList(),
               ]),
               ResizableWidget(

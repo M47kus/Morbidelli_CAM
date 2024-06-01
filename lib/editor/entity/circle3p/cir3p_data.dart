@@ -34,8 +34,8 @@ class Cir3PData extends Data {
       this.fixp,
       this.rotation,});
 
-  Widget getInfoButton(keyId) {
-    return Cir3PInfo(id: id, key: Key("$keyId"),);
+  Widget getInfoButton(keyId, selectFunction) {
+    return Cir3PInfo(id: id, key: Key("$keyId"), selectFunction: selectFunction,);
   }
 
   convertXP() {

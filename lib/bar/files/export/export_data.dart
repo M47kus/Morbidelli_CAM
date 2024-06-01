@@ -12,7 +12,6 @@ import '../../../provider/global.dart';
 import '../../drill/drill_class.dart';
 
 Future<void> exportXXL(ref) async {
-  print("export");
   var state = ref.read(entityProvider);
   String lines = "";
   String workspace = "AD";
@@ -25,7 +24,7 @@ Future<void> exportXXL(ref) async {
   if(state[1] is InitData) {
     lines += 'H DX=${state[1].x} DY=${state[1].y} DZ=${state[1].z} BX=${state[1].bx} BY=${state[1].by} BZ=${state[1].bz} -$workspace C=0 T=0 R=99 *MM /"W"';
   } else {
-    lines += 'H DX=${modelDX} DY=${modelDY} DZ=${modelDZ} -$workspace C=0 T=0 R=99 *MM /"W"';
+    lines += 'H DX=$modelDX DY=$modelDY DZ=$modelDZ -$workspace C=0 T=0 R=99 *MM /"W"';
   }
 
   for (var entity in state.values) {

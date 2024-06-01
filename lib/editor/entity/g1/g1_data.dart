@@ -15,8 +15,8 @@ class G1Data extends Data {
   int? fix;
   G1Data({required this.id, this.x, this.y, this.z, this.fix});
 
-  Widget getInfoButton(keyId) {
-    return G1Info(id: id, key: Key("$keyId"),);
+  Widget getInfoButton(keyId, selectFunction) {
+    return G1Info(id: id, key: Key("$keyId"),selectFunction: selectFunction,);
   }
 
   String getXXLData() {

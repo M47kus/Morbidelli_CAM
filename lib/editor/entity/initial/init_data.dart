@@ -20,10 +20,10 @@ class InitData extends Data {
   InitData(
       {required this.id, this.x, this.y, this.z, this.bx, this.by, this.bz});
 
-  Widget getInfoButton(keyId) {
+  Widget getInfoButton(keyId, selectFunction) {
     return InitInfo(
       id: id,
-      key: Key("$keyId"),
+      key: Key("$keyId"),selectFunction: selectFunction,
     );
   }
 

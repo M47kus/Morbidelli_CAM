@@ -11,8 +11,7 @@ class CNCModeNotifier extends StateNotifier<bool> {
 }
 
 final cncModeProvider =
-    StateNotifierProvider<CNCModeNotifier, bool>(
-        (ref) => CNCModeNotifier());
+    StateNotifierProvider<CNCModeNotifier, bool>((ref) => CNCModeNotifier());
 
 //Path edit object id
 class PathObjectIdNotifier extends StateNotifier<int> {
@@ -55,3 +54,15 @@ class ShownSplinesNotifier extends StateNotifier<Map<int, bool>> {
 final shownSplinesProvider =
     StateNotifierProvider<ShownSplinesNotifier, Map<int, bool>>(
         (ref) => ShownSplinesNotifier());
+
+//hide creator
+class PathObjectEditNotifier extends StateNotifier<bool> {
+  PathObjectEditNotifier() : super(false);
+
+  set(bool data) {
+    state = data;
+  }
+}
+
+final pathObjectEdit = StateNotifierProvider<PathObjectEditNotifier, bool>(
+    (ref) => PathObjectEditNotifier());

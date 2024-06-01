@@ -13,7 +13,7 @@ class DrillData extends Data {
     required this.id,
   });
 
-  Widget getInfoButton(keyId) {
-    return DrillInfo(id: id, key: Key("$keyId"),);
+  Widget getInfoButton(keyId, selectFunction) {
+    return DrillInfo(id: id, key: Key("$keyId"),selectFunction: selectFunction,);
   }
 }

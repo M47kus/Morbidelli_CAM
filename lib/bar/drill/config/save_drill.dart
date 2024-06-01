@@ -13,7 +13,6 @@ Map updateDrill(
     a}) {
   Map drillFile = {};
 
-  print(drillbuttonClass);
   for (int i = 0; i < drillbuttonClass.length; i++) {
     if (drillbuttonClass.values
         .toList()[i].name == name) {

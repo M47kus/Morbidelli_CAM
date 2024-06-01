@@ -10,7 +10,7 @@ import '../../provider/provider_lib.dart';
 import '../model/model_render.dart';
 
 class VarList extends ConsumerStatefulWidget {
-  VarList({super.key});
+  const VarList({super.key});
 
   @override
   ConsumerState<VarList> createState() => _VarListState();

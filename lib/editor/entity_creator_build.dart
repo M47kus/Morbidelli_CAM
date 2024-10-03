@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:morbidelli_cam/editor/entity/group/group_data.dart';
+import 'package:morbidelli_cam/editor/entity/group/group_edit.dart';
 import 'package:morbidelli_cam/editor/entity/initial/init_data.dart';
 import 'package:morbidelli_cam/editor/entity/initial/init_edit.dart';
 
@@ -65,6 +67,11 @@ Widget buildEditWindow(type) {
       by: type.by,
       bz: type.bz,
       isNew: isNew,
+    );
+  } else if (type is GroupData) {
+    return GroupCreator(      
+      isNew: isNew,
+      entitys: type.entitys,
     );
   } else {
     return const G0Creator();

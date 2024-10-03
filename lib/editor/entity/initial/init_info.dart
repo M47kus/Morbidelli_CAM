@@ -42,14 +42,14 @@ class _InitInfoState extends ConsumerState<InitInfo> {
           selected: selected,
           selectedColor: Colors.lightGreen,
           onTap: () {
-            if (ref.watch(pathObjectEdit)) {
+            if (ref.watch(pathObjectEditProvider)) {
               longPress();
             } else {
               shortPress();
             }
           },
           onLongPress: () {
-            if (!ref.watch(pathObjectEdit)) {
+            if (!ref.watch(pathObjectEditProvider)) {
               longPress();
             } else {
               shortPress();

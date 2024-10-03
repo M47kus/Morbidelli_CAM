@@ -64,5 +64,36 @@ class PathObjectEditNotifier extends StateNotifier<bool> {
   }
 }
 
-final pathObjectEdit = StateNotifierProvider<PathObjectEditNotifier, bool>(
+final pathObjectEditProvider = StateNotifierProvider<PathObjectEditNotifier, bool>(
     (ref) => PathObjectEditNotifier());
+
+//hide creator
+class PathSelectedNotifier extends StateNotifier<List<int>> {
+  PathSelectedNotifier() : super([]);
+
+  set(List<int> data) {
+    state = data;
+  }
+
+  add(key) {
+    List<int> old = List.from(state);
+    old.add(key);
+    state = old;
+  }
+
+  remove(key) {
+    List<int> old = List.from(state);
+    old.remove(key);
+    state = old;
+  }
+
+  clear() {
+    List<int> old = List.from(state);
+    old.clear();
+    state = old;
+  }
+
+}
+
+final pathSelectedProvider = StateNotifierProvider<PathSelectedNotifier, List<int>>(
+    (ref) => PathSelectedNotifier());

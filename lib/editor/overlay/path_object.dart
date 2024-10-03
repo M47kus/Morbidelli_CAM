@@ -12,7 +12,6 @@ class PathSubObject extends ConsumerStatefulWidget {
 }
 
 class _PathSubObjectState extends ConsumerState<PathSubObject> {
-  List selectedItems = [];
   static const IconData deleteOutlined =
       IconData(0xefa8, fontFamily: 'MaterialIcons');
 
@@ -21,7 +20,7 @@ class _PathSubObjectState extends ConsumerState<PathSubObject> {
     List subobjectList = ref.watch(entityProvider);
 
     return Scaffold(
-      appBar: ref.watch(pathObjectEdit)
+      appBar: ref.watch(pathObjectEditProvider)
           ? PreferredSize(
               preferredSize:
                   const Size.fromHeight(30.0), // here the desired height
@@ -33,13 +32,13 @@ class _PathSubObjectState extends ConsumerState<PathSubObject> {
                       visualDensity:
                           const VisualDensity(horizontal: -3, vertical: -3),
                       onPressed: () {
-                        for (int itemId in selectedItems) {
+                        for (int itemId in ref.read(pathSelectedProvider)) {
                           ref
                               .read(entityProvider.notifier)
                               .removeObject(itemId);
                         }
-                        selectedItems.clear();
-                        ref.read(pathObjectEdit.notifier).set(false);
+                        ref.read(pathSelectedProvider.notifier).clear();
+                        ref.read(pathObjectEditProvider.notifier).set(false);
                       },
                       icon: const Icon(deleteOutlined)),
                 ],
@@ -47,21 +46,22 @@ class _PathSubObjectState extends ConsumerState<PathSubObject> {
             )
           : null,
       body: ReorderableListView(
+        shrinkWrap: true,
         children: [
           for (int id = 0; id < subobjectList.length; id++)
             subobjectList[id].getInfoButton(id, (key, select) {
               setState(() {
                 if (select) {
-                  selectedItems.add(key);
+                  ref.read(pathSelectedProvider.notifier).add(key);
                 } else {
-                  selectedItems.remove(key);
+                  ref.read(pathSelectedProvider.notifier).remove(key);
                 }
-                if (selectedItems.isEmpty) {
-                  ref.read(pathObjectEdit.notifier).set(false);
+                if (ref.read(pathSelectedProvider).isEmpty) {
+                  ref.read(pathObjectEditProvider.notifier).set(false);
                 } else {
-                  ref.read(pathObjectEdit.notifier).set(true);
+                  ref.read(pathObjectEditProvider.notifier).set(true);
                 }
-                print(selectedItems);
+                print(ref.read(pathSelectedProvider));
               });
             })
         ],

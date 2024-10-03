@@ -40,14 +40,14 @@ class _G1InfoState extends ConsumerState<G1Info> {
         padding: const EdgeInsets.only(top: 4, left: 4, right: 4),
         child: ListTile(
           onTap: () {
-            if (ref.watch(pathObjectEdit)) {
+            if (ref.watch(pathObjectEditProvider)) {
               longPress();
             } else {
               shortPress();
             }
           },
           onLongPress: () {
-            if (!ref.watch(pathObjectEdit)) {
+            if (!ref.watch(pathObjectEditProvider)) {
               longPress();
             } else {
               shortPress();

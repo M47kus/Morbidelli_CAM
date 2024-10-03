@@ -27,7 +27,8 @@ Future<void> exportXXL(ref) async {
     lines += 'H DX=$modelDX DY=$modelDY DZ=$modelDZ -$workspace C=0 T=0 R=99 *MM /"W"';
   }
 
-  for (var entity in state.values) {
+ 
+  for (var entity in state) {
     if (entity is DrillData) {
       selectedDrill = entity.drill!;
     } else if (entity is G0Data) {
